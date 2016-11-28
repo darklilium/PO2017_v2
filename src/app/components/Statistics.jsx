@@ -4,7 +4,7 @@ import {browserHistory} from 'react-router';
 class Statistics extends React.Component {
 
   onNavigateHome(){
-    browserHistory.push("/home");
+    browserHistory.push("home");
   }
 
   render(){

@@ -18,8 +18,8 @@ class WidgetsMenu extends React.Component {
   render() {
     return (
       <div className="widgetMenu_container">
-        <Link className="widgets_link" to={"/home"} activeStyle={{color:"#00ff68"}}>Inicio</Link>
-        <Link className="widgets_link" to={"/statistics"}  activeStyle={{color:"#00ff68"}}>Estadísticas</Link>
+        <Link className="widgets_link" to={"/home/map"} activeStyle={{color:"#00ff68"}}>Mapa</Link>
+        <Link className="widgets_link" to={"/home/statistics"}  activeStyle={{color:"#00ff68"}}>Estadísticas</Link>
         <DrawerTest />
       </div>
     );

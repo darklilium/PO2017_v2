@@ -39,6 +39,10 @@ class DrawerTest extends React.Component {
     this.setState({active3: !this.state.active3});
   };
 
+  handleLogout(){
+    browserHistory.push("/");
+  }
+
   handleCheckboxChange = (e) => {
     console.log(e);
     switch (e) {
@@ -68,6 +72,7 @@ class DrawerTest extends React.Component {
         <IconButton icon='search' inverse={ true } onClick={this.handleToggle} />
         <IconButton icon='map' inverse={ true } onClick={this.handleToggle2} />
         <IconButton icon='layers' inverse={ true } onClick={this.handleToggle3} />
+        <IconButton icon='settings_power' inverse={ true } onClick={this.handleLogout.bind(this)} />
 
         <Drawer active={this.state.active} onOverlayClick={this.handleToggle}>
           <div className="drawer_banner">

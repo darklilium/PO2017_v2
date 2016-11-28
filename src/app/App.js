@@ -10,19 +10,24 @@ import {Router, Route, browserHistory, IndexRoute} from "react-router";
 import {Header} from "./components/Header.jsx";
 import {Root} from "./components/Root.jsx";
 import Home from "./components/Home.jsx";
+import {Login} from './components/Login.jsx';
+
 
 class App extends React.Component {
 
   render() {
     return (
+
       <Router history={browserHistory}>
         <Route path={"/"} component={Root}>
-          <IndexRoute component={Mapa}/>
-          <Route path ={"home"} component={Mapa} />
+          <IndexRoute component={Login} />
+        </Route>
+        <Route path={"home"} component={Home}>
+          <Route path={"map"} component={Mapa}></Route>
           <Route path ={"statistics"} component={Statistics} />
         </Route>
-
       </Router>
+
     );
   }
 
