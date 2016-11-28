@@ -1,18 +1,20 @@
 import React from 'react';
-import {Header} from './Header.jsx';
 
+import {Header} from "./Header.jsx";
 
+class HomeLayout extends React.Component {
 
-export class Root extends React.Component {
-  render() {
+  render(){
     return (
       <div className="container">
+      <Header />
         <div className="rowContent">
           {this.props.children}
         </div>
       </div>
 
     );
-
   }
 }
+
+export default HomeLayout;

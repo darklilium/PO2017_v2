@@ -8,8 +8,8 @@ import { AppBar, Checkbox, IconButton } from 'react-toolbox';
 import Statistics from './components/Statistics.jsx';
 import {Router, Route, browserHistory, IndexRoute} from "react-router";
 import {Header} from "./components/Header.jsx";
-import {Root} from "./components/Root.jsx";
-import Home from "./components/Home.jsx";
+import {MainLayout} from "./components/MainLayout.jsx";
+import HomeLayout from "./components/HomeLayout.jsx";
 import {Login} from './components/Login.jsx';
 
 
@@ -19,14 +19,13 @@ class App extends React.Component {
     return (
 
       <Router history={browserHistory}>
-      <Route component= {Root}>
-        <Route path ="/" component={Login}/>
-        <Route component={Home}>
-          <Route path={"map"} component={Mapa}></Route>
-          <Route path ={"statistics"} component={Statistics}></Route>
+        <Route component= {MainLayout}>
+          <Route path ="/" component={Login}/>
+          <Route component={HomeLayout}>
+            <Route path={"map"} component={Mapa}></Route>
+            <Route path ={"statistics"} component={Statistics}></Route>
+          </Route>
         </Route>
-
-      </Route>
       </Router>
 
     );
