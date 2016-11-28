@@ -8,9 +8,9 @@ class HomeLayout extends React.Component {
     return (
       <div className="container">
       <Header />
-        <div className="rowContent">
+
           {this.props.children}
-        </div>
+      
       </div>
 
     );

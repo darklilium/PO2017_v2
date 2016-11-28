@@ -11,18 +11,15 @@ import {Link} from "react-router";
 import {Logo} from "./Logo.jsx";
 import {OnlineStatistics} from "./OnlineStatistics.jsx";
 import Drawer from 'react-toolbox/lib/drawer';
-import Dropdown from 'react-toolbox/lib/dropdown';
+import Select from 'react-select';
 import { List, ListItem, ListSubHeader, ListDivider, ListCheckbox } from 'react-toolbox/lib/list';
 
 import { RadioGroup, RadioButton } from 'react-toolbox/lib/radio';
 
-const countries = [
-  { value: 'EN-gb', label: 'England' },
-  { value: 'ES-es', label: 'Spain'},
-  { value: 'TH-th', label: 'Thailand' },
-  { value: 'EN-en', label: 'USA'}
+var options = [
+    { value: 'one', label: 'One' },
+    { value: 'two', label: 'Two' }
 ];
-
 
 class DrawerTest extends React.Component {
   state = {
@@ -32,7 +29,8 @@ class DrawerTest extends React.Component {
     checkbox: false,
     checkbox2: false,
     value: 'vvendetta',
-    busquedaValue: 'ES-es'
+    busquedaValue: 'ES-es',
+    selected: 3
   };
 
   handleToggle = () => {
@@ -68,10 +66,9 @@ class DrawerTest extends React.Component {
   this.setState({value});
   };
 
-
-  handleDropDownBusqueda = (value) => {
-      this.setState({busquedaValue: value});
-    };
+  logChange(val) {
+      console.log("Selected: " + val);
+  }
 
   render () {
 
@@ -89,7 +86,12 @@ class DrawerTest extends React.Component {
             <h6 className="drawer_banner_title">Búsqueda</h6>
 
           </div>
-            <Dropdown auto onChange={this.handleChange} source={countries} value={this.state.value}/>
+          <Select
+              name="form-field-name"
+              value="one"
+              options={options}
+              onChange={this.logChange.bind(this)}
+          />
 
         </Drawer>
 

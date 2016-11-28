@@ -1,3 +1,5 @@
+@import 'react-select';
+
 //logo css
 *{
   clear: both;
@@ -53,10 +55,13 @@ html, body ,#app,#map{
       height: 93%;
 }
 
-.container, .map_container{
+.container{
     height: 100%;
 }
 
+.map_container{
+  height: 99.6%;
+}
 .widgetMenu_container, {
   display: flex;
 }

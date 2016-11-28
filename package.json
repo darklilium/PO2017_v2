@@ -79,6 +79,7 @@
     "react-addons-transition-group": "^15.4.1",
     "react-md": "^1.0.0-alpha.3",
     "react-router": "^3.0.0",
+    "react-select": "^1.0.0-rc.2",
     "webfontloader": "^1.6.26",
     "webpack-dev-server": "^1.16.2"
   }
