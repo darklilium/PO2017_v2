@@ -53,7 +53,8 @@ module.exports = {
   devServer: {
     inline: true,
     port: 443,
-    host: "127.0.0.1"
+    host: "127.0.0.1",
+    historyApiFallback: true
   },
   devtool: 'source-map',
   postcss: [autoprefixer],

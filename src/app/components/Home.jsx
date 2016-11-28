@@ -6,9 +6,7 @@ class Home extends React.Component {
   render(){
     return (
       <div className="container">
-        <div className="rowNav">
-          <Header />
-        </div>
+      <Header />
         <div className="rowContent">
           {this.props.children}
         </div>

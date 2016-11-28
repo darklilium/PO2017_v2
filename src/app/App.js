@@ -19,13 +19,14 @@ class App extends React.Component {
     return (
 
       <Router history={browserHistory}>
-        <Route path={"/"} component={Root}>
-          <IndexRoute component={Login} />
-        </Route>
-        <Route path={"home"} component={Home}>
+      <Route component= {Root}>
+        <Route path ="/" component={Login}/>
+        <Route component={Home}>
           <Route path={"map"} component={Mapa}></Route>
-          <Route path ={"statistics"} component={Statistics} />
+          <Route path ={"statistics"} component={Statistics}></Route>
         </Route>
+
+      </Route>
       </Router>
 
     );

@@ -11,12 +11,17 @@ import {Link} from "react-router";
 import {Logo} from "./Logo.jsx";
 import {OnlineStatistics} from "./OnlineStatistics.jsx";
 import Drawer from 'react-toolbox/lib/drawer';
-
+import Dropdown from 'react-toolbox/lib/dropdown';
 import { List, ListItem, ListSubHeader, ListDivider, ListCheckbox } from 'react-toolbox/lib/list';
 
 import { RadioGroup, RadioButton } from 'react-toolbox/lib/radio';
 
-
+const countries = [
+  { value: 'EN-gb', label: 'England' },
+  { value: 'ES-es', label: 'Spain'},
+  { value: 'TH-th', label: 'Thailand' },
+  { value: 'EN-en', label: 'USA'}
+];
 
 
 class DrawerTest extends React.Component {
@@ -26,7 +31,8 @@ class DrawerTest extends React.Component {
     active3: false,
     checkbox: false,
     checkbox2: false,
-    value: 'vvendetta'
+    value: 'vvendetta',
+    busquedaValue: 'ES-es'
   };
 
   handleToggle = () => {
@@ -56,13 +62,16 @@ class DrawerTest extends React.Component {
       default:
 
     }
-
-
   };
 
   handleChange = (value) => {
   this.setState({value});
   };
+
+
+  handleDropDownBusqueda = (value) => {
+      this.setState({busquedaValue: value});
+    };
 
   render () {
 
@@ -78,8 +87,9 @@ class DrawerTest extends React.Component {
           <div className="drawer_banner">
             <Logo />
             <h6 className="drawer_banner_title">Búsqueda</h6>
-          </div>
 
+          </div>
+            <Dropdown auto onChange={this.handleChange} source={countries} value={this.state.value}/>
 
         </Drawer>
 
@@ -88,7 +98,7 @@ class DrawerTest extends React.Component {
             <Logo />
             <h6  className="drawer_banner_title">Seleccionar Mapa</h6>
           </div>
-          <RadioGroup className="drawer_radiogroup" name='comic' value={this.state.value} onChange={this.handleChange}>
+          <RadioGroup className="drawer_radiogroup" name='comic' value={this.state.value} onChange={this.handleDropDownBusqueda}>
             <RadioButton label='The Walking Dead' value='thewalkingdead'/>
             <RadioButton label='From Hell' value='fromhell' disabled/>
             <RadioButton label='V for a Vendetta' value='vvendetta'/>
