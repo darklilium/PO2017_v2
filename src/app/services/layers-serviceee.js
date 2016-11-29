@@ -14,23 +14,9 @@ function myLayers(){
   //check 8 and last one
   return {
 
-    read_generateTokenURL(){
-      return serviceMain + "tokens/generateToken";
-    },
-
-    read_dyn_layerClieSED(){  /*using*/
-        return serviceURL + "Interrupciones/PO/MapServer?f=json&token=" + token.read();
-    },
-
-    //Feature layer for getting the nis affected in the SED (green points)
-    read_layer_ClienteSED(){ /*using Layer Cliente sed puntos verdes al extent*/
-      return serviceURL + "Interrupciones/PO_test/MapServer/3?f=json&token=" + token.read();
-    },
-
-
-
     read_logAccess(){  /*using*/
-      return serviceURL + "Admin/LogAccesos/FeatureServer/2?f=json&token=" + token.read();
+        console.log(token.read());
+        return serviceURL + "Admin/LogAccesos/FeatureServer/2?f=json&token=" + token.read();
     },
     read_logAccess2(){
     //chq mapabase(){
@@ -85,8 +71,16 @@ function myLayers(){
     read_layer_nisInfo(){
       return serviceURL + "Chilquinta_006/ClientesV2/MapServer/0?f=json&token=" + token.read();
     },
+    /*
+    save_graphicLayer(myGraphicsLayer){  /*using*/
+    //  graphicLayer = myGraphicsLayer;
+    //},
+
     read_graphicLayer(){  /*using*/
       return graphicLayer;
+    },
+    read_dyn_layerClieSED(){  /*using*/
+        return serviceURL + "Interrupciones/PO_test/MapServer?f=json&token=" + token.read();
     },
     read_qtty_comuna(){  /*using*/
         return serviceURL + "Interrupciones/PO_test/MapServer/11?f=json&token=" + token.read();
@@ -104,9 +98,133 @@ function myLayers(){
     read_layerAlimentador(){  /*using*/
         return serviceURL + "Chilquinta_006/Tramos_006/MapServer?f=json&token=" + token.read();
     },
+
+    //layers for AP CHQ
+    read_ap_comuna(){
+      return serviceURL + "AP_Municipal/AP_MUNICIPAL/MapServer/4?f=json&token=" + token.read();
+    },
+    //19-05-2016
+    read_ap_modificaciones(){
+      return serviceURL + "AP_Municipal/AP_MUNICIPAL/MapServer?f=json&token=" + token.read();
+    }/*,
+    read_ap_luminarias(){
+      return serviceURL + "AP_Municipal/AP_MUNICIPAL/FeatureServer/1?f=json&token=" + token.read();
+    },
+    */
+    ,
+    read_ap_luminarias(){
+      return serviceURL + "AP_Municipal/AP_MUNICIPAL/MapServer?f=json&token=" + token.read();
+    },
+    read_ap_luminariasQuery(){
+      return serviceURL + "AP_Municipal/AP_MUNICIPAL/FeatureServer/1?f=json&token=" + token.read();
+    },
+    //20/05/2016
+    read_ap_rotulos(){
+      return serviceURL + "Chilquinta_006/Nodos_006/MapServer/0?f=json&token=" + token.read();
+    },
+    read_ap_equipos(){
+        return serviceURL + "AP_Municipal/AP_MUNICIPAL/MapServer/3?f=json&token=" + token.read();
+    },
+    read_ap_tramos(){
+        return serviceURL + "AP_Municipal/AP_MUNICIPAL/MapServer/2?f=json&token=" + token.read();
+    },
+    read_ap_catastro_fotos(){
+        return serviceURL + "AP_Municipal/AP_MUNICIPAL/FeatureServer/10?f=json&token=" + token.read();
+    },
+
+    /* FACTIGIS LAYERS*/
+    read_factigis_transmision(){
+        return serviceURL + "Varios/FACTIBILIDAD/MapServer/0?f=json&token=" + token.read();
+    },
+    read_factigis_distribucion(){
+        return serviceURL + "Chilquinta_006/Concesiones006/MapServer/0?f=json&token=" + token.read();
+    },
+    read_factigis_vialidad(){
+        return serviceURL + "PMS/Vialidad/MapServer/0?f=json&token=" + token.read();
+    },
+    read_factigis(){
+        return serviceURL + "PMS/Concesiones/MapServer?f=json&token=" + token.read();
+    },
+    read_factigis2(){
+        return serviceURL + "PMS/Vialidad/MapServer?f=json&token=" + token.read();
+    },
+    read_SSEE(){
+      return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer?f=json&token=" + token.read();
+    },
+    read_campamentos(){
+      return serviceURL + "MANTENIMIENTO/Otras_Capas/MapServer/3?f=json&token=" + token.read();
+    },
+    read_direcciones(){
+      return serviceURL + "Cartografia/DMPS/MapServer/0?f=json&token=" + token.read();
+    },
+    read_rotulos(){
+      return serviceURL + "Chilquinta_006/Nodos_006/MapServer?f=json&token=" + token.read();
+    },
+    read_rotulos2(){
+      return serviceURL + "Chilquinta_006/Nodos_006/MapServer/0?f=json&token=" + token.read();
+    },
+    read_direccionesNuevasMobile(){
+      return serviceURL + "Mobile/Ingreso_externo_nuevo/MapServer?f=json&token=" + token.read();
+    },
+    read_calles(){
+        return serviceURL + "MapaBase/MapServer/2?f=json&token=" + token.read();
+    },
+    read_direccionesNuevasQuery(){
+      return serviceURL + "Mobile/Ingreso_externo_nuevo/FeatureServer/2?f=json&token=" + token.read();
+    },
+    read_chqTramosBT(){
+      return serviceURL + "Chilquinta_006/Tramos_006/MapServer/1?f=json&token=" + token.read();
+    },
+    read_chqTramosMT(){
+      return serviceURL + "Chilquinta_006/Tramos_006/MapServer/0?f=json&token=" + token.read();
+    },
+    read_subestaciones(){
+      return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer?f=json&token=" + token.read();
+    },
+    read_sep(){
+      return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer/1?f=json&token=" + token.read();
+    },
+    read_comuna(){
+        return serviceURL + "MapaBase/MapServer/4?f=json&token=" + token.read();
+    },
+    read_agregarFactibilidad(){
+        return serviceURL + "FACTIBILIDAD/FACTIGIS_DESA/FeatureServer/0?f=json&token=" + token.read();
+    },
+    read_factigisUserProfile(){
+      return serviceURL + "FACTIBILIDAD/FACTIGIS_DESA/FeatureServer/2?f=json&token=" + token.read();
+    },
+    read_factibilidad(){
+        return serviceURL + "FACTIBILIDAD/FACTIGIS_DESA/MapServer?f=json&token=" + token.read();
+    },
+    read_updateFactibilidad(){
+      return serviceURL + "FACTIBILIDAD/FACTIGIS_DESA/FeatureServer/0/applyedits";
+    },
+    read_direccionesDyn(){
+      return serviceURL + "Cartografia/DMPS/MapServer?f=json&token=" + token.read();
+    },
+    read_historial_factibilidad(){
+      return serviceURL + "FACTIBILIDAD/FACTIGIS_DESA/FeatureServer/1?f=json&token=" + token.read();
+    },
+    read_factigis_addDireccion(){
+      return serviceURL + "Mobile/Ingreso_externo_nuevo/FeatureServer/2/applyedits";
+    },
+    read_factigis_addEstadoHistoria(){
+      return serviceURL + "FACTIBILIDAD/FACTIGIS_DESA/FeatureServer/1/applyedits";
+    },
+    read_factigis_addFactibilidad(){
+      return serviceURL + "FACTIBILIDAD/FACTIGIS_DESA/FeatureServer/0/applyedits";
+
+    },
+    read_logAccessFactigis(){
+      return serviceURL + "Admin/LogAccesos/FeatureServer/1/applyedits";
+    },
+
     //CODING REFACTOR: 09/11
     read_logAcessosSave(){
       return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/Admin/LogAccesos/FeatureServer/1/applyedits";
+    },
+    read_generateTokenURL(){
+      return serviceMain + "tokens/generateToken";
     }
 
 

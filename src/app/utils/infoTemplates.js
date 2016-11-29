@@ -1,8 +1,9 @@
+import InfoTemplate from 'esri/InfoTemplate';
 
 function getInfoTemplate(){
   return {
     getSubFailure(){
-      let chqSubInfoTemp= new esri.InfoTemplate();
+      let chqSubInfoTemp= new InfoTemplate();
       chqSubInfoTemp.setTitle("<b>SED: ${ARCGIS.DBO.SED_006.codigo}</b>");
       //var tipo_estado = ${'ARCGIS.DBO.SED_006.codigo'};
       //  console.log(tipo_estado);
@@ -34,7 +35,7 @@ function getInfoTemplate(){
       return chqSubInfoTemp;
     },
     getIsolatedNisFailure(){
-      let chqIsolatedNisTemp= new esri.InfoTemplate();
+      let chqIsolatedNisTemp= new InfoTemplate();
       chqIsolatedNisTemp.setTitle("<b>NIS: ${ARCGIS.DBO.CLIENTES_XY_006.nis}</b>");
 
       let chqIsolatedNisInfoContent =
@@ -65,7 +66,7 @@ function getInfoTemplate(){
       return chqIsolatedNisTemp;
     },
     getNisInfo(){
-      let chqNisInfoTemp= new esri.InfoTemplate();
+      let chqNisInfoTemp= new InfoTemplate();
       chqNisInfoTemp.setTitle("<b>NIS: ${ARCGIS.DBO.CLIENTES_XY_006.nis}</b>");
 
       let chqNisInfoContent =
@@ -84,7 +85,7 @@ function getInfoTemplate(){
       return chqNisInfoTemp;
     },
     getAlimentadorInfoWindow(){
-      let chqAlimInfoTemp= new esri.InfoTemplate();
+      let chqAlimInfoTemp= new InfoTemplate();
       chqAlimInfoTemp.setTitle("<b>ID: ${ARCGIS.DBO.Tramos_MT_006.id}</b>");
 
       let chqAlimInfoContent =

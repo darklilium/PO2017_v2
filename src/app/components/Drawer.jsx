@@ -13,12 +13,23 @@ import {OnlineStatistics} from "./OnlineStatistics.jsx";
 import Drawer from 'react-toolbox/lib/drawer';
 import Select from 'react-select';
 import { List, ListItem, ListSubHeader, ListDivider, ListCheckbox } from 'react-toolbox/lib/list';
-
+import Input from 'react-toolbox/lib/input';
 import { RadioGroup, RadioButton } from 'react-toolbox/lib/radio';
 
+import {searchBar_NIS, searchBar_Order, searchBar_Incidence, searchBar_SED} from '../services/searchbar_service';
+import {makeInfowindow} from '../utils/makeInfowindow';
+import mymap from '../services/map-service';
+import makeSymbol from '../utils/makeSymbol';
+import SimpleMarkerSymbol from 'esri/symbol';
+import {Snackbar} from 'react-toolbox';
+import $ from 'jquery';
+
+
 var options = [
-    { value: 'one', label: 'One' },
-    { value: 'two', label: 'Two' }
+    { value: 'NIS', label: 'NIS' },
+    { value: 'INCIDENCIA', label: 'INCIDENCIA' },
+    { value: 'ORDEN', label: 'ORDEN' },
+    { value: 'SED', label: 'SED' }
 ];
 
 class DrawerTest extends React.Component {
@@ -29,8 +40,12 @@ class DrawerTest extends React.Component {
     checkbox: false,
     checkbox2: false,
     value: 'vvendetta',
-    busquedaValue: 'ES-es',
-    selected: 3
+    tipoBusqueda: 'NIS',
+    valorBusqueda: '',
+    labelBusqueda: 'Valor',
+    snackbarMessage: '',
+    activeSnackbar: false,
+    snackbarIcon: 'error'
   };
 
   handleToggle = () => {
@@ -62,13 +77,66 @@ class DrawerTest extends React.Component {
     }
   };
 
-  handleChange = (value) => {
-  this.setState({value});
+
+  handleChange = (name, value) => {
+   this.setState({...this.state, [name]: value});
   };
 
   logChange(val) {
-      console.log("Selected: " + val);
+      console.log("Selected: " + val.value);
+      switch (val.value) {
+        case 'NIS':
+            this.setState({labelBusqueda: 'N° NIS'});
+          break;
+          case 'INCIDENCIA':
+              this.setState({labelBusqueda: 'N° INCIDENCIA'});
+            break;
+            case 'ORDEN':
+                this.setState({labelBusqueda: 'N° ORDEN'});
+              break;
+              case 'SED':
+                  this.setState({labelBusqueda: 'CODIGO SED'});
+                break;
+        default:
+          this.setState({tipoBusqueda: 'NIS'});
+      }
+      this.setState({tipoBusqueda: val});
   }
+
+  onClickBusqueda(){
+    var mapp = mymap.getMap();
+
+
+    switch (this.state.tipoBusqueda) {
+      case 'NIS':
+          console.log("searching for nis...");
+          searchBar_NIS(this.state.valorBusqueda, (nisFound)=>{
+            this.handleToggle();
+            this.setState({snackbarMessage: nisFound[2], activeSnackbar: true, snackbarIcon: 'home' });
+            $('.theme__icon___4OQx3').css('color','greenyellow');
+          });
+        break;
+        case 'INCIDENCIA':
+            console.log("searching for incidence...");
+            searchBar_Incidence(this.state.valorBusqueda);
+          break;
+          case 'ORDEN':
+              console.log("searching for order...");
+              searchBar_Order(this.state.valorBusqueda);
+            break;
+            case 'SED':
+                console.log("searching for sed...");
+                searchBar_SED(this.state.valorBusqueda);
+              break;
+      default:
+
+    }
+  }
+
+  handleSnackbarClick = () => {
+     this.setState({activeSnackbar: false})
+  };
+
 
   render () {
 
@@ -86,13 +154,19 @@ class DrawerTest extends React.Component {
             <h6 className="drawer_banner_title">Búsqueda</h6>
 
           </div>
-          <Select
-              name="form-field-name"
-              value="one"
-              options={options}
-              onChange={this.logChange.bind(this)}
-          />
-
+          <div className="drawer_content">
+            <List selectable ripple>
+              <ListSubHeader className="drawer_listSubHeader drawer_busquedaTitle" caption='Seleccione un tipo de búsqueda:' />
+            </List>
+            <Select
+                name="form-field-name"
+                value={this.state.tipoBusqueda}
+                options={options}
+                onChange={this.logChange.bind(this)}
+            />
+            <Input className="drawer_input" type='text' label={this.state.labelBusqueda} name='name' value={this.state.valorBusqueda} onChange={this.handleChange.bind(this, 'valorBusqueda')} maxLength={16} />
+            <Button icon='search' label='Buscar' raised primary onClick={this.onClickBusqueda.bind(this)} />
+          </div>
         </Drawer>
 
         <Drawer active={this.state.active2} onOverlayClick={this.handleToggle2}>
@@ -114,7 +188,7 @@ class DrawerTest extends React.Component {
             <h6  className="drawer_banner_title">Seleccionar Layers</h6>
           </div>
           <List selectable ripple>
-            <ListSubHeader caption='Seleccione uno o más layers para visualizar:' />
+            <ListSubHeader className="drawer_listSubHeader" caption='Seleccione uno o más layers para visualizar:' />
             <ListCheckbox
               caption='SSEE'
               checked={this.state.checkbox}
@@ -130,6 +204,8 @@ class DrawerTest extends React.Component {
             <ListDivider />
           </List>
         </Drawer>
+        <Snackbar className={this.state.snackbarStyle} action='Aceptar' active={this.state.activeSnackbar} icon={this.state.snackbarIcon} label={this.state.snackbarMessage} onClick={this.handleSnackbarClick.bind(this)} type='cancel' />
+
       </div>
     );
   }

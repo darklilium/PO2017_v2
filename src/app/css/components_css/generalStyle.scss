@@ -93,6 +93,33 @@ background-color: #007bf7;
     margin: 1em;
 }
 
+.drawer_content{
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.drawer_input input{
+  color: black;
+  border-bottom: 1px solid #007bf7;
+}
+.drawer_input label{
+  color: #007bf7;
+}
+
+.drawer_listSubHeader{
+  padding-left: 1.6rem;
+  margin: -.8rem 0 0;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 4.8rem;
+  color: #757575;
+}
+
+.drawer_busquedaTitle{
+  font-size:12px;  
+}
 
 
 //LOGIN css

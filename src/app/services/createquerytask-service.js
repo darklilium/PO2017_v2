@@ -1,7 +1,7 @@
 import mymap from '../services/map-service';
 
 function createQueryTask({url, whereClause, returnGeometry = true, outFields = ['*']}){
-  var map = mymap.getMap();
+  var map =  mymap.getMap();
   var queryTaskNIS = new esri.tasks.QueryTask(url);
   var queryNIS = new esri.tasks.Query();
   queryNIS.where = whereClause;

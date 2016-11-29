@@ -1,9 +1,7 @@
-import mylayers from '../services/layers-service';
-import token from '../services/token-service';
-import {setLayers} from '../services/layers-service';
-import {addCertainLayer} from '../services/layers-service';
-import {layersActivated} from '../services/layers-service';
 
+import Map from 'esri/map';
+
+/*
 //TO DO: this var sets the map to be used in the whole app.
 var map = {
     createMap: function(div,basemap,centerx,centery,zoom){
@@ -26,10 +24,11 @@ var map = {
 
       /* Removing all the layers first and then if chilquinta add the layer simulating a basemap.
       In other cases, set the esri basemap  */
-      var baseMapLayer = new esri.layers.ArcGISDynamicMapServiceLayer(mylayers.read_mapabase(),{id:"CHQBasemap"});
+
+    //  var baseMapLayer = new esri.layers.ArcGISDynamicMapServiceLayer(mylayers.read_mapabase(),{id:"CHQBasemap"});
 
       //if bm is not chilquinta basemap, remove all the layers and add them again
-      if(bm!='Chilquinta'){
+      /*if(bm!='Chilquinta'){
           this.map.removeAllLayers();
 
           myActiveLayers.forEach(activeLayer =>{
@@ -50,5 +49,32 @@ var map = {
 
     }
 };
+
+export default map;
+*/
+
+var map = {
+  createMap: function(div,basemap,centerx,centery,zoom){
+      this.map = new esri.Map(div, {
+        center:[centerx, centery],
+        basemap: basemap,
+        zoom:zoom,
+        logo: false
+      });
+      return this.map;
+  },
+  getMap: function(){
+    return this.map;
+  }
+}
+
+/*
+function returnMap(){
+    var mapp = new Map("map",{basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
+            center: [-71.2905, -33.1009], // longitude, latitude
+            zoom: 9});
+    return mapp;
+}
+*/
 
 export default map;

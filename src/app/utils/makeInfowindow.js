@@ -1,7 +1,7 @@
 import mymap from '../services/map-service';
 
 function makeInfowindow(nis,order,incident_id,sed, point, time, address, etr){
-  var map = mymap.getMap();
+  var map =  mymap.getMap();
 
   var contentVars = {
     nis: nis,
@@ -15,13 +15,18 @@ function makeInfowindow(nis,order,incident_id,sed, point, time, address, etr){
   };
 
   map.infoWindow.setTitle("NIS : " + contentVars.nis);
-
+/*
   var content = `<div style=padding-top: 10px;>Orden: ${contentVars.order}<br /></div>
   <div style=padding-top: 10px;>ID Incidencia: ${contentVars.incident_id}<br /></div>
   <div style=padding-top: 10px;>Tiempo Transcurrido: ${contentVars.time}<br /></div>
   <div style=padding-top: 10px;>SED: ${contentVars.sed}<br /></div>
   <div style=padding-top: 10px;>Dirección: ${contentVars.address}<br />
   <div style=padding-top: 10px;>ETR: ${contentVars.etr}<br /></div>`;
+*/
+  var content = `<div style=padding-top: 10px;>Orden: ${contentVars.order}<br /></div>
+  <div style=padding-top: 10px;>ID Incidencia: ${contentVars.incident_id}<br /></div>
+  <div style=padding-top: 10px;>SED: ${contentVars.sed}<br /></div>
+  <div style=padding-top: 10px;>Dirección: ${contentVars.address}<br />`;
 
   map.infoWindow.resize(450, 250);
   map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(point), content));
@@ -29,7 +34,7 @@ function makeInfowindow(nis,order,incident_id,sed, point, time, address, etr){
 }
 
 function makeInfowindowPerSED(sed, point, name, region, alimentador, property){
-  var map = mymap.getMap();
+  var map =  mymap.getMap();
 
   var contentVars = {
     sed: sed,
@@ -53,7 +58,7 @@ function makeInfowindowPerSED(sed, point, name, region, alimentador, property){
 }
 
 function makeInfowindowPerSEDInterrupted(sed, point, order_id, incident_id, alimentador, cause,commentary){
-  var map = mymap.getMap();
+  var map =  mymap.getMap();
 
   var contentVars = {
     sed: sed,
@@ -79,7 +84,7 @@ function makeInfowindowPerSEDInterrupted(sed, point, order_id, incident_id, alim
 }
 
 function makeInfowindowPerNisInfo(nis,sed, point,address){
-  var map = mymap.getMap();
+  var map =  mymap.getMap();
 
   var contentVars = {
     nis: nis,
@@ -113,8 +118,7 @@ function makeInfowindowPerGridInfo(type,
                                   time,
                                   ETR,
                                   geometry){
-  var map = mymap.getMap();
-
+  var map =  mymap.getMap();
   var contentVars = {
     type: type,
     order_id: order_id,
@@ -153,7 +157,7 @@ function makeInfowindowPerGridInfo(type,
 }
 
 function ap_infoWindow(lightID, poleNumber, connectionType, type, property,meansured, geometry){
-  var map = mymap.getMap();
+  var map =  mymap.getMap();
   map.infoWindow.setTitle("ID Luminaria : " + lightID);
   var content = `<div style=padding-top: 10px;>ROTULO: ${poleNumber}<br /></div>
   <div style=padding-top: 10px;>Tipo Conexión: ${connectionType}<br /></div>
@@ -168,7 +172,7 @@ function ap_infoWindow(lightID, poleNumber, connectionType, type, property,means
 }
 
 function ap_infoWindow_rotulo(poleNumber){
-/*  var map = mymap.getMap();
+/*  var map = returnMap();
   map.infoWindow.setTitle("ROTULO : " + poleNumber);
   var content = `<div style=padding-top: 10px;>ROTULO: ${poleNumber}<br /></div>
   <div style=padding-top: 10px;>Tipo Conexión: ${connectionType}<br /></div>
