@@ -132,6 +132,18 @@ background-color: #007bf7;
   align-content: center;
 }
 
+.simbologia_container{
+  width: auto;
+    height: auto;
+    border-radius: 0;
+    background-color: rgba(255, 255, 255, 0.6);
+    background-blend-mode: screen;
+    bottom: 0;
+    z-index: 3;
+    padding: 1em;
+    position: absolute;
+}
+
 //LOGIN css
 .login_wrapper_content{
   display: flex;

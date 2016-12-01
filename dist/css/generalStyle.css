@@ -163,6 +163,8 @@ html, body, #app, #map { height: 100%; margin: 0; padding: 0; }
 
 .empresas_icons { display: flex; width: 2em; justify-content: center; align-content: center; }
 
+.simbologia_container { width: auto; height: auto; border-radius: 0; background-color: rgba(255, 255, 255, 0.6); background-blend-mode: screen; bottom: 0; z-index: 3; padding: 1em; position: absolute; }
+
 .login_wrapper_content { display: flex; flex-direction: column; justify-content: center; align-items: center; position: absolute; width: 100%; height: 100%; }
 
 .login_logo { width: 20%; }

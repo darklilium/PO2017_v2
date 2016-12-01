@@ -9,21 +9,46 @@ import {Router, Route, browserHistory} from "react-router";
 import {TabsExample} from './Tabs.jsx';
 import {Link} from "react-router";
 
+import layers from '../services/layers-service';
+import createQueryTask from '../services/createquerytask-service';
+
 class OnlineStatistics extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      dom: 0,
-      red: 0,
-      total: 0
+      CLIEDOM: '0',
+      CLIERED:'0',
+      TOTALQTTY: '0'
     }
+
+     this.currentTotal();
   }
   componentDidMount(){
-    this.setState({
-      dom: 5,
-      red: 10,
-      total: 15
+
+    var foo = function(){
+      console.log("updating totals...");
+      this.currentTotal();
+      setTimeout(foo, 10000);
+    };
+
+    foo = foo.bind(this);
+    setTimeout(foo, 10000);
+  }
+
+  currentTotal(){
+    var serviceCurrTotal = createQueryTask({
+      url: layers.read_layer_countTotal(),
+      whereClause: "1=1"
     });
+
+    serviceCurrTotal((map,featureSet)=>{
+      this.setState({
+        CLIEDOM: featureSet.features[1].attributes['CANTIDAD'],
+        CLIERED: featureSet.features[0].attributes['CANTIDAD'],
+        TOTALQTTY: featureSet.features[2].attributes['CANTIDAD']
+      });
+
+    },(errorCount) => {console.log("error getting the current total");});
   }
 
   render() {
@@ -31,11 +56,11 @@ class OnlineStatistics extends React.Component {
           <div className="onlineStatistics_wrapper">
             <div className="vertical_hr"></div>
             <IconButton icon='home' inverse={ true }/>
-            <h6>DOM: {this.state.dom}</h6>
+            <h6>DOM: {this.state.CLIEDOM}</h6>
             <IconButton icon='flash_on' inverse={ true }/>
-            <h6>RED: {this.state.red}</h6>
+            <h6>RED: {this.state.CLIERED}</h6>
             <IconButton icon='equalizer' inverse={ true }/>
-            <h6>TOTAL: {this.state.total}</h6>
+            <h6>TOTAL: {this.state.TOTALQTTY}</h6>
             <div className="vertical_hr"></div>
           </div>
     );

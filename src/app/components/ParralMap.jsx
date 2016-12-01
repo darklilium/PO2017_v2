@@ -4,6 +4,7 @@ import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLay
 import layers from '../services/layers-service';
 import myinfotemplate from '../utils/infoTemplates';
 import {browserHistory} from 'react-router';
+import {Simbologia} from './Simbologia.jsx';
 
 class ParralMap extends React.Component {
   constructor(props){
@@ -43,6 +44,7 @@ class ParralMap extends React.Component {
     return (
         <div className="map_container">
           <div id="map"></div>
+          <Simbologia />
         </div>
 
     );
