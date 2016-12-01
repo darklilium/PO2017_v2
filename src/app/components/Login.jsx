@@ -57,7 +57,7 @@ class Login extends React.Component {
           console.log("aa",callback);
           if(!callback.error){
           //  window.location.href = "interrupciones.html";
-            browserHistory.push("map");
+            browserHistory.push("chilquinta");
           }else{
             this.setState({snackbarMessage: callback.message});
             this.handleClick();
@@ -75,7 +75,7 @@ class Login extends React.Component {
             console.log("aa",callback);
           if(!callback.error){
 
-              browserHistory.push("map");
+              browserHistory.push("chilquinta");
             //window.location.href = "interrupciones.html";
           }else{
             this.setState({snackbarMessage: callback.message});

@@ -52,7 +52,7 @@ function searchBar_NIS(nis, callback){
                 direccion:address,
                 etr:ETR
               };
-              return callback([false,thisValues,"Nis sin SED encontrada"]);
+              return callback([false,thisValues,"Nis sin SED encontrada","clear","red"]);
             }
 
             let sed = featureSet.features[0].attributes['resp_id_sed'];
@@ -68,20 +68,15 @@ function searchBar_NIS(nis, callback){
               etr:ETR
             };
 
-
-
             makeInfowindow(myNis,myOrder,myIncidence,sed, attribute.geometry, 0, address, ETR );
 
             map.graphics.add(new esri.Graphic(attribute.geometry,pointSymbol));
             map.centerAndZoom(attribute.geometry,20);
-            return callback([true,thisValues,"NIS: "+ myNis+" presente en interrupción."]);
+            return callback([true,thisValues,"NIS: "+ myNis+" presente en interrupción.","home","greenyellow"]);
           //  let message = 'NIS: '+ nis + ' presente en interrupción';
           //  notifications(message, "Searchbar_Isolated", ".searchbar__notifications");
           },(ErrorQuery)=>{
-            let message = "NIS: " + nis + " no tiene sed";
-            let type = "Searchbar_ErrorQuerySED";
-            return callback(thisValues);
-            notifications(message, type, ".searchbar__notifications");
+            return callback([false,[],"Hubo un error buscando la SED del NIS.","clear","red"]);
           });
       });
 
@@ -95,34 +90,37 @@ function searchBar_NIS(nis, callback){
       });
       serviceMassive((map,featureSet)=>{
         if(!featureSet.features.length){
-          let message = "NIS: " + nis+ " no se ha encontrado o no existe. Ingrese un NIS válido";
+          let message = "NIS: " + nis+ " no se ha encontrado datos del NIS. Ingrese un NIS válido";
           let type = "Searchbar_NIS_Not_Found";
-          notifications(message, type, ".searchbar__notifications");
-          return;
+          //notifications(message, type, ".searchbar__notifications");
+          return callback([false,[],message,"clear","red"]);
         }
+
         let mySed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
         let address = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.direccion_resu'];
         let nisgeom = featureSet.features[0].geometry;
 
         //and then search for any problem in SED
-        searchMassive(mySed, nis, address, nisgeom);
+        searchMassive(mySed, nis, address, nisgeom,(cb)=>{
+          return callback(cb);
+        });
       },(ErrorQueryMassive)=>{
           console.log("Error al ejecutar la query en Falla Masiva");
-          let message = "Error al buscar el NIS : " + nis + "en falla masiva";
-          let type = "Searchbar_Error";
-          notifications(message, type, ".searchbar__notifications");
+          return callback([false,[],"Hubo un error buscando en Falla Masiva","clear","red"]);
+
       });
     }
   },(ErrorQueryIsolated)=>{
     console.log("Error al ejecutar la query en Falla Aislada");
     let message = "NIS no encontrado o no existe. Ingrese un NIS válido.";
     let type = "Searchbar_Error";
-    notifications(message, type, ".searchbar__notifications");
+    return callback([false,[],"NIS no encontrado o no existe, Ingrese un NIS válido","clear","red"]);
+
   });
 
 }
 
-function searchMassive(sed, nis, address, nisgeom){
+function searchMassive(sed, nis, address, nisgeom, callback){
   //search if the nis is in a SED interruption order
   var serviceSearchMassive = createQueryTask({
     url: layers.read_layer_interr_sed(),
@@ -131,6 +129,7 @@ function searchMassive(sed, nis, address, nisgeom){
 
   serviceSearchMassive((map,featureSet)=>{
     map.graphics.clear();
+
       if(!featureSet.features.length) {
         //if the nis is not in the SED interruption orders, the nis doesnt have any problem.
         console.log("nis is not having any issue");
@@ -142,14 +141,14 @@ function searchMassive(sed, nis, address, nisgeom){
         map.centerAndZoom(nisgeom,20);
         makeInfowindowPerNisInfo(nis,sed, nisgeom,address);
 
-        return;
+        return callback([false,[],message,'done',"greenyellow"]);
       }
       //when the order is found , show where the NIS is with the info.
       console.log("interrupted customers in SED "+ featureSet.features[0].attributes['ARCGIS.DBO.SED_006.codigo']);
       let pointSymbol = makeSymbol.makePoint();
       let message = "NIS: " + nis +" presente en interrupción";
       let type = "Searchbar_Massive";
-      notifications(message, type, ".searchbar__notifications");
+      //notifications(message, type, ".searchbar__notifications");
       let myresults = featureSet.features.map((feature)=>{
         return feature;
       });
@@ -161,13 +160,15 @@ function searchMassive(sed, nis, address, nisgeom){
         makeInfowindow(nis,myOrder,myIncidence,sed, nisgeom, 0, address);
         map.graphics.add(new esri.Graphic(nisgeom,pointSymbol));
         map.centerAndZoom(nisgeom,20);
+        return callback([true,[],message,'flash_on',"greenyellow"]);
       });
 
   },(error)=>{
     console.log("Problems getting the sed for massive interruption ");
-    let message = "Error tratando de obtener la SED del NIS:" + nis;
+    let message = "Error tratando de obtener la SED del NIS en interrupciones masivas:" + nis;
     let type = "Searchbar_Error";
-    notifications(message, type, ".searchbar__notifications");
+  //  notifications(message, type, ".searchbar__notifications");
+    return callback([false,[],message,'clear',"red"]);
   });
 
 }

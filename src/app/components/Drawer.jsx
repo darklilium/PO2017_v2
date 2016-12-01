@@ -1,6 +1,6 @@
 import React from 'react';
 // import 'react-toolbox/lib/commons.scss';           // Import common styles
-import Mapa from './Map.jsx';
+
 import { Button } from 'react-toolbox/lib/button'; // Bundled component import
 import { Layout, NavDrawer, Panel, Sidebar } from 'react-toolbox';
 import { AppBar, Checkbox, IconButton } from 'react-toolbox';
@@ -111,9 +111,15 @@ class DrawerTest extends React.Component {
       case 'NIS':
           console.log("searching for nis...");
           searchBar_NIS(this.state.valorBusqueda, (nisFound)=>{
-            this.handleToggle();
-            this.setState({snackbarMessage: nisFound[2], activeSnackbar: true, snackbarIcon: 'home' });
-            $('.theme__icon___4OQx3').css('color','greenyellow');
+            
+              this.handleToggle();
+              this.setState({snackbarMessage: nisFound[2], activeSnackbar: true, snackbarIcon: nisFound[3] });
+              $('.theme__icon___4OQx3').css('color',nisFound[4]);
+              mapp.infoWindow.on('hide', function(){
+                mapp.graphics.clear();
+              });
+              return;
+
           });
         break;
         case 'INCIDENCIA':

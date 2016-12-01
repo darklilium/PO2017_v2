@@ -37,7 +37,7 @@
 
 
 .widgets_link{
-  margin: 1em;
+  margin: 0.5em;
 }
 
 
@@ -63,7 +63,11 @@ html, body ,#app,#map{
   height: 99.6%;
 }
 .widgetMenu_container, {
+//  display: flex;
   display: flex;
+  height: 6.4rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .drawer_buttons{
@@ -118,9 +122,15 @@ background-color: #007bf7;
 }
 
 .drawer_busquedaTitle{
-  font-size:12px;  
+  font-size:12px;
 }
 
+.empresas_icons{
+  display: flex;
+  width: 2em;
+  justify-content: center;
+  align-content: center;
+}
 
 //LOGIN css
 .login_wrapper_content{

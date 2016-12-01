@@ -1,6 +1,6 @@
 import React from 'react';
 // import 'react-toolbox/lib/commons.scss';           // Import common styles
-import Mapa from './Map.jsx';
+
 import { Button } from 'react-toolbox/lib/button'; // Bundled component import
 import { Layout, NavDrawer, Panel, Sidebar } from 'react-toolbox';
 import { AppBar, Checkbox, IconButton } from 'react-toolbox';
