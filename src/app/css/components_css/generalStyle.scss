@@ -144,6 +144,13 @@ background-color: #007bf7;
     position: absolute;
 }
 
+.drawer_buttonsContent{
+  display: flex;
+    flex-direction: column;
+}
+.drawer_button{
+  margin-bottom: 1em;
+}
 //LOGIN css
 .login_wrapper_content{
   display: flex;

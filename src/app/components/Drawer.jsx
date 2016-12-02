@@ -15,7 +15,6 @@ import Select from 'react-select';
 import { List, ListItem, ListSubHeader, ListDivider, ListCheckbox } from 'react-toolbox/lib/list';
 import Input from 'react-toolbox/lib/input';
 import { RadioGroup, RadioButton } from 'react-toolbox/lib/radio';
-
 import {searchBar_NIS, searchBar_Order, searchBar_Incidence, searchBar_SED} from '../services/searchbar_service';
 import {makeInfowindow} from '../utils/makeInfowindow';
 import mymap from '../services/map-service';
@@ -23,7 +22,8 @@ import makeSymbol from '../utils/makeSymbol';
 import SimpleMarkerSymbol from 'esri/symbol';
 import {Snackbar} from 'react-toolbox';
 import $ from 'jquery';
-
+import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLayer';
+import myLayers from '../services/layers-service';
 
 var options = [
     { value: 'NIS', label: 'NIS' },
@@ -39,13 +39,14 @@ class DrawerTest extends React.Component {
     active3: false,
     checkbox: false,
     checkbox2: false,
-    value: 'vvendetta',
+    checkbox3: false,
     tipoBusqueda: 'NIS',
     valorBusqueda: '',
     labelBusqueda: 'Valor',
     snackbarMessage: '',
     activeSnackbar: false,
-    snackbarIcon: 'error'
+    snackbarIcon: 'error',
+    mapSelected: 'topo'
   };
 
   handleToggle = () => {
@@ -63,15 +64,45 @@ class DrawerTest extends React.Component {
   }
 
   handleCheckboxChange = (e) => {
-    console.log(e);
+  var mapp = mymap.getMap();
     switch (e) {
       case 'SSEE':
         this.setState({checkbox: !this.state.checkbox});
+        if(!this.state.checkbox){
+          console.log("en true, prender ssee");
+          var sseeLayer = new ArcGISDynamicMapServiceLayer(myLayers.read_SSEE(),{id:"gis_SSEE"});
+          mapp.addLayer(sseeLayer);
+
+        }else{
+          console.log("en false, apagar ssee");
+          mapp.removeLayer(mapp.getLayer("gis_SSEE"));
+        }
       break;
 
       case 'ALIMENTADOR':
         this.setState({checkbox2: !this.state.checkbox2});
+        if(!this.state.checkbox2){
+          console.log("en true, prender alim");
+          var alimLayer = new ArcGISDynamicMapServiceLayer(myLayers.read_layerAlimentador(),{id:"gis_alimentadores"});
+          alimLayer.setImageFormat("png32");
+          alimLayer.setVisibleLayers([0]);
+        /*  alimLayer.setInfoTemplates({
+            0: {infoTemplate: myinfotemplate.getAlimentadorInfoWindow()}
+          });
+          */
+          mapp.addLayer(alimLayer);
+
+        }else{
+          console.log("en false, apagar alim");
+          mapp.removeLayer(mapp.getLayer("gis_alimentadores"));
+        }
       break;
+
+      case 'CHILQUINTA':
+        this.setState({checkbox3: !this.state.checkbox3});
+
+      break;
+
       default:
 
     }
@@ -176,6 +207,27 @@ class DrawerTest extends React.Component {
      this.setState({activeSnackbar: false})
   };
 
+  onClickLimpiarBusqueda(){
+      var mapp = mymap.getMap();
+      mapp.graphics.clear();
+      this.setState({valorBusqueda: '', tipoBusqueda: 'NIS', activeSnackbar:false});
+
+  }
+
+  handleRadioMapas(mapaNow) {
+    var mapp = mymap.getMap();
+    this.setState({mapSelected: mapaNow});
+    if(mapaNow!='chilquinta'){
+      mapp.setBasemap(mapaNow);
+    }
+    /*else{
+      var baseMapLayer = new ArcGISDynamicMapServiceLayer(myLayers.read_mapabase(),{id:"CHQBasemap"});
+      mapp.addLayer(baseMapLayer);
+    }
+    */
+
+  };
+
 
   render () {
 
@@ -204,7 +256,10 @@ class DrawerTest extends React.Component {
                 onChange={this.logChange.bind(this)}
             />
             <Input className="drawer_input" type='text' label={this.state.labelBusqueda} name='name' value={this.state.valorBusqueda} onChange={this.handleChange.bind(this, 'valorBusqueda')} maxLength={16} />
-            <Button icon='search' label='Buscar' raised primary onClick={this.onClickBusqueda.bind(this)} />
+            <div className="drawer_buttonsContent">
+              <Button className="drawer_button" icon='search' label='Buscar' raised primary onClick={this.onClickBusqueda.bind(this)} />
+              <Button icon='delete_sweep' label='Limpiar Búsqueda' raised primary onClick={this.onClickLimpiarBusqueda.bind(this)} />
+            </div>
           </div>
         </Drawer>
 
@@ -213,11 +268,10 @@ class DrawerTest extends React.Component {
             <Logo />
             <h6  className="drawer_banner_title">Seleccionar Mapa</h6>
           </div>
-          <RadioGroup className="drawer_radiogroup" name='comic' value={this.state.value} onChange={this.handleDropDownBusqueda}>
-            <RadioButton label='The Walking Dead' value='thewalkingdead'/>
-            <RadioButton label='From Hell' value='fromhell' disabled/>
-            <RadioButton label='V for a Vendetta' value='vvendetta'/>
-            <RadioButton label='Watchmen' value='watchmen'/>
+          <ListSubHeader className="drawer_listSubHeader" caption='Seleccione un mapa para visualizar:' />
+          <RadioGroup className="drawer_radiogroup" name='mapSelector' value={this.state.mapSelected} onChange={this.handleRadioMapas.bind(this)}>
+            <RadioButton label='Topográfico' value='topo'/>
+            <RadioButton label='Híbrido' value='hybrid'/>
           </RadioGroup>
         </Drawer>
 
@@ -239,6 +293,12 @@ class DrawerTest extends React.Component {
               checked={this.state.checkbox2}
               legend=''
               onChange={this.handleCheckboxChange.bind(this,"ALIMENTADOR")}
+            />
+            <ListCheckbox
+              caption='Chilquinta Basemap'
+              checked={this.state.checkbox3}
+              legend=''
+              onChange={this.handleCheckboxChange.bind(this,"CHILQUINTA")}
             />
             <ListDivider />
           </List>
