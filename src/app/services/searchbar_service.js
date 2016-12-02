@@ -173,7 +173,7 @@ function searchMassive(sed, nis, address, nisgeom, callback){
 
 }
 
-function searchBar_Order(order_id){
+function searchBar_Order(order_id, callback){
   /*To do: search order.
   * if order is for isolated nis -> zoom to the result (1 nis : 1 order)
     else if order is on massive interruption for SED. (1 SED : * orders)
@@ -187,29 +187,34 @@ function searchBar_Order(order_id){
     //if the order is not isolated nis, search in massive.
     if(!featureSet.features.length){
       //search in SED interruptions
-      searchMassiveOrder(order_id);
+      searchMassiveOrder(order_id, (cb)=>{
+        console.log("Massive", cb);
+        return callback(cb);
+      });
       return;
     }
     let myresults = featureSet.features.map((feature)=>{
       return feature.geometry;
     });
-
+    console.log("Resultados encontrados:",myresults);
     let pointSymbol = makeSymbol.makePoint();
     map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
-    map.centerAndZoom(myresults[0],15);
+    map.centerAndZoom(myresults[0],20);
     let message = "ID Orden: " + order_id + " presente en interrupción";
     let type = "Searchbar_Isolated";
-    notifications(message, type, ".searchbar__notifications");
+    return callback([true,myresults,message,"home","greenyellow"])
+    //notifications(message, type, ".searchbar__notifications");
 
   }, (errorOrder)=>{
     console.log("Error doing query for getting orders associated to the customer");
-    let message = "Error doing query for getting orders associated to the customer";
+    let message = "Error obteniendo ordenes asociadas al cliente";
     let type = "Searchbar_Error";
-    notifications(message, type, ".searchbar__notifications");
+    return callback([false,[],message,"clear","red"])
+    //notifications(message, type, ".searchbar__notifications");
   });
 }
 
-function searchMassiveOrder(order_id){
+function searchMassiveOrder(order_id, callback){
   console.log(order_id, "search in massive orders");
   var serviceOrderSED = createQueryTask({
     url: layers.read_layer_interr_sed(),
@@ -220,8 +225,9 @@ function searchMassiveOrder(order_id){
     if (!featureSet.features.length){
       let message = "ID Orden " + order_id + " no se ha encontrado o no existe. Ingrese un ID válido.";
       let type = "Searchbar_NIS_Not_Found";
-      notifications(message, type, ".searchbar__notifications");
-      return;
+
+      //notifications(message, type, ".searchbar__notifications");
+      return callback([false,[],message,'clear',"red"]);
     }
     let myresults = featureSet.features.map((feature)=>{
       return feature;
@@ -230,20 +236,22 @@ function searchMassiveOrder(order_id){
     let pointSymbol = makeSymbol.makePoint();
       myresults.forEach((attr)=>{
         map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
-        map.centerAndZoom(attr.geometry,15);
+        map.centerAndZoom(attr.geometry,20);
       });
       let message = "ID Orden: " + order_id + " presente en interrupción";
       let type = "Searchbar_Massive";
-      notifications(message, type, ".searchbar__notifications");
+      return callback([true,[],message,'flash_on',"greenyellow"]);
+      //notifications(message, type, ".searchbar__notifications");
   },(errorOrderSED)=>{
     console.log("Error doing query for getting orders associated to the SED");
     let message = "Error en query para obtener ordenes asociadas a la SED";
     let type = "Searchbar_ErrorQuerySED";
-    notifications(message, type, ".searchbar__notifications");
+    return callback([false,[],message,'clear',"red"]);
+    //notifications(message, type, ".searchbar__notifications");
   });
 }
 
-function searchBar_Incidence(incidence_id){
+function searchBar_Incidence(incidence_id, callback){
   /*To do: search order.
   * if Incidence is for isolated nis -> zoom to the result (1 nis : 1 Incidence)
     else if Incidence is on massive interruption for SED. (1 SED : * Incidences)
@@ -257,7 +265,9 @@ function searchBar_Incidence(incidence_id){
     //if the order is not isolated nis, search in massive.
     if(!featureSet.features.length){
       //search in SED interruptions
-      searchMassiveIncidence(incidence_id);
+      searchMassiveIncidence(incidence_id, (cb)=>{
+        return callback(cb);
+      });
       return;
     }
     let myresults = featureSet.features.map((feature)=>{
@@ -269,18 +279,20 @@ function searchBar_Incidence(incidence_id){
     map.centerAndZoom(myresults[0],15);
     let message = "ID Incidencia: " + incidence_id + " presente en interrupción";
     let type = "Searchbar_Isolated";
-    notifications(message, type, ".searchbar__notifications");
+    //notifications(message, type, ".searchbar__notifications");
+    return callback([true,[],message,'home',"greenyellow"]);
 
   }, (errorOrder)=>{
     console.log("Error doing query for getting orders associated to the customer");
     let message = "ID Incidencia no encontrada o no existe. Ingrese una válida.";
     let type = "Searchbar_Error";
-    notifications(message, type, ".searchbar__notifications");
+    return callback([true,[],message,'clear',"greenyellow"]);
+    //notifications(message, type, ".searchbar__notifications");
 
   });
 }
 
-function searchMassiveIncidence(incidence_id){
+function searchMassiveIncidence(incidence_id, callback){
   console.log(incidence_id, "search in massive orders");
   var serviceOrderSED = createQueryTask({
     url: layers.read_layer_interr_sed(),
@@ -291,8 +303,8 @@ function searchMassiveIncidence(incidence_id){
     if (!featureSet.features.length){
       let message = "ID Incidencia: " + incidence_id + " no se ha encontrado o no existe. Ingrese un ID válida.";
       let type = "Searchbar_NIS_Not_Found";
-      notifications(message, type, ".searchbar__notifications");
-      return;
+      //notifications(message, type, ".searchbar__notifications");
+      return callback([false,[],message,'clear',"red"]);
     }
     let myresults = featureSet.features.map((feature)=>{
       return feature;
@@ -305,16 +317,18 @@ function searchMassiveIncidence(incidence_id){
       });
       let message = "ID Incidencia: " + incidence_id + " presente en interrupción";
       let type = "Searchbar_Massive";
-      notifications(message, type, ".searchbar__notifications");
+      return callback([true,[],message,'flash_on',"greenyellow"]);
+      //notifications(message, type, ".searchbar__notifications");
   },(errorOrderSED)=>{
     console.log("Error doing query for getting orders associated to the SED");
     let message = "Error query para obtener ordenes asociadas a la SED";
     let type = "Searchbar_Error";
-    notifications(message, type, ".searchbar__notifications");
+    //notifications(message, type, ".searchbar__notifications");
+    return callback([false,[],message,'clear',"red"]);
   });
 }
 
-function searchBar_SED(sed){
+function searchBar_SED(sed, callback){
  /*To DO: search for a SED in the searchbar and then.
     if the sed is not in any SED interruptions, search the location
     else, show where the SED is and put the message as massive interruption*/
@@ -329,17 +343,21 @@ function searchBar_SED(sed){
       console.log("searching for sed location");
       let message = "SED " + sed + " no presenta problemas";
       let type = "Searchbar_NIS_Without_Problems";
-      notifications(message, type, ".searchbar__notifications");
+      //notifications(message, type, ".searchbar__notifications");
+
       //search the sed location
-      sedLocation(sed);
+      sedLocation(sed, cb=>{
+        return callback(cb);
+      });
       return;
     }
     let message = "SED " + sed + " presente en interrupción";
     let type = "Searchbar_Massive";
-    notifications(message, type, ".searchbar__notifications");
+    //notifications(message, type, ".searchbar__notifications");
     let myresults = featureSet.features.map((feature)=>{
       return feature;
     });
+
     let pointSymbol = makeSymbol.makePoint();
     myresults.forEach((attribute)=>{
       map.graphics.add(new esri.Graphic(attribute.geometry,pointSymbol));
@@ -352,19 +370,22 @@ function searchBar_SED(sed){
                                       attribute.attributes['ARCGIS.DBO.SED_006.alimentador'],
                                       attribute.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.comentario'],
                                       attribute.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa']);
+
     });
+      return callback([true,[],message,'flash_on',"greenyellow"]);
 //sed, point, order_id, incident_id, alimentador, cause,commentary
   },(errorSearchSed)=>{
       console.log(errorSearchSed);
       let message = "SED " + sed + " no se ha encontrado o no existe. Ingrese un código válido.";
       let type = "Searchbar_Error";
-      notifications(message, type, ".searchbar__notifications");
+      //notifications(message, type, ".searchbar__notifications");
+      return callback([true,[],message,'clear',"red"]);
   });
 }
 
 
 //for searching a SED
-function sedLocation(sed){
+function sedLocation(sed, callback){
   var service = createQueryTask({
     url: layers.read_layer_infoSED(),
     whereClause: `codigo=${sed}`
@@ -375,7 +396,7 @@ function sedLocation(sed){
         let type = "Searchbar_Error";
         notifications(message, type, ".searchbar__notifications");
         console.log("SED doesnt have geometry.");
-        return;
+        return callback([false,[],message,'clear',"red"]);
       }
       let myresults = featureSet.features.map((feature)=>{
         return feature;
@@ -389,6 +410,8 @@ function sedLocation(sed){
           makeInfowindowPerSED(sed, attr.geometry, attr.attributes['nombre'],
                               attr.attributes['comuna'], attr.attributes['alimentador'], attr.attributes['propiedad']);
         });
+        let message = "SED " + sed + " no presenta problemas";
+        return callback([true,[],message,'flash_on',"greenyellow"]);
   });
 }
 export {searchBar_NIS, searchBar_Order, searchBar_Incidence, searchBar_SED};

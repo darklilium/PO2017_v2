@@ -84,6 +84,8 @@ class DrawerTest extends React.Component {
 
   logChange(val) {
       console.log("Selected: " + val.value);
+      this.setState({tipoBusqueda: val.value});
+
       switch (val.value) {
         case 'NIS':
             this.setState({labelBusqueda: 'N° NIS'});
@@ -100,40 +102,71 @@ class DrawerTest extends React.Component {
         default:
           this.setState({tipoBusqueda: 'NIS'});
       }
-      this.setState({tipoBusqueda: val});
+
   }
 
   onClickBusqueda(){
     var mapp = mymap.getMap();
+    console.log("Buscando para:",this.state.tipoBusqueda);
 
 
     switch (this.state.tipoBusqueda) {
-      case 'NIS':
-          console.log("searching for nis...");
-          searchBar_NIS(this.state.valorBusqueda, (nisFound)=>{
-            
-              this.handleToggle();
-              this.setState({snackbarMessage: nisFound[2], activeSnackbar: true, snackbarIcon: nisFound[3] });
-              $('.theme__icon___4OQx3').css('color',nisFound[4]);
-              mapp.infoWindow.on('hide', function(){
-                mapp.graphics.clear();
-              });
-              return;
 
+      case 'NIS':
+        console.log("searching for nis...");
+        searchBar_NIS(this.state.valorBusqueda, (nisFound)=>{
+
+          this.handleToggle();
+          this.setState({snackbarMessage: nisFound[2], activeSnackbar: true, snackbarIcon: nisFound[3] });
+          $('.theme__icon___4OQx3').css('color',nisFound[4]);
+          mapp.infoWindow.on('hide', function(){
+          mapp.graphics.clear();
           });
+
+        });
+      break;
+
+      case 'INCIDENCIA':
+        console.log("searching for incidence...");
+        searchBar_Incidence(this.state.valorBusqueda, (incidenciaFound)=>{
+
+          this.handleToggle();
+          this.setState({snackbarMessage: incidenciaFound[2], activeSnackbar: true, snackbarIcon: incidenciaFound[3] });
+          $('.theme__icon___4OQx3').css('color',incidenciaFound[4]);
+          mapp.infoWindow.on('hide', function(){
+          mapp.graphics.clear();
+          });
+
+        });
+      break;
+
+      case 'ORDEN':
+        console.log("searching for order...");
+        searchBar_Order(this.state.valorBusqueda, (orderFound)=>{
+
+          this.handleToggle();
+          this.setState({snackbarMessage: orderFound[2], activeSnackbar: true, snackbarIcon: orderFound[3] });
+          $('.theme__icon___4OQx3').css('color',orderFound[4]);
+          mapp.infoWindow.on('hide', function(){
+          mapp.graphics.clear();
+          });
+
+        });
+      break;
+
+      case 'SED':
+        console.log("searching for sed...");
+        searchBar_SED(this.state.valorBusqueda, (sedFound)=>{
+
+          this.handleToggle();
+          this.setState({snackbarMessage: sedFound[2], activeSnackbar: true, snackbarIcon: sedFound[3] });
+          $('.theme__icon___4OQx3').css('color',sedFound[4]);
+          mapp.infoWindow.on('hide', function(){
+          mapp.graphics.clear();
+          });
+
+        });
         break;
-        case 'INCIDENCIA':
-            console.log("searching for incidence...");
-            searchBar_Incidence(this.state.valorBusqueda);
-          break;
-          case 'ORDEN':
-              console.log("searching for order...");
-              searchBar_Order(this.state.valorBusqueda);
-            break;
-            case 'SED':
-                console.log("searching for sed...");
-                searchBar_SED(this.state.valorBusqueda);
-              break;
       default:
 
     }
