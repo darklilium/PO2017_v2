@@ -100,7 +100,20 @@ class DrawerTest extends React.Component {
 
       case 'CHILQUINTA':
         this.setState({checkbox3: !this.state.checkbox3});
+        if(!this.state.checkbox3){
+          console.log("en true, prender mapa chilquinta");
+          var chqmapabase = new ArcGISDynamicMapServiceLayer(myLayers.read_mapabase(),{id:"gis_chqmapabase"});
 
+        /*  alimLayer.setInfoTemplates({
+            0: {infoTemplate: myinfotemplate.getAlimentadorInfoWindow()}
+          });
+          */
+          mapp.addLayer(chqmapabase,1);
+
+        }else{
+          console.log("en false, mapa chilquinta");
+          mapp.removeLayer(mapp.getLayer("gis_chqmapabase"));
+        }
       break;
 
       default:
