@@ -169,6 +169,10 @@ html, body, #app, #map { height: 100%; margin: 0; padding: 0; }
 
 .drawer_button { margin-bottom: 1em; }
 
+.estadisticas_title_h3 { display: flex; justify-content: center; background-color: #19426b; color: white; margin-bottom: 0.5em; font-size: initial; }
+
+.wrapper_estadisticas_opciones { display: flex; justify-content: space-between; }
+
 .login_wrapper_content { display: flex; flex-direction: column; justify-content: center; align-items: center; position: absolute; width: 100%; height: 100%; }
 
 .login_logo { width: 20%; }

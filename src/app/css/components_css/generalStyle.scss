@@ -151,6 +151,20 @@ background-color: #007bf7;
 .drawer_button{
   margin-bottom: 1em;
 }
+
+.estadisticas_title_h3{
+  display: flex;
+  justify-content: center;
+  background-color: #19426b;
+  color: white;
+  margin-bottom: 0.5em;
+  font-size: initial;
+}
+
+.wrapper_estadisticas_opciones{
+  display: flex;
+  justify-content: space-between;
+}
 //LOGIN css
 .login_wrapper_content{
   display: flex;

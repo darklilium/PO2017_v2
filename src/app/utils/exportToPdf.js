@@ -1,8 +1,7 @@
 import {getFormatedDateNow} from './milliSecondsToDate';
+import {getStatisticsSummaryChilquinta, getStatisticPerOfficeChilquinta, getStatisticsRegionPercentChilquinta} from '../services/graphics-service';
+import {graphicResults, graphicResults2, graphicResults3} from '../services/graphics-service';
 
-import {graphicResults} from '../services/interruptions_services/getstatistics-summary-service';
-import {graphicResults2} from '../services/interruptions_services/getstatistics-summary-service';
-import {graphicResults3} from '../services/interruptions_services/getstatistics-summary-service';
 
 function createChartsColumns(){
   return {
@@ -53,6 +52,7 @@ function createChartsTitles(){
 
 //TODO: This export all the results for the 3 graphics in pdf.
 function exportGraphicsToPDF(){
+
   //Factories for chart titles and chart data content
   var chartTitles = createChartsTitles();
   var charts = createChartsColumns();
