@@ -5,9 +5,9 @@ import {ap_infoWindow} from '../utils/makeInfowindow';
 //import GraphicsLayer from 'esri/layers/GraphicsLayer ';
 
 function myLayers(){
-  const serviceMain = 'http://gisred.chilquinta/arcgis/';
+  //const serviceMain = 'http://gisred.chilquinta/arcgis/';
   //change this for external connection:
-  //const serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
+  const serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
   const serviceURL = serviceMain + 'rest/services/';
   //var graphicLayer = new GraphicsLayer;
 
@@ -15,7 +15,7 @@ function myLayers(){
   return {
 
     read_generateTokenURL(){
-      return serviceMain + "tokens/generateToken";
+      return "http://gisred.chilquinta.cl:5555/arcgis/tokens/generateToken";
     },
 
     read_dyn_layerClieSED(){  /*using*/
@@ -35,7 +35,7 @@ function myLayers(){
     },
 
 
-    
+
 
     read_logAccess(){  /*using*/
       return serviceURL + "Admin/LogAccesos/FeatureServer/2?f=json&token=" + token.read();

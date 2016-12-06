@@ -10,11 +10,14 @@ import {TabsExample} from './Tabs.jsx';
 import {Link} from "react-router";
 
 class Logo extends React.Component {
+  onClickGoHome(){
+    //browserHistory.push("chilquinta");
+  }
 
   render() {
     return (
           <div className="logo_content">
-            <img className="img_logo" src="../dist/css/images/logo_po.png"></img>
+            <img className="img_logo" src="../dist/css/images/logo_po.png" onClick={this.onClickGoHome.bind(this)}></img>
           </div>
     );
   }

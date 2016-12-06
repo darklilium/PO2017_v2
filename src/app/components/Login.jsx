@@ -21,8 +21,8 @@ class Login extends React.Component {
       errorTextLabel: 'Este campo es requerido',
       snackbarMessage: '',
       active: false,
-      username: 'vialactea\\ehernanr',
-      password: 'Chilquinta8'
+      username: '',
+      password: ''
 
     }
 
@@ -31,13 +31,13 @@ class Login extends React.Component {
      this.setState({...this.state, [name]: value});
   };
 
+
+
   handleKeyPress(target){
     if(target.charCode==13){
         this.onClickLogin();
     }
   }
-
-
 
   onClickLogin(){
 
@@ -45,7 +45,9 @@ class Login extends React.Component {
     if ( (_.isEmpty(this.state.username)) || (_.isEmpty(this.state.password)) ){
       //notifications('Login incorrecto, intente nuevamente.', 'Login_Error', '.notification-login');
       console.log("login incorrecto");
-      this.setState({snackbarMessage: 'Login Incorrecto', snackbaropen: true});
+      this.setState({snackbarMessage: 'Login Incorrecto. Ingrese usuario y password', snackbaropen: true});
+      this.handleClick();
+
       return;
     }else{
       console.log("login correcto pero..")
@@ -59,12 +61,9 @@ class Login extends React.Component {
           //  window.location.href = "interrupciones.html";
             browserHistory.push("chilquinta");
           }else{
-            this.setState({snackbarMessage: callback.message});
+            this.setState({snackbarMessage: "Login incorrecto. Trate nuevamente."});
             this.handleClick();
-
-
           }
-
         });
         return;
 
@@ -72,21 +71,16 @@ class Login extends React.Component {
         console.log("Trying to access REACT_INTERRUPCIONES_WEB");
         let userValue =  'vialactea\\'+this.state.username;
         login(userValue, this.state.password, 'REACT_INTERRUPCIONES_WEB', callback=>{
-            console.log("aa",callback);
+      
           if(!callback.error){
-
               browserHistory.push("chilquinta");
-            //window.location.href = "interrupciones.html";
           }else{
-            this.setState({snackbarMessage: callback.message});
+            this.setState({snackbarMessage: "Login incorrecto, intente nuevamente. " +callback.message});
             this.handleClick();
-
           }
-
         });
       }
     }
-
   }
 
   componentDidMount(){
@@ -102,10 +96,12 @@ class Login extends React.Component {
 
   handleSnackbarClick = () => {
      this.setState({active: false})
-   };
-   handleClick = () => {
+  };
+
+  handleClick = () => {
    this.setState({active: true})
   };
+
   render(){
 
     return (
@@ -113,8 +109,8 @@ class Login extends React.Component {
           <div className="login_wrapper_content">
             <div className="login_div">
             <img className="login_logo" src="dist/css/images/logo_po.png"></img>
-            <Input className="login_input" type='text' label='Usuario' name='name' icon="person" value={this.state.username} onChange={this.handleChange.bind(this, 'usuario')} />
-            <Input className="login_input" type='password' label='Contraseña' name='name' icon="lock" value={this.state.password} onChange={this.handleChange.bind(this, 'contraseña')} onKeyPress={this.handleKeyPress.bind(this)}  />
+            <Input className="login_input" type='text' label='Usuario' name='name' icon="person" value={this.state.username} onChange={this.handleChange.bind(this, 'username')} />
+            <Input className="login_input" type='password' label='Contraseña' name='name' icon="lock" value={this.state.password} onChange={this.handleChange.bind(this, 'password')} onKeyPress={this.handleKeyPress.bind(this)}  />
             <Button icon='power_settings_new' label='Login' raised primary className="login_button" onClick={this.onClickLogin.bind(this)} />
             </div>
             <Snackbar action='Aceptar' active={this.state.active} icon='error' label={this.state.snackbarMessage} onClick={this.handleSnackbarClick.bind(this)} onTimeout={this.handleSnackbarTimeout} type='cancel' />

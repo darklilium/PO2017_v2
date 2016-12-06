@@ -88,7 +88,7 @@ class Statistics extends React.Component {
       break;
       case 2:
         getStatisticsRegionPercentChilquinta((cb,cb2)=>{
-        
+
           if(cb!=false){
             makeBarsGraphic(cb,cb2, "containerChilquinta3", "% Clientes", "% Clientes", "Interrupciones por comuna.");
           }
@@ -182,12 +182,12 @@ class Statistics extends React.Component {
 
   render(){
     return (
-        <div>
+        <div className="estatisticas_wrapper_content">
           <h3 className="estadisticas_title_h3">ESTADÍSTICAS</h3>
           <section>
             <Tabs index={this.state.index} onChange={this.handleTabChange}>
 
-              <Tab label='Chilquinta'>
+              <Tab label='Chilquinta' className="estadisticas_mainTab_title">
                 <div className="wrapper_estadisticas_opciones">
                 <small>Seleccione una opción a visualizar</small>
                 <Button icon='file_download' label='Exportar' accent  onClick={this.onClickExportChilquinta.bind(this)}/>
@@ -212,7 +212,7 @@ class Statistics extends React.Component {
 
               </Tab>
 
-              <Tab label='Litoral'>
+              <Tab label='Litoral' className="estadisticas_mainTab_title">
                 <small>Seleccione una opción a visualizar</small>
                   <Tabs index={this.state.indexLitoral} onChange={this.handleTabChangeLitoral}>
                     <Tab label='Por Comuna'>
@@ -230,7 +230,7 @@ class Statistics extends React.Component {
                   </Tabs>
               </Tab>
 
-              <Tab label='Linares'>
+              <Tab label='Linares' className="estadisticas_mainTab_title">
               <small>Seleccione una opción a visualizar</small>
                 <Tabs index={this.state.indexLinares} onChange={this.handleTabChangeLinares}>
                   <Tab label='Por Comuna'>
@@ -248,7 +248,7 @@ class Statistics extends React.Component {
                 </Tabs>
               </Tab>
 
-              <Tab label='Parral'>
+              <Tab label='Parral' className="estadisticas_mainTab_title">
               <small>Seleccione una opción a visualizar</small>
                 <Tabs index={this.state.indexParral} onChange={this.handleTabChangeParral}>
                   <Tab label='Por Comuna'>
@@ -266,7 +266,7 @@ class Statistics extends React.Component {
                 </Tabs>
               </Tab>
 
-              <Tab label='Casablanca'>
+              <Tab label='Casablanca' className="estadisticas_mainTab_title">
               <small>Seleccione una opción a visualizar</small>
                 <Tabs index={this.state.indexCasablanca} onChange={this.handleTabChangeCasablanca}>
                   <Tab label='Por Comuna'>

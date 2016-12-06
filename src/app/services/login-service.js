@@ -1,16 +1,18 @@
 
-import myLayers from './layers-service';
+import myLayers from '../services/layers-service';
 import token from '../services/token-service';
 import createQueryTask from '../services/createquerytask-service';
 import cookieHandler from 'cookie-handler';
 import _ from 'lodash';
 import $ from 'jquery';
 
+
+
 //09/11
 function login(user, pass, app, callback){
   let snackbarRet;
 
-  const url = myLayers.read_generateTokenURL();
+  const url = "http://gisred.chilquinta.cl:5555/arcgis/tokens/generateToken";
   console.log("hola");
   const data = {
     username: user,
@@ -79,6 +81,7 @@ function login(user, pass, app, callback){
 
   console.log('Transaction for Login Access Done');
 }
+
 
 //09/11
 function interrupciones_login(page, tkn, user, callback){

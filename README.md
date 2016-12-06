@@ -1,6 +1,6 @@
-# react-toolbox-example
+# PO_2017_V2
 
-### Getting Started
-1. Clone this repository
-2. Run `npm install && npm start`
-3. Visit `0.0.0.0:8080` in your browser
+### Aplicación clientes interrumpidos
+1. Clientes interrumpidos online
+2. Estadísticas online
+3. CHQ y filiales.

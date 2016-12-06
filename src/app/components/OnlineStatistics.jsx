@@ -56,11 +56,11 @@ class OnlineStatistics extends React.Component {
           <div className="onlineStatistics_wrapper">
             <div className="vertical_hr"></div>
             <IconButton icon='home' inverse={ true }/>
-            <h6>DOM: {this.state.CLIEDOM}</h6>
+            <h6 className="onlineStatistics_h6_title">DOM: </h6><h6>{this.state.CLIEDOM}</h6>
             <IconButton icon='flash_on' inverse={ true }/>
-            <h6>RED: {this.state.CLIERED}</h6>
+            <h6 className="onlineStatistics_h6_title">RED: </h6><h6>{this.state.CLIERED}</h6>
             <IconButton icon='equalizer' inverse={ true }/>
-            <h6>TOTAL: {this.state.TOTALQTTY}</h6>
+            <h6 className="onlineStatistics_h6_title">TOTAL: </h6><h6>{this.state.TOTALQTTY}</h6>
             <div className="vertical_hr"></div>
           </div>
     );
