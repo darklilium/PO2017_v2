@@ -24,6 +24,8 @@ import {Snackbar} from 'react-toolbox';
 import $ from 'jquery';
 import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLayer';
 import myLayers from '../services/layers-service';
+import ProgressBar from 'react-toolbox/lib/progress_bar';
+import Popup from 'esri/dijit/Popup';
 
 var options = [
     { value: 'NIS', label: 'NIS' },
@@ -64,7 +66,7 @@ class DrawerTest extends React.Component {
   }
 
   handleCheckboxChange = (e) => {
-  var mapp = mymap.getMap();
+    var mapp = mymap.getMap();
     switch (e) {
       case 'SSEE':
         this.setState({checkbox: !this.state.checkbox});
@@ -152,7 +154,7 @@ class DrawerTest extends React.Component {
   onClickBusqueda(){
     var mapp = mymap.getMap();
     console.log("Buscando para:",this.state.tipoBusqueda);
-
+    $('.drawer_progressBar').css('visibility','visible');
 
     switch (this.state.tipoBusqueda) {
 
@@ -163,10 +165,7 @@ class DrawerTest extends React.Component {
           this.handleToggle();
           this.setState({snackbarMessage: nisFound[2], activeSnackbar: true, snackbarIcon: nisFound[3] });
           $('.theme__icon___4OQx3').css('color',nisFound[4]);
-          mapp.infoWindow.on('hide', function(){
-          mapp.graphics.clear();
-          });
-
+          $('.drawer_progressBar').css('visibility','hidden');
         });
       break;
 
@@ -177,9 +176,7 @@ class DrawerTest extends React.Component {
           this.handleToggle();
           this.setState({snackbarMessage: incidenciaFound[2], activeSnackbar: true, snackbarIcon: incidenciaFound[3] });
           $('.theme__icon___4OQx3').css('color',incidenciaFound[4]);
-          mapp.infoWindow.on('hide', function(){
-          mapp.graphics.clear();
-          });
+          $('.drawer_progressBar').css('visibility','hidden');
 
         });
       break;
@@ -191,9 +188,8 @@ class DrawerTest extends React.Component {
           this.handleToggle();
           this.setState({snackbarMessage: orderFound[2], activeSnackbar: true, snackbarIcon: orderFound[3] });
           $('.theme__icon___4OQx3').css('color',orderFound[4]);
-          mapp.infoWindow.on('hide', function(){
-          mapp.graphics.clear();
-          });
+          $('.drawer_progressBar').css('visibility','hidden');
+
 
         });
       break;
@@ -205,9 +201,8 @@ class DrawerTest extends React.Component {
           this.handleToggle();
           this.setState({snackbarMessage: sedFound[2], activeSnackbar: true, snackbarIcon: sedFound[3] });
           $('.theme__icon___4OQx3').css('color',sedFound[4]);
-          mapp.infoWindow.on('hide', function(){
-          mapp.graphics.clear();
-          });
+          $('.drawer_progressBar').css('visibility','hidden');
+
 
         });
         break;
@@ -217,7 +212,14 @@ class DrawerTest extends React.Component {
   }
 
   handleSnackbarClick = () => {
-     this.setState({activeSnackbar: false})
+    this.setState({activeSnackbar: false});
+
+    var mapp = mymap.getMap();
+
+    if(!_.isEmpty(mapp)){
+      mapp.graphics.clear();
+      mapp.infoWindow.hide();
+    }
   };
 
   onClickLimpiarBusqueda(){
@@ -228,16 +230,18 @@ class DrawerTest extends React.Component {
   }
 
   handleRadioMapas(mapaNow) {
+
     var mapp = mymap.getMap();
-    this.setState({mapSelected: mapaNow});
+    $('.drawer_progressBar').css('visibility','visible');
+      this.setState({mapSelected: mapaNow});
+      mapp.on('basemap-change',(basemapChange)=>{
+        
+        $('.drawer_progressBar').css('visibility','hidden');
+      });
     if(mapaNow!='chilquinta'){
       mapp.setBasemap(mapaNow);
+      $('.drawer_progressBar').css('visibility','hidden');
     }
-    /*else{
-      var baseMapLayer = new ArcGISDynamicMapServiceLayer(myLayers.read_mapabase(),{id:"CHQBasemap"});
-      mapp.addLayer(baseMapLayer);
-    }
-    */
 
   };
 
@@ -272,7 +276,9 @@ class DrawerTest extends React.Component {
             <div className="drawer_buttonsContent">
               <Button className="drawer_button" icon='search' label='Buscar' raised primary onClick={this.onClickBusqueda.bind(this)} />
               <Button icon='delete_sweep' label='Limpiar Búsqueda' raised primary onClick={this.onClickLimpiarBusqueda.bind(this)} />
+              <ProgressBar type="circular" mode="indeterminate" className="drawer_progressBar" />
             </div>
+
           </div>
         </Drawer>
 
@@ -285,7 +291,9 @@ class DrawerTest extends React.Component {
           <RadioGroup className="drawer_radiogroup" name='mapSelector' value={this.state.mapSelected} onChange={this.handleRadioMapas.bind(this)}>
             <RadioButton label='Topográfico' value='topo'/>
             <RadioButton label='Híbrido' value='hybrid'/>
+
           </RadioGroup>
+          <ProgressBar type="circular" mode="indeterminate" className="drawer_progressBar" />
         </Drawer>
 
         <Drawer active={this.state.active3} onOverlayClick={this.handleToggle3}>

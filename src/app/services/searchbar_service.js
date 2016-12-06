@@ -6,6 +6,7 @@ import {makeInfowindowPerSEDInterrupted} from '../utils/makeInfowindow';
 import {makeInfowindowPerNisInfo} from '../utils/makeInfowindow';
 import createQueryTask from '../services/createquerytask-service';
 import {notifications} from '../utils/notifications';
+import _ from 'lodash';
 
 function searchBar_NIS(nis, callback){
   var service = createQueryTask({
@@ -14,7 +15,10 @@ function searchBar_NIS(nis, callback){
   });
 
   service((map, featureSet) => {
-    map.graphics.clear();
+    if(!_.isEmpty(map)){
+      map.graphics.clear();
+    }
+
     //if NIS is in the layer for isolated orders
     let pointSymbol = makeSymbol.makePoint();
     if (featureSet.features.length != 0){
@@ -35,7 +39,7 @@ function searchBar_NIS(nis, callback){
             outFields: [`resp_id_sed, nm_tarifa, categoria, direccion_resu`]
           });
           serviceSED((map,featureSet) => {
-            map.graphics.clear();
+
 
             if(!featureSet.features.length){
               let message = "NIS: " + nis + " no tiene sed";
@@ -68,10 +72,14 @@ function searchBar_NIS(nis, callback){
               etr:ETR
             };
 
-            makeInfowindow(myNis,myOrder,myIncidence,sed, attribute.geometry, 0, address, ETR );
+            if(!_.isEmpty(map)){
+              map.graphics.clear();
+              makeInfowindow(myNis,myOrder,myIncidence,sed, attribute.geometry, 0, address, ETR );
 
-            map.graphics.add(new esri.Graphic(attribute.geometry,pointSymbol));
-            map.centerAndZoom(attribute.geometry,20);
+              map.graphics.add(new esri.Graphic(attribute.geometry,pointSymbol));
+              map.centerAndZoom(attribute.geometry,20);
+            }
+
             return callback([true,thisValues,"NIS: "+ myNis+" presente en interrupción.","home","greenyellow"]);
           //  let message = 'NIS: '+ nis + ' presente en interrupción';
           //  notifications(message, "Searchbar_Isolated", ".searchbar__notifications");
@@ -128,7 +136,9 @@ function searchMassive(sed, nis, address, nisgeom, callback){
   });
 
   serviceSearchMassive((map,featureSet)=>{
-    map.graphics.clear();
+    if(!_.isEmpty(map)){
+      map.graphics.clear();
+    }
 
       if(!featureSet.features.length) {
         //if the nis is not in the SED interruption orders, the nis doesnt have any problem.
@@ -137,9 +147,12 @@ function searchMassive(sed, nis, address, nisgeom, callback){
         let type = "Searchbar_NIS_Without_Problems";
         notifications(message, type, ".searchbar__notifications");
         let pointSymbol = makeSymbol.makePoint();
-        map.graphics.add(new esri.Graphic(nisgeom,pointSymbol));
-        map.centerAndZoom(nisgeom,20);
-        makeInfowindowPerNisInfo(nis,sed, nisgeom,address);
+
+        if(!_.isEmpty(map)){
+          map.graphics.add(new esri.Graphic(nisgeom,pointSymbol));
+          map.centerAndZoom(nisgeom,20);
+          makeInfowindowPerNisInfo(nis,sed, nisgeom,address);
+        }
 
         return callback([false,[],message,'done',"greenyellow"]);
       }
@@ -157,9 +170,12 @@ function searchMassive(sed, nis, address, nisgeom, callback){
         let myOrder = attr.attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden'];
         let myIncidence = attr.attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_incidencia'];
 
-        makeInfowindow(nis,myOrder,myIncidence,sed, nisgeom, 0, address);
-        map.graphics.add(new esri.Graphic(nisgeom,pointSymbol));
-        map.centerAndZoom(nisgeom,20);
+        if(!_.isEmpty(map)){
+          makeInfowindow(nis,myOrder,myIncidence,sed, nisgeom, 0, address);
+          map.graphics.add(new esri.Graphic(nisgeom,pointSymbol));
+          map.centerAndZoom(nisgeom,20);
+        }
+
         return callback([true,[],message,'flash_on',"greenyellow"]);
       });
 
@@ -197,9 +213,13 @@ function searchBar_Order(order_id, callback){
       return feature.geometry;
     });
     console.log("Resultados encontrados:",myresults);
-    let pointSymbol = makeSymbol.makePoint();
-    map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
-    map.centerAndZoom(myresults[0],20);
+    if(!_.isEmpty(map)){
+      map.graphics.clear();
+      let pointSymbol = makeSymbol.makePoint();
+      map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
+      map.centerAndZoom(myresults[0],20);
+    }
+
     let message = "ID Orden: " + order_id + " presente en interrupción";
     let type = "Searchbar_Isolated";
     return callback([true,myresults,message,"home","greenyellow"])
@@ -232,12 +252,14 @@ function searchMassiveOrder(order_id, callback){
     let myresults = featureSet.features.map((feature)=>{
       return feature;
     });
+    if(!_.isEmpty(map)){
+      let pointSymbol = makeSymbol.makePoint();
+        myresults.forEach((attr)=>{
+          map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
+          map.centerAndZoom(attr.geometry,20);
+        });
+    }
 
-    let pointSymbol = makeSymbol.makePoint();
-      myresults.forEach((attr)=>{
-        map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
-        map.centerAndZoom(attr.geometry,20);
-      });
       let message = "ID Orden: " + order_id + " presente en interrupción";
       let type = "Searchbar_Massive";
       return callback([true,[],message,'flash_on',"greenyellow"]);
@@ -273,10 +295,12 @@ function searchBar_Incidence(incidence_id, callback){
     let myresults = featureSet.features.map((feature)=>{
       return feature.geometry;
     });
+    if(!_.isEmpty(map)){
+      let pointSymbol = makeSymbol.makePoint();
+      map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
+      map.centerAndZoom(myresults[0],15);
+    }
 
-    let pointSymbol = makeSymbol.makePoint();
-    map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
-    map.centerAndZoom(myresults[0],15);
     let message = "ID Incidencia: " + incidence_id + " presente en interrupción";
     let type = "Searchbar_Isolated";
     //notifications(message, type, ".searchbar__notifications");
@@ -309,12 +333,14 @@ function searchMassiveIncidence(incidence_id, callback){
     let myresults = featureSet.features.map((feature)=>{
       return feature;
     });
+      if(!_.isEmpty(map)){
+        let pointSymbol = makeSymbol.makePoint();
+        myresults.forEach((attr)=>{
+          map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
+          map.centerAndZoom(attr.geometry,15);
+        });
+      }
 
-    let pointSymbol = makeSymbol.makePoint();
-      myresults.forEach((attr)=>{
-        map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
-        map.centerAndZoom(attr.geometry,15);
-      });
       let message = "ID Incidencia: " + incidence_id + " presente en interrupción";
       let type = "Searchbar_Massive";
       return callback([true,[],message,'flash_on',"greenyellow"]);
@@ -357,21 +383,23 @@ function searchBar_SED(sed, callback){
     let myresults = featureSet.features.map((feature)=>{
       return feature;
     });
+      if(!_.isEmpty(map)){
+        let pointSymbol = makeSymbol.makePoint();
+        myresults.forEach((attribute)=>{
+          map.graphics.add(new esri.Graphic(attribute.geometry,pointSymbol));
+          map.centerAndZoom(attribute.geometry,15);
+          //console.log(attr.attributes['nombre']);
+          makeInfowindowPerSEDInterrupted(sed,
+                                          attribute.geometry,
+                                          attribute.attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden'],
+                                          attribute.attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_incidencia'],
+                                          attribute.attributes['ARCGIS.DBO.SED_006.alimentador'],
+                                          attribute.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.comentario'],
+                                          attribute.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa']);
 
-    let pointSymbol = makeSymbol.makePoint();
-    myresults.forEach((attribute)=>{
-      map.graphics.add(new esri.Graphic(attribute.geometry,pointSymbol));
-      map.centerAndZoom(attribute.geometry,15);
-      //console.log(attr.attributes['nombre']);
-      makeInfowindowPerSEDInterrupted(sed,
-                                      attribute.geometry,
-                                      attribute.attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden'],
-                                      attribute.attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_incidencia'],
-                                      attribute.attributes['ARCGIS.DBO.SED_006.alimentador'],
-                                      attribute.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.comentario'],
-                                      attribute.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa']);
+        });
+      }
 
-    });
       return callback([true,[],message,'flash_on',"greenyellow"]);
 //sed, point, order_id, incident_id, alimentador, cause,commentary
   },(errorSearchSed)=>{
@@ -401,15 +429,17 @@ function sedLocation(sed, callback){
       let myresults = featureSet.features.map((feature)=>{
         return feature;
       });
+      if(!_.isEmpty(map)){
+        let pointSymbol = makeSymbol.makePoint();
+          myresults.forEach((attr)=>{
+            map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
+            map.centerAndZoom(attr.geometry,15);
+            console.log(attr.attributes['nombre']);
+            makeInfowindowPerSED(sed, attr.geometry, attr.attributes['nombre'],
+                                attr.attributes['comuna'], attr.attributes['alimentador'], attr.attributes['propiedad']);
+          });
+      }
 
-      let pointSymbol = makeSymbol.makePoint();
-        myresults.forEach((attr)=>{
-          map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
-          map.centerAndZoom(attr.geometry,15);
-          console.log(attr.attributes['nombre']);
-          makeInfowindowPerSED(sed, attr.geometry, attr.attributes['nombre'],
-                              attr.attributes['comuna'], attr.attributes['alimentador'], attr.attributes['propiedad']);
-        });
         let message = "SED " + sed + " no presenta problemas";
         return callback([true,[],message,'flash_on',"greenyellow"]);
   });

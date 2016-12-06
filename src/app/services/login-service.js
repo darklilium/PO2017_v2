@@ -24,7 +24,7 @@ function login(user, pass, app, callback){
 
   $.ajax({
     method: 'POST',
-    url: url,
+    url: "http://gisred.chilquinta.cl:5555/arcgis/tokens/generateToken",
     data: data,
     dataType: 'html'
   })

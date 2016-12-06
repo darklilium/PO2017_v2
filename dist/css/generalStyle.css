@@ -187,6 +187,8 @@ html, body, #app, #map { height: 100%; margin: 0; padding: 0; }
 
 .theme__inputElement___2akQt { border-bottom: 1px solid white; color: #ffffff; }
 
+.drawer_progressBar { display: flex; justify-content: center; width: 100%; align-items: center; margin-top: 1em; visibility: hidden; }
+
 @media screen and (max-width: 600px) and (orientation: portrait) { .login_input { width: 50%; }
   .login_div { flex-direction: column; }
   .login_logo { width: 45%; }
@@ -194,7 +196,7 @@ html, body, #app, #map { height: 100%; margin: 0; padding: 0; }
   .theme__inputElement___2akQt { font-size: 12px; } }
 
 @media screen and (max-width: 640px) and (orientation: landscape) { .login_input { width: 40%; }
-  .login_div { flex-direction: column; }
+  .login_div { flex-direction: column; padding-top: 0.3em; }
   .login_logo { width: 20%; }
   .login_button { width: 45%; } }
 
