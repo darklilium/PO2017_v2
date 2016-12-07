@@ -26,6 +26,7 @@ import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLay
 import myLayers from '../services/layers-service';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import Popup from 'esri/dijit/Popup';
+import {foo} from "./OnlineStatistics.jsx";
 
 var options = [
     { value: 'NIS', label: 'NIS' },
@@ -62,6 +63,7 @@ class DrawerTest extends React.Component {
   };
 
   handleLogout(){
+  
     browserHistory.push("/");
   }
 
@@ -235,7 +237,7 @@ class DrawerTest extends React.Component {
     $('.drawer_progressBar').css('visibility','visible');
       this.setState({mapSelected: mapaNow});
       mapp.on('basemap-change',(basemapChange)=>{
-        
+
         $('.drawer_progressBar').css('visibility','hidden');
       });
     if(mapaNow!='chilquinta'){

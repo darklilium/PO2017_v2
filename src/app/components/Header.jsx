@@ -13,6 +13,10 @@ import {OnlineStatistics} from "./OnlineStatistics.jsx";
 import {WidgetsMenu} from './WidgetsMenu.jsx';
 
 class Header extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
 
   render() {
     return (

@@ -27,6 +27,11 @@ class Login extends React.Component {
     }
 
   }
+
+  componentWillReceiveProps(newState){
+    console.log("en login",newState);
+
+  }
   handleChange = (name, value) => {
      this.setState({...this.state, [name]: value});
   };
@@ -71,7 +76,7 @@ class Login extends React.Component {
         console.log("Trying to access REACT_INTERRUPCIONES_WEB");
         let userValue =  'vialactea\\'+this.state.username;
         login(userValue, this.state.password, 'REACT_INTERRUPCIONES_WEB', callback=>{
-      
+
           if(!callback.error){
               browserHistory.push("chilquinta");
           }else{

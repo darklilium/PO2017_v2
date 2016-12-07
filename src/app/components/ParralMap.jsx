@@ -17,10 +17,10 @@ class ParralMap extends React.Component {
           center: [-71.2905, -33.1009], // longitude, latitude
           zoom: 9});
   */
-  var mapp = mymap.createMap("map","topo",-71.901871 ,-35.49456,9);
+  var mapp = mymap.createMap("map","topo",-71.8337, -36.1558,11);
 
   //agregando layer clientes sed.
-  var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED(),{id:"po_interrupciones"});
+/*  var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED(),{id:"po_interrupciones"});
     interrClienteSED.setInfoTemplates({
       3: {infoTemplate: myinfotemplate.getNisInfo()},
       1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
@@ -36,7 +36,7 @@ class ParralMap extends React.Component {
     });
 
     mapp.addLayer(interrClienteSED);
-
+*/
   }
 
 

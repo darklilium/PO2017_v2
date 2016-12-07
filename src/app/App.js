@@ -18,6 +18,10 @@ import ParralMap from './components/ParralMap.jsx';
 import CasablancaMap from './components/CasablancaMap.jsx';
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  
 
   render() {
     return (
