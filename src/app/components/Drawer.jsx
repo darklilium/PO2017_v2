@@ -27,6 +27,7 @@ import myLayers from '../services/layers-service';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import Popup from 'esri/dijit/Popup';
 import {foo} from "./OnlineStatistics.jsx";
+import VETiledLayer from 'esri/virtualearth/VETiledLayer';
 
 var options = [
     { value: 'NIS', label: 'NIS' },
@@ -63,7 +64,7 @@ class DrawerTest extends React.Component {
   };
 
   handleLogout(){
-  
+
     browserHistory.push("/");
   }
 
@@ -124,7 +125,6 @@ class DrawerTest extends React.Component {
 
     }
   };
-
 
   handleChange = (name, value) => {
    this.setState({...this.state, [name]: value});
@@ -235,14 +235,159 @@ class DrawerTest extends React.Component {
 
     var mapp = mymap.getMap();
     $('.drawer_progressBar').css('visibility','visible');
-      this.setState({mapSelected: mapaNow});
+    this.setState({mapSelected: mapaNow});
       mapp.on('basemap-change',(basemapChange)=>{
-
         $('.drawer_progressBar').css('visibility','hidden');
       });
-    if(mapaNow!='chilquinta'){
-      mapp.setBasemap(mapaNow);
-      $('.drawer_progressBar').css('visibility','hidden');
+
+    /*
+        if(mapaNow!='chilquinta'){
+          mapp.setBasemap(mapaNow);
+          $('.drawer_progressBar').css('visibility','hidden');
+        }
+    */
+
+    var veTileRoad = new VETiledLayer({
+      bingMapsKey: "Asrn2IMtRwnOdIRPf-7q30XVUrZuOK7K2tzhCACMg7QZbJ4EPsOcLk6mE9-sNvUe",
+      mapStyle: VETiledLayer.MAP_STYLE_ROAD,
+      id:"veroad"
+    });
+
+    var veTileAerial = new VETiledLayer({
+      bingMapsKey: "Asrn2IMtRwnOdIRPf-7q30XVUrZuOK7K2tzhCACMg7QZbJ4EPsOcLk6mE9-sNvUe",
+      mapStyle: VETiledLayer.MAP_STYLE_AERIAL,
+      id:"veaerial"
+    });
+
+    var veTileWithLabels = new VETiledLayer({
+      bingMapsKey: "Asrn2IMtRwnOdIRPf-7q30XVUrZuOK7K2tzhCACMg7QZbJ4EPsOcLk6mE9-sNvUe",
+      mapStyle: VETiledLayer.MAP_STYLE_AERIAL_WITH_LABELS,
+      id:"velabels"
+    });
+
+    switch (mapaNow) {
+      case 'topo':
+        mapp.setBasemap(mapaNow);
+        //desabilitar ve tiled layers (bing maps)
+        if(mapp.getLayer("veroad")){
+          console.log("habilitado veroad");
+          mapp.removeLayer(mapp.getLayer("veroad"));
+        }
+
+        if(mapp.getLayer("veaerial")){
+          console.log("habilitado veaerial");
+          mapp.removeLayer(mapp.getLayer("veaerial"));
+        }
+
+        if(mapp.getLayer("velabels")){
+          console.log("habilitado velabels");
+          mapp.removeLayer(mapp.getLayer("velabels"));
+        }
+
+        $('.drawer_progressBar').css('visibility','hidden');
+      break;
+
+      case 'hybrid':
+        mapp.setBasemap(mapaNow);
+        //desabilitar ve tiled layers (bing maps)
+        if(mapp.getLayer("veroad")){
+          console.log("habilitado veroad");
+          mapp.removeLayer(mapp.getLayer("veroad"));
+        }
+
+        if(mapp.getLayer("veaerial")){
+          console.log("habilitado veaerial");
+          mapp.removeLayer(mapp.getLayer("veaerial"));
+        }
+
+        if(mapp.getLayer("velabels")){
+          console.log("habilitado velabels");
+          mapp.removeLayer(mapp.getLayer("velabels"));
+        }
+
+        $('.drawer_progressBar').css('visibility','hidden');
+      break;
+      //bing map: satelite
+      case 'calles':
+
+        //desabilitar ve tiled layers (bing maps)
+        if(mapp.getLayer("veroad")){
+          console.log("habilitado veroad");
+          mapp.removeLayer(mapp.getLayer("veroad"));
+        }
+
+        if(mapp.getLayer("veaerial")){
+          console.log("habilitado veaerial");
+          mapp.removeLayer(mapp.getLayer("veaerial"));
+        }
+
+        if(mapp.getLayer("velabels")){
+          console.log("habilitado velabels");
+          mapp.removeLayer(mapp.getLayer("velabels"));
+        }
+
+        if(this.state.mapSelected=='hybrid'){
+            console.log("habilitado hybrid");
+            mapp.setBasemap('topo');
+        }
+
+        mapp.addLayer(veTileRoad,1);
+
+        $('.drawer_progressBar').css('visibility','hidden');
+      break;
+
+      case 'satelite':
+
+        if(mapp.getLayer("veroad")){
+          console.log("habilitado veroad");
+          mapp.removeLayer(mapp.getLayer("veroad"));
+        }
+
+        if(mapp.getLayer("veaerial")){
+          console.log("habilitado veaerial");
+          mapp.removeLayer(mapp.getLayer("veaerial"));
+        }
+
+        if(mapp.getLayer("velabels")){
+          console.log("habilitado velabels");
+          mapp.removeLayer(mapp.getLayer("velabels"));
+        }
+        if(this.state.mapSelected=='hybrid'){
+            console.log("habilitado hybrid");
+            mapp.setBasemap('topo');
+        }
+
+        mapp.addLayer(veTileAerial,1);
+
+        $('.drawer_progressBar').css('visibility','hidden');
+      break;
+
+      case 'satelitewithlabels':
+
+        if(mapp.getLayer("veroad")){
+          console.log("habilitado veroad");
+          mapp.removeLayer(mapp.getLayer("veroad"));
+        }
+
+        if(mapp.getLayer("veaerial")){
+          console.log("habilitado veaerial");
+          mapp.removeLayer(mapp.getLayer("veaerial"));
+        }
+
+        if(mapp.getLayer("velabels")){
+          console.log("habilitado velabels");
+          mapp.removeLayer(mapp.getLayer("velabels"));
+        }
+        if(this.state.mapSelected=='hybrid'){
+            console.log("habilitado hybrid");
+            mapp.setBasemap('topo');
+        }
+
+        mapp.addLayer(veTileWithLabels,1);
+        $('.drawer_progressBar').css('visibility','hidden');
+      break;
+      default:
+
     }
 
   };
@@ -280,7 +425,6 @@ class DrawerTest extends React.Component {
               <Button icon='delete_sweep' label='Limpiar Búsqueda' raised primary onClick={this.onClickLimpiarBusqueda.bind(this)} />
               <ProgressBar type="circular" mode="indeterminate" className="drawer_progressBar" />
             </div>
-
           </div>
         </Drawer>
 
@@ -293,6 +437,9 @@ class DrawerTest extends React.Component {
           <RadioGroup className="drawer_radiogroup" name='mapSelector' value={this.state.mapSelected} onChange={this.handleRadioMapas.bind(this)}>
             <RadioButton label='Topográfico' value='topo'/>
             <RadioButton label='Híbrido' value='hybrid'/>
+            <RadioButton label='Aéreo' value='satelite'/>
+            <RadioButton label='Aéreo con Etiquetas' value='satelitewithlabels'/>
+            <RadioButton label='Caminos' value='calles'/>
 
           </RadioGroup>
           <ProgressBar type="circular" mode="indeterminate" className="drawer_progressBar" />
