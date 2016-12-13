@@ -121,9 +121,9 @@ class OnlineStatistics extends React.Component {
         case '/statistics':
           console.log("desde statistics currentTotal");
           this.setState({
-                  CLIEDOM: 0,
-                  CLIERED: 0,
-                  TOTALQTTY: 0
+                  CLIEDOM: "--",
+                  CLIERED: "--",
+                  TOTALQTTY: "--"
                 });
         break
         case '/':
