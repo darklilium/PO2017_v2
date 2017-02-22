@@ -217,6 +217,13 @@ background-color: #007bf7;
   margin-top: 1em;
   visibility: hidden;
 }
+
+//drawer
+.drawer_medidores{
+  width: 40% !important;
+}
+
+
 //LOGIN MEDIAS
 @media screen and (max-width: 600px) and (orientation: portrait){
   .login_input {

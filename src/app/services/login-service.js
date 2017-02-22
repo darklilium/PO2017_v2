@@ -6,7 +6,8 @@ import cookieHandler from 'cookie-handler';
 import _ from 'lodash';
 import $ from 'jquery';
 
-
+//22:02/2017 : adding config
+import env from '../services/config';
 
 //09/11
 function login(user, pass, app, callback){
@@ -31,17 +32,19 @@ function login(user, pass, app, callback){
   .done(myToken => {
     if(myToken.indexOf('Exception') >= 0) {
       notifications('Login incorrecto, intente nuevamente.', 'Login_Error', '.notification-login');
+      console.log("error1");
       return;
     }
     if (myToken.indexOf('error') >= 0){
       notifications('Login incorrecto, intente nuevamente.', 'Login_Error', '.notification-login');
+        console.log("error2");
       return;
     }
 
 
     switch (app) {
-      case 'REACT_INTERRUPCIONES_WEB':
-        interrupciones_login(app+'_DESA', myToken, user, (cback)=>{
+      case env.SAVEAPPLICATIONNAME:
+        interrupciones_login(app, myToken, user, (cback)=>{
           if(cback){
             snackbarRet = {
               message: "Iniciando Sesión",
@@ -60,6 +63,10 @@ function login(user, pass, app, callback){
 
         });
       break;
+
+
+
+
 
       case 'REACT_FACTIGIS':
           return callback();
@@ -87,7 +94,7 @@ function login(user, pass, app, callback){
 function interrupciones_login(page, tkn, user, callback){
   console.log('Requesting service access..., logging in to gisred-interruptions');
   token.write(tkn);
-  const module = "PO_INTERRUPCIONES_DESA";
+  const module = env.SAVEAPPLICATIONMODULE;
 
   saveLogin(user,page,module,tkn, (cb)=>{
     if(cb){

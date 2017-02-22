@@ -189,6 +189,8 @@ html, body, #app, #map { height: 100%; margin: 0; padding: 0; }
 
 .drawer_progressBar { display: flex; justify-content: center; width: 100%; align-items: center; margin-top: 1em; visibility: hidden; }
 
+.drawer_medidores { width: 40% !important; }
+
 @media screen and (max-width: 600px) and (orientation: portrait) { .login_input { width: 50%; }
   .login_div { flex-direction: column; }
   .login_logo { width: 45%; }
