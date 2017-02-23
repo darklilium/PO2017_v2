@@ -11,6 +11,7 @@ import {Link} from "react-router";
 
 import layers from '../services/layers-service';
 import createQueryTask from '../services/createquerytask-service';
+import env from '../services/config';
 
 var foo;
 
@@ -28,7 +29,7 @@ class OnlineStatistics extends React.Component {
     this.currentTotal();
     foo = function(){
               console.log("desde constr ",browserHistory.getCurrentLocation().pathname);
-              if(browserHistory.getCurrentLocation().pathname=='/'){
+              if(browserHistory.getCurrentLocation().pathname==env.ROOT){
                 clearTimeout(foo);
               }else{
                 console.log("updating ");
@@ -64,75 +65,151 @@ class OnlineStatistics extends React.Component {
 
 
   currentTotal(){
-    switch (browserHistory.getCurrentLocation().pathname) {
-      case '/chilquinta':
-        console.log("desde chilquinta currentTotal");
-        var serviceCurrTotal = createQueryTask({
-          url: layers.read_layer_countTotal(),
-          whereClause: "1=1"
-        });
+    console.log(browserHistory.getCurrentLocation().pathname, "mypath");
 
-        serviceCurrTotal((map,featureSet)=>{
-          this.setState({
-            CLIEDOM: featureSet.features[1].attributes['CANTIDAD'],
-            CLIERED: featureSet.features[0].attributes['CANTIDAD'],
-            TOTALQTTY: featureSet.features[2].attributes['CANTIDAD']
+    if(env.ENVIRONMENT=='DEVELOPMENT'){
+      switch (browserHistory.getCurrentLocation().pathname) {
+        case '/chilquinta':
+          console.log("desde chilquinta currentTotal");
+          var serviceCurrTotal = createQueryTask({
+            url: layers.read_layer_countTotal(),
+            whereClause: "1=1"
           });
 
-        },(errorCount) => {console.log("error getting the current total");});
-        break;
+          serviceCurrTotal((map,featureSet)=>{
+            this.setState({
+              CLIEDOM: featureSet.features[1].attributes['CANTIDAD'],
+              CLIERED: featureSet.features[0].attributes['CANTIDAD'],
+              TOTALQTTY: featureSet.features[2].attributes['CANTIDAD']
+            });
 
-        case '/casablanca':
-          console.log("desde currentTotal casablanca");
-        this.setState({
-          CLIEDOM: 0,
-          CLIERED: 0,
-          TOTALQTTY: 0
-        });
-          break
+          },(errorCount) => {console.log("error getting the current total");});
+          break;
 
-        case '/litoral':
-          console.log("desde litoral currentTotal");
+          case '/casablanca':
+            console.log("desde currentTotal casablanca");
           this.setState({
             CLIEDOM: 0,
             CLIERED: 0,
             TOTALQTTY: 0
           });
-        break
+            break
 
-        case '/linares':
-          console.log("desde linares currentTotal");
+          case '/litoral':
+            console.log("desde litoral currentTotal");
             this.setState({
               CLIEDOM: 0,
               CLIERED: 0,
               TOTALQTTY: 0
             });
-        break
+          break
 
-        case '/parral':
-          console.log("desde parral currentTotal");
+          case '/linares':
+            console.log("desde linares currentTotal");
+              this.setState({
+                CLIEDOM: 0,
+                CLIERED: 0,
+                TOTALQTTY: 0
+              });
+          break
+
+          case '/parral':
+            console.log("desde parral currentTotal");
+            this.setState({
+              CLIEDOM: 0,
+              CLIERED: 0,
+              TOTALQTTY: 0
+                });
+          break
+
+          case '/statistics':
+            console.log("desde statistics currentTotal");
+            this.setState({
+                    CLIEDOM: "--",
+                    CLIERED: "--",
+                    TOTALQTTY: "--"
+                  });
+          break
+          case '/':
+
+          this.clear('asd','x');
+
+          break
+        default:
+      }
+    //es produccion:
+
+    }else{
+      console.log(browserHistory.getCurrentLocation().pathname, "mypath2", env.ROOT+'chilquinta', "myswitchprod")
+      switch (browserHistory.getCurrentLocation().pathname) {
+        case "/"+env.ROOT+'chilquinta':
+          console.log("desde chilquinta currentTotal");
+          var serviceCurrTotal = createQueryTask({
+            url: layers.read_layer_countTotal(),
+            whereClause: "1=1"
+          });
+
+          serviceCurrTotal((map,featureSet)=>{
+            this.setState({
+              CLIEDOM: featureSet.features[1].attributes['CANTIDAD'],
+              CLIERED: featureSet.features[0].attributes['CANTIDAD'],
+              TOTALQTTY: featureSet.features[2].attributes['CANTIDAD']
+            });
+
+          },(errorCount) => {console.log("error getting the current total");});
+          break;
+
+          case  "/"+ env.ROOT+'casablanca':
+            console.log("desde currentTotal casablanca");
           this.setState({
             CLIEDOM: 0,
             CLIERED: 0,
             TOTALQTTY: 0
+          });
+            break
+
+          case  "/"+ env.ROOT+'litoral':
+            console.log("desde litoral currentTotal");
+            this.setState({
+              CLIEDOM: 0,
+              CLIERED: 0,
+              TOTALQTTY: 0
+            });
+          break
+
+          case "/"+ env.ROOT+'linares':
+            console.log("desde linares currentTotal");
+              this.setState({
+                CLIEDOM: 0,
+                CLIERED: 0,
+                TOTALQTTY: 0
               });
-        break
+          break
 
-        case '/statistics':
-          console.log("desde statistics currentTotal");
-          this.setState({
-                  CLIEDOM: "--",
-                  CLIERED: "--",
-                  TOTALQTTY: "--"
+          case  "/"+ env.ROOT+'parral':
+            console.log("desde parral currentTotal");
+            this.setState({
+              CLIEDOM: 0,
+              CLIERED: 0,
+              TOTALQTTY: 0
                 });
-        break
-        case '/':
+          break
 
-        this.clear('asd','x');
-
-        break
-      default:
+          case "/"+ env.ROOT+'statistics':
+            console.log("desde statistics currentTotal");
+            this.setState({
+                    CLIEDOM: "--",
+                    CLIERED: "--",
+                    TOTALQTTY: "--"
+                  });
+          break
+          case "/"+ env.ROOT:
+            this.clear('asd','x');
+            break
+        default:
+      }
     }
+
 
 
   }

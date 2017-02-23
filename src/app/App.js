@@ -16,19 +16,20 @@ import LinaresMap from './components/LinaresMap.jsx';
 import LitoralMap from './components/LitoralMap.jsx';
 import ParralMap from './components/ParralMap.jsx';
 import CasablancaMap from './components/CasablancaMap.jsx';
+import env from './services/config';
 
 class App extends React.Component {
   constructor(props){
     super(props);
   }
-  
+
 
   render() {
     return (
 
       <Router history={browserHistory}>
         <Route component= {MainLayout}>
-          <Route path ="/" component={Login}/>
+          <Route path ={env.ROOT} component={Login}/>
           <Route component={HomeLayout}>
             <Route path={"chilquinta"} component={ChilquintaMap}></Route>
             <Route path={"casablanca"} component={CasablancaMap}></Route>

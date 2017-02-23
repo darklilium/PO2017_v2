@@ -28,6 +28,7 @@ import ProgressBar from 'react-toolbox/lib/progress_bar';
 import Popup from 'esri/dijit/Popup';
 import {foo} from "./OnlineStatistics.jsx";
 import VETiledLayer from 'esri/virtualearth/VETiledLayer';
+import env from '../services/config';
 
 var options = [
     { value: 'NIS', label: 'NIS' },
@@ -64,8 +65,12 @@ class DrawerTest extends React.Component {
   };
 
   handleLogout(){
+    if(env.ENVIRONMENT=='DEVELOPMENT'){
+      browserHistory.push("/");
+    }else{
+      window.location.href = env.WEBSERVERADDRESS; 
+    }
 
-    browserHistory.push("/");
   }
 
   handleCheckboxChange = (e) => {

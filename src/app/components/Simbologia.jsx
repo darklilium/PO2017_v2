@@ -18,7 +18,7 @@ class Simbologia extends React.Component {
 
   render() {
     return (
-        <div className="simbologia_container"><img src={env.CSSDIRECTORY+"/images/symbology.png"}></img></div>
+        <div className="simbologia_container"><img src={env.CSSDIRECTORY+"images/symbology.png"}></img></div>
     );
   }
 

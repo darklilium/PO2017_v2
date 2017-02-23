@@ -14,18 +14,19 @@ import {DrawerTest} from './Drawer.jsx';
 import FontIcon from 'react-toolbox/lib/font_icon';
 import mymap from '../services/map-service';
 import Point from 'esri/geometry/Point';
+import env from '../services/config';
 
-var chqIconW = "dist/css/images/icons/chilquinta_icon_white.png";
-var luzLinaresIconW = "dist/css/images/icons/luzlinares_icon_white.png";
-var luzParralIconW = "dist/css/images/icons/luzparral_icon_white.png";
-var casablancaIconW = "dist/css/images/icons/casablanca_icon_white.png";
-var litoralIconW = "dist/css/images/icons/litoral_icon_white.png";
+var chqIconW = env.CSSDIRECTORY + "images/icons/chilquinta_icon_white.png";
+var luzLinaresIconW = env.CSSDIRECTORY +"images/icons/luzlinares_icon_white.png";
+var luzParralIconW = env.CSSDIRECTORY +"images/icons/luzparral_icon_white.png";
+var casablancaIconW = env.CSSDIRECTORY +"images/icons/casablanca_icon_white.png";
+var litoralIconW = env.CSSDIRECTORY +"images/icons/litoral_icon_white.png";
 
-var chqIcon="dist/css/images/icons/chilquinta_icon.png";
-var luzLinaresIcon="dist/css/images/icons/luzlinares_icon.png";
-var luzParralIcon ="dist/css/images/icons/luzparral_icon.png";
-var casablancaIcon="dist/css/images/icons/casablanca_icon.png";
-var litoralIcon="dist/css/images/icons/litoral_icon.png";
+var chqIcon= env.CSSDIRECTORY +"images/icons/chilquinta_icon.png";
+var luzLinaresIcon= env.CSSDIRECTORY +"images/icons/luzlinares_icon.png";
+var luzParralIcon = env.CSSDIRECTORY +"images/icons/luzparral_icon.png";
+var casablancaIcon= env.CSSDIRECTORY +"images/icons/casablanca_icon.png";
+var litoralIcon= env.CSSDIRECTORY +"images/icons/litoral_icon.png";
 
 var activeStyle={
   color:"#00ff68"

@@ -5,6 +5,7 @@ import layers from '../services/layers-service';
 import myinfotemplate from '../utils/infoTemplates';
 import {browserHistory} from 'react-router';
 import {Simbologia} from './Simbologia.jsx';
+import env from '../services/config';
 
 class ChilquintaMap extends React.Component {
   constructor(props){
@@ -17,7 +18,7 @@ class ChilquintaMap extends React.Component {
           center: [-71.2905, -33.1009], // longitude, latitude
           zoom: 9});
   */
-  var mapp = mymap.createMap("map","topo",-71.5215, -32.9934,10);
+  var mapp = mymap.createMap("map","topo",-71.5215, -32.9934,12);
 
   //agregando layer clientes sed.
   var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED(),{id:"po_interrupciones"});
@@ -31,7 +32,13 @@ class ChilquintaMap extends React.Component {
     interrClienteSED.on('update-end', (obj)=>{
       if(obj.error){
         console.log("Redirecting to login page, token for this session is ended...");
-        browserHistory.push("/");
+
+        if(env.ENVIRONMENT=='DEVELOPMENT'){
+            browserHistory.push("/");
+        }else{
+          window.location.href = env.WEBSERVERADDRESS;
+        }
+
       }
     });
 
