@@ -29,7 +29,7 @@ class OnlineStatistics extends React.Component {
     this.currentTotal();
     foo = function(){
               console.log("desde constr ",browserHistory.getCurrentLocation().pathname);
-              if(browserHistory.getCurrentLocation().pathname==env.ROOT){
+              if(browserHistory.getCurrentLocation().pathname.toLowerCase()==env.ROOT.toLowerCase()){
                 clearTimeout(foo);
               }else{
                 console.log("updating ");
@@ -65,10 +65,10 @@ class OnlineStatistics extends React.Component {
 
 
   currentTotal(){
-    console.log(browserHistory.getCurrentLocation().pathname, "mypath");
+    console.log(browserHistory.getCurrentLocation().pathname.toLowerCase(), "mypath");
 
     if(env.ENVIRONMENT=='DEVELOPMENT'){
-      switch (browserHistory.getCurrentLocation().pathname) {
+      switch (browserHistory.getCurrentLocation().pathname.toLowerCase()) {
         case '/chilquinta':
           console.log("desde chilquinta currentTotal");
           var serviceCurrTotal = createQueryTask({
@@ -140,8 +140,8 @@ class OnlineStatistics extends React.Component {
     //es produccion:
 
     }else{
-      console.log(browserHistory.getCurrentLocation().pathname, "mypath2", env.ROOT+'chilquinta', "myswitchprod")
-      switch (browserHistory.getCurrentLocation().pathname) {
+      console.log(browserHistory.getCurrentLocation().pathname.toLowerCase(), "mypath2", env.ROOT+'chilquinta', "myswitchprod")
+      switch (browserHistory.getCurrentLocation().pathname.toLowerCase()) {
         case "/"+env.ROOT+'chilquinta':
           console.log("desde chilquinta currentTotal");
           var serviceCurrTotal = createQueryTask({
