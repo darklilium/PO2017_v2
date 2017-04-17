@@ -6,7 +6,7 @@ import { Layout, NavDrawer, Panel, Sidebar } from 'react-toolbox';
 import { AppBar, Checkbox, IconButton } from 'react-toolbox';
 import Statistics from './Statistics.jsx';
 import {Router, Route, browserHistory} from "react-router";
-import {TabsExample} from './Tabs.jsx';
+
 import {Link} from "react-router";
 import {Logo} from "./Logo.jsx";
 import {OnlineStatistics} from "./OnlineStatistics.jsx";
@@ -26,9 +26,12 @@ import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLay
 import myLayers from '../services/layers-service';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import Popup from 'esri/dijit/Popup';
-import {foo} from "./OnlineStatistics.jsx";
+
 import VETiledLayer from 'esri/virtualearth/VETiledLayer';
 import env from '../services/config';
+
+//03.04.2017: agregando multiempresa.
+
 
 var options = [
     { value: 'NIS', label: 'NIS' },
@@ -68,13 +71,14 @@ class DrawerTest extends React.Component {
     if(env.ENVIRONMENT=='DEVELOPMENT'){
       browserHistory.push("/");
     }else{
-      window.location.href = env.WEBSERVERADDRESS; 
+      window.location.href = env.WEBSERVERADDRESS;
     }
 
   }
 
   handleCheckboxChange = (e) => {
-    var mapp = mymap.getMap();
+    console.log();
+    var mapp = mymap.getMap(browserHistory.getCurrentLocation().pathname);
     switch (e) {
       case 'SSEE':
         this.setState({checkbox: !this.state.checkbox});

@@ -1,5 +1,5 @@
 //Always use lower case for replace this content in prod and dev.
-/*const env = {
+const env = {
   ROOT: "/",
   CSSDIRECTORY: 'dist/css/',
   ROUTEPATH: '/',
@@ -8,8 +8,8 @@
   SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_DESA_v2",
   SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_DESA_v2'
 }
-*/
 
+/*
 const env = {
   ROOT: "potest/",
   CSSDIRECTORY: 'css/',
@@ -20,5 +20,5 @@ const env = {
   SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V2'
 }
 
-
+*/
 export default env;

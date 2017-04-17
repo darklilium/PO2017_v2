@@ -1,7 +1,4 @@
 import React from 'react';
-import {Header} from './Header.jsx';
-
-
 
 export class MainLayout extends React.Component {
   render() {
