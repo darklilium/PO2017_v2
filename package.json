@@ -68,6 +68,7 @@
   "homepage": "https://github.com/darklilium/PO2017",
   "dependencies": {
     "cookie-handler": "^1.0.1",
+    "griddle-react": "^0.8.1",
     "gulp": "^3.9.1",
     "gulp-notify": "^2.2.0",
     "gulp-sass": "^2.3.2",

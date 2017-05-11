@@ -17,9 +17,9 @@ class OnlineStatistics extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      CLIEDOM: '0',
-      CLIERED:'0',
-      TOTALQTTY: '0',
+      CLIEDOM: '-',
+      CLIERED:'-',
+      TOTALQTTY: '-',
       afx: ''
     }
     this.currentTotal = this.currentTotal.bind(this);
@@ -34,7 +34,7 @@ class OnlineStatistics extends React.Component {
                 this.currentTotal();
                 setTimeout(foo, 10000);
               }
-            };
+    };
 
             foo = foo.bind(this);
             this.clear("iniciar", foo);

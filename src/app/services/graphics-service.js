@@ -38,10 +38,23 @@ var graphicResults3 = {
 }
 
 function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textTitle){
+
+  var dynamicHeight = (35 * categories.length)/25;
+  var dH = dynamicHeight.toString()+"em";
+  console.log(dH,"div",divName);
+  if(divName=="containerChilquinta1"){
+    $("#containerChilquinta1").css('height',dH);
+  }
+  if(divName=="containerChilquinta2"){
+    $("#containerChilquinta2").css('height',dH*2);
+  }
+
+
   Highcharts.setOptions({
     chart: {
         style: {
-            fontFamily: 'arial'
+            fontFamily: 'arial',
+            margin: [0, 0, 0, 0]
         }
     }
   });
@@ -54,7 +67,13 @@ function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textT
               text: textTitle
           },
           xAxis: {
-              categories: categories
+              categories: categories,
+              labels: {
+                style: {
+
+                    fontSize:'12px'
+                }
+              }
           },
           yAxis: {
               min: 0,
@@ -79,7 +98,10 @@ function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textT
           },
           plotOptions: {
               series: {
-                  stacking: 'normal'
+                  stacking: 'normal',
+                  dataLabels: {
+                    allowOverlap: true
+                  }
               }
           },
           series: [{
@@ -91,56 +113,14 @@ function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textT
           }]
       });
 
-
-  /*
-  $("#"+divName).highcharts({
-    chart: {
-            type: 'bar'
-        },
-        title: {
-            text: textTitle
-        },
-        xAxis: {
-            categories: categories
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: xTitle,
-                align: 'high',
-            },
-            labels: {
-                overflow: 'justify'
-            },
-            stackLabels: {
-
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color:'black'
-                }
-            }
-        },
-        legend: {
-            reversed: true
-        },
-        plotOptions: {
-            series: {
-                stacking: 'normal'
-            }
-        },
-        series: [{
-            name: 'DOM',
-            data: dataRED
-        }, {
-            name: 'RED',
-            data: dataDOM
-        }]
-    });
-    */
 }
 
 function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel, textTitle){
+  var dynamicHeight = (35 * categories.length)/25;
+  var dH = dynamicHeight.toString()+"em";
+  console.log(dH);
+  $('.statistics-summary__chart').css('height',dH);
+
     Highcharts.setOptions({
     chart: {
         style: {
@@ -341,33 +321,6 @@ function getStatisticsSummaryChilquinta(callback){
 function getStatisticPerOfficeChilquinta(callback){
   var office=[]
   var qtty=[];
-  /*
-  var getoffice = createQueryTask({
-    url: layers.read_qtty_office(),
-    whereClause: "1=1",
-    returnGeometry: false
-  });
-
-  getoffice((map,featureSet)=>{
-      var offices = featureSet.features.map((office)=>{
-        return office.attributes.oficina;
-      });
-      var qttyDOM = featureSet.features.map((q)=>{
-        return q.attributes.DOM;
-      });
-      var qttyRED = featureSet.features.map((q)=>{
-        return q.attributes.RED;
-      });
-      let sav = graphicResults2.setResultsGraphic2(offices,qttyDOM,qttyRED);
-      //makeBarsGraphic(office, qtty, "container2", "Cant. Clientes (u)", "Cant. Clientes", "Interrupciones por oficina.");
-    //  makeStackedGraphic(offices, qttyRED, qttyDOM, "containerChilquinta2", "Cant. Clientes (u)", "Interrupciones por Oficina.");
-
-
-    },(errorQtty)=>{
-    console.log("Error doing query for office quantity chilquinta");
-
-    });
-    */
 
     var qTaskOfficeChilquinta = new QueryTask(layers.read_qtty_office());
       var qOfficeChilquinta = new esri.tasks.Query();

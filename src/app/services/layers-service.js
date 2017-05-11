@@ -3,12 +3,24 @@ import myinfotemplate from '../utils/infoTemplates';
 import mymap from '../services/map-service';
 import {ap_infoWindow} from '../utils/makeInfowindow';
 //import GraphicsLayer from 'esri/layers/GraphicsLayer ';
+import env from '../services/config';
 
 function myLayers(){
+  var serviceMain;
+  var serviceURL;
+
+  if(env.BUILDFOR=="INTERNA"){
+    serviceMain = 'http://gisred.chilquinta/arcgis/';
+  }else{
+    serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
+
+  }
+   serviceURL = serviceMain + 'rest/services/';
   //const serviceMain = 'http://gisred.chilquinta/arcgis/';
   //change this for external connection:
-  const serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
+  /*  const serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
   const serviceURL = serviceMain + 'rest/services/';
+  */
   //var graphicLayer = new GraphicsLayer;
 
   //check 8 and last one
@@ -115,6 +127,9 @@ function myLayers(){
     //CODING REFACTOR: 09/11
     read_logAcessosSave(){
       return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/Admin/LogAccesos/FeatureServer/1/applyedits";
+    },
+    read_criticalPO_ordenes(){
+      return serviceURL + "Interrupciones/PO/MapServer/8?f=json&token="+ token.read();
     }
 
 

@@ -223,6 +223,19 @@ background-color: #007bf7;
   width: 40% !important;
 }
 
+.griddle{
+  font-size: 14px;
+  text-align: center;
+
+}
+
+.statistics_progressBar{}
+
+.griddle-body table{
+  table-layout: auto !important;
+}
+
+
 
 //LOGIN MEDIAS
 @media screen and (max-width: 600px) and (orientation: portrait){
@@ -807,4 +820,10 @@ background-color: #007bf7;
   .theme__label___3Q1BH{
     font-size: 8px;
   }
+}
+
+.griddle-footer div{
+  display: flex;
+    justify-content: center;
+    align-items: center;
 }
