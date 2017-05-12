@@ -39,14 +39,19 @@ var graphicResults3 = {
 
 function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textTitle){
 
-  var dynamicHeight = (35 * categories.length)/25;
-  var dH = dynamicHeight.toString()+"em";
+  //var dynamicHeight = (35 * categories.length)/25;
+  var dynamicHeight = 20*categories.length*1.5;
+  //var dH = dynamicHeight.toString()+"em";
+  var dH = dynamicHeight.toString()+"px";
   console.log(dH,"div",divName);
   if(divName=="containerChilquinta1"){
     $("#containerChilquinta1").css('height',dH);
   }
   if(divName=="containerChilquinta2"){
     $("#containerChilquinta2").css('height',dH*2);
+  }
+  if(divName=="containerChilquinta2"){
+    $("#containerChilquinta3").css('height',dH);
   }
 
 
@@ -116,9 +121,26 @@ function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textT
 }
 
 function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel, textTitle){
-  var dynamicHeight = (35 * categories.length)/25;
+  /*var dynamicHeight = (35 * categories.length)/25;
   var dH = dynamicHeight.toString()+"em";
   console.log(dH);
+  */
+
+  //var dynamicHeight = (35 * categories.length)/25;
+  var dynamicHeight = 20*categories.length*1.5;
+  //var dH = dynamicHeight.toString()+"em";
+  var dH = dynamicHeight.toString()+"px";
+  console.log(dH,"div",divName);
+  if(divName=="containerChilquinta1"){
+    $("#containerChilquinta1").css('height',dH);
+  }
+  if(divName=="containerChilquinta2"){
+    $("#containerChilquinta2").css('height',dH*2);
+  }
+  if(divName=="containerChilquinta2"){
+    $("#containerChilquinta3").css('height',dH);
+  }
+  
   $('.statistics-summary__chart').css('height',dH);
 
     Highcharts.setOptions({
