@@ -5,6 +5,7 @@ import createQueryTask from '../services/createquerytask-service';
 import cookieHandler from 'cookie-handler';
 import _ from 'lodash';
 import $ from 'jquery';
+import {getFormatedDateNow, getFormatedDate} from '../utils/milliSecondsToDate';
 
 //22:02/2017 : adding config
 import env from '../services/config';
@@ -110,7 +111,7 @@ function saveLogin(user,page,mod,tkn, callback){
 
   const data = {
     f: 'json',
-    adds: JSON.stringify([{ attributes: { "usuario": user, "pagina": page, "modulo": mod  }, geometry: {} }]),
+    adds: JSON.stringify([{ attributes: { "usuario": user, "pagina": page, "modulo": mod, fecha: getFormatedDate()  }, geometry: {} }]),
     token: tkn
   };
 

@@ -409,6 +409,10 @@ class DrawerTest extends React.Component {
 
   };
 
+  handleSnackbarTimeout = (event, instance) => {
+
+      this.setState({ activeSnackbar : false });
+  };
 
   render () {
 
@@ -491,7 +495,16 @@ class DrawerTest extends React.Component {
             <ListDivider />
           </List>
         </Drawer>
-        <Snackbar className={this.state.snackbarStyle} action='Aceptar' active={this.state.activeSnackbar} icon={this.state.snackbarIcon} label={this.state.snackbarMessage} onClick={this.handleSnackbarClick.bind(this)} type='cancel' />
+        <Snackbar
+          className={this.state.snackbarStyle}
+          action='Aceptar'
+          active={this.state.activeSnackbar}
+          icon={this.state.snackbarIcon}
+          label={this.state.snackbarMessage}
+          onClick={this.handleSnackbarClick.bind(this)}
+          type='cancel'
+          timeout={3000}
+          onTimeout={this.handleSnackbarTimeout.bind(this)} />
 
       </div>
     );

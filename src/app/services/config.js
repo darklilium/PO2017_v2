@@ -38,8 +38,8 @@ const env = {
 
 
 //servidor web: interno. servicios internos.
-
 /*
+
   const env = {
     ROOT: "potest/",
     CSSDIRECTORY: 'css/',

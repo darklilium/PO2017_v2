@@ -75,4 +75,4 @@ function getFormatedDateExp(){
 }
 
 export default formatDate;
-export {getFormatedDateNow};
+export {getFormatedDateNow, getFormatedDate};
