@@ -64,6 +64,6 @@ const env = {
     SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V2',
     BUILDFOR: 'EXTERNA'
   }
-  */
+*/
 
 export default env;

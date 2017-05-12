@@ -54,7 +54,8 @@ class DrawerTest extends React.Component {
     snackbarMessage: '',
     activeSnackbar: false,
     snackbarIcon: 'error',
-    mapSelected: 'topo'
+    mapSelected: 'topo',
+    layersOrder: ''
   };
 
   handleToggle = () => {
@@ -64,7 +65,9 @@ class DrawerTest extends React.Component {
     this.setState({active2: !this.state.active2});
   };
   handleToggle3 = () => {
-    this.setState({active3: !this.state.active3});
+    var mapp = mymap.getMap();
+
+    this.setState({active3: !this.state.active3, layersOrder: mapp.graphicsLayerIds});
   };
 
   handleLogout(){
@@ -77,7 +80,7 @@ class DrawerTest extends React.Component {
   }
 
   handleCheckboxChange = (e) => {
-    console.log();
+    console.log(this.state.layersOrder,"my layers order");
     var mapp = mymap.getMap(browserHistory.getCurrentLocation().pathname);
     switch (e) {
       case 'SSEE':
@@ -116,17 +119,22 @@ class DrawerTest extends React.Component {
         this.setState({checkbox3: !this.state.checkbox3});
         if(!this.state.checkbox3){
           console.log("en true, prender mapa chilquinta");
-          var chqmapabase = new ArcGISDynamicMapServiceLayer(myLayers.read_mapabase(),{id:"gis_chqmapabase"});
+          //var chqmapabase = new ArcGISDynamicMapServiceLayer(myLayers.read_mapabase(),{id:"gis_chqmapabase"});
 
         /*  alimLayer.setInfoTemplates({
             0: {infoTemplate: myinfotemplate.getAlimentadorInfoWindow()}
           });
           */
-          mapp.addLayer(chqmapabase,1);
+          //mapp.addLayer(chqmapabase,1);
+          var chqmapabase = mapp.getLayer("gis_chqmapabase");
+          chqmapabase.show();
 
         }else{
           console.log("en false, mapa chilquinta");
-          mapp.removeLayer(mapp.getLayer("gis_chqmapabase"));
+          //mapp.removeLayer(mapp.getLayer("gis_chqmapabase"));
+
+          var chqmapabase = mapp.getLayer("gis_chqmapabase");
+          chqmapabase.hide();
         }
       break;
 

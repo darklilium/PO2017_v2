@@ -42,7 +42,9 @@ class ChilquintaMap extends React.Component {
       }
     });
 
-    mapp.addLayer(interrClienteSED);
+    var chqmapabase = new ArcGISDynamicMapServiceLayer(layers.read_mapabase(),{id:"gis_chqmapabase"});
+    chqmapabase.hide();
+    mapp.addLayers([chqmapabase,interrClienteSED]);
 
   }
 
