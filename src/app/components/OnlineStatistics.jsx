@@ -17,9 +17,9 @@ class OnlineStatistics extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      CLIEDOM: '-',
-      CLIERED:'-',
-      TOTALQTTY: '-',
+      CLIEDOM: '--',
+      CLIERED:'--',
+      TOTALQTTY: '--',
       afx: ''
     }
     this.currentTotal = this.currentTotal.bind(this);

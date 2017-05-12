@@ -427,6 +427,7 @@ class DrawerTest extends React.Component {
                 value={this.state.tipoBusqueda}
                 options={options}
                 onChange={this.logChange.bind(this)}
+                searchable={false}
             />
             <Input className="drawer_input" type='text' label={this.state.labelBusqueda} name='name' value={this.state.valorBusqueda} onChange={this.handleChange.bind(this, 'valorBusqueda')} maxLength={16} />
             <div className="drawer_buttonsContent">
