@@ -76,7 +76,7 @@ class Login extends React.Component {
         console.log("Trying to access REACT_INTERRUPCIONES_WEB");
         let userValue =  'vialactea\\'+this.state.username;
         login(userValue, this.state.password, env.SAVEAPPLICATIONNAME, callback=>{
-console.log(callback)
+          console.log(callback)
           if(!callback.error){
               browserHistory.push("chilquinta");
           }else{

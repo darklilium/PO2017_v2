@@ -12,6 +12,7 @@ import createQueryTask from '../services/createquerytask-service';
 import env from '../services/config';
 
 var foo;
+import mymap from '../services/map-service';
 
 class OnlineStatistics extends React.Component {
   constructor(props){
@@ -26,11 +27,11 @@ class OnlineStatistics extends React.Component {
     this.clear = this.clear.bind(this);
     this.currentTotal();
     foo = function(){
-              console.log("desde constr ",browserHistory.getCurrentLocation().pathname);
+              //console.log("desde constr ",browserHistory.getCurrentLocation().pathname);
               if(browserHistory.getCurrentLocation().pathname.toLowerCase()==env.ROOT.toLowerCase()){
                 clearTimeout(foo);
               }else{
-                console.log("updating ");
+                //console.log("updating ");
                 this.currentTotal();
                 setTimeout(foo, 10000);
               }
@@ -46,29 +47,33 @@ class OnlineStatistics extends React.Component {
       setTimeout(fx, 10000);
       this.setState({afx: fx});
     }else{
-      console.log("cleaning");
+      //console.log("cleaning");
       clearTimeout(this.state.afx);
       clearTimeout(foo);
     }
   }
   componentDidMount(){
+
+
     clearTimeout(foo);
-    console.log("desde OnlineStatistics componentDidMount",browserHistory.getCurrentLocation().pathname);
+    //console.log("desde OnlineStatistics componentDidMount",browserHistory.getCurrentLocation().pathname);
   }
 
   componentWillReceiveProps(newState){
-    console.log("desde OnlineStatistics componentWillReceiveProps",browserHistory.getCurrentLocation().pathname, newState);
+    var mapp = mymap.getMap();
+    console.log(mapp);
+    //console.log("desde OnlineStatistics componentWillReceiveProps",browserHistory.getCurrentLocation().pathname, newState);
     this.currentTotal();
   }
 
 
   currentTotal(){
-    console.log(browserHistory.getCurrentLocation().pathname.toLowerCase(), "mypath");
-
+    //console.log(browserHistory.getCurrentLocation().pathname.toLowerCase(), "mypath");
+    console.log("current total", "dom",this.state.CLIEDOM, "red",this.state.CLIERED, "qqty",this.state.TOTALQTTY)
     if(env.ENVIRONMENT=='DEVELOPMENT'){
       switch (browserHistory.getCurrentLocation().pathname.toLowerCase()) {
         case '/chilquinta':
-          console.log("desde chilquinta currentTotal");
+          //console.log("desde chilquinta currentTotal");
           var serviceCurrTotal = createQueryTask({
             url: layers.read_layer_countTotal(),
             whereClause: "1=1"
@@ -85,7 +90,7 @@ class OnlineStatistics extends React.Component {
           break;
 
           case '/casablanca':
-            console.log("desde currentTotal casablanca");
+            //console.log("desde currentTotal casablanca");
           this.setState({
             CLIEDOM: 0,
             CLIERED: 0,
@@ -94,7 +99,7 @@ class OnlineStatistics extends React.Component {
             break
 
           case '/litoral':
-            console.log("desde litoral currentTotal");
+            //console.log("desde litoral currentTotal");
             this.setState({
               CLIEDOM: 0,
               CLIERED: 0,
@@ -103,7 +108,7 @@ class OnlineStatistics extends React.Component {
           break
 
           case '/linares':
-            console.log("desde linares currentTotal");
+            //console.log("desde linares currentTotal");
               this.setState({
                 CLIEDOM: 0,
                 CLIERED: 0,
@@ -112,7 +117,7 @@ class OnlineStatistics extends React.Component {
           break
 
           case '/parral':
-            console.log("desde parral currentTotal");
+            //console.log("desde parral currentTotal");
             this.setState({
               CLIEDOM: 0,
               CLIERED: 0,
@@ -121,7 +126,7 @@ class OnlineStatistics extends React.Component {
           break
 
           case '/statistics':
-            console.log("desde statistics currentTotal");
+            //console.log("desde statistics currentTotal");
             this.setState({
                     CLIEDOM: "--",
                     CLIERED: "--",
@@ -138,10 +143,10 @@ class OnlineStatistics extends React.Component {
     //es produccion:
 
     }else{
-      console.log(browserHistory.getCurrentLocation().pathname.toLowerCase(), "mypath2", env.ROOT+'chilquinta', "myswitchprod")
+      //console.log(browserHistory.getCurrentLocation().pathname.toLowerCase(), "mypath2", env.ROOT+'chilquinta', "myswitchprod")
       switch (browserHistory.getCurrentLocation().pathname.toLowerCase()) {
         case "/"+env.ROOT+'chilquinta':
-          console.log("desde chilquinta currentTotal");
+          //console.log("desde chilquinta currentTotal");
           var serviceCurrTotal = createQueryTask({
             url: layers.read_layer_countTotal(),
             whereClause: "1=1"
@@ -158,7 +163,7 @@ class OnlineStatistics extends React.Component {
           break;
 
           case  "/"+ env.ROOT+'casablanca':
-            console.log("desde currentTotal casablanca");
+            //console.log("desde currentTotal casablanca");
           this.setState({
             CLIEDOM: 0,
             CLIERED: 0,
@@ -167,7 +172,7 @@ class OnlineStatistics extends React.Component {
             break
 
           case  "/"+ env.ROOT+'litoral':
-            console.log("desde litoral currentTotal");
+            //console.log("desde litoral currentTotal");
             this.setState({
               CLIEDOM: 0,
               CLIERED: 0,
@@ -176,7 +181,7 @@ class OnlineStatistics extends React.Component {
           break
 
           case "/"+ env.ROOT+'linares':
-            console.log("desde linares currentTotal");
+            //console.log("desde linares currentTotal");
               this.setState({
                 CLIEDOM: 0,
                 CLIERED: 0,
@@ -185,7 +190,7 @@ class OnlineStatistics extends React.Component {
           break
 
           case  "/"+ env.ROOT+'parral':
-            console.log("desde parral currentTotal");
+            //console.log("desde parral currentTotal");
             this.setState({
               CLIEDOM: 0,
               CLIERED: 0,
@@ -194,7 +199,7 @@ class OnlineStatistics extends React.Component {
           break
 
           case "/"+ env.ROOT+'statistics':
-            console.log("desde statistics currentTotal");
+            //console.log("desde statistics currentTotal");
             this.setState({
                     CLIEDOM: "--",
                     CLIERED: "--",
