@@ -6,6 +6,8 @@ import myinfotemplate from '../utils/infoTemplates';
 import {browserHistory} from 'react-router';
 import {Simbologia} from './Simbologia.jsx';
 import env from '../services/config';
+import FeatureLayer from 'esri/layers/FeatureLayer';
+import HeatmapRenderer from "esri/renderers/HeatmapRenderer";
 
 class ChilquintaMap extends React.Component {
   constructor(props){
@@ -44,7 +46,38 @@ class ChilquintaMap extends React.Component {
 
     var chqmapabase = new ArcGISDynamicMapServiceLayer(layers.read_mapabase(),{id:"gis_chqmapabase"});
     chqmapabase.hide();
-    mapp.addLayers([chqmapabase,interrClienteSED]);
+
+    var heatmapFeatureLayerOptions = {
+        id: "gis_heatmapsed",
+        mode: FeatureLayer.MODE_SNAPSHOT,
+        outFields: ["*"]
+    };
+
+    var heatmapFeatureLayerOptions2 = {
+        id: "gis_heatmapclientes",
+        mode: FeatureLayer.MODE_SNAPSHOT,
+        outFields: ["*"]
+    };
+
+    var heatmapFeatureLayer = new FeatureLayer(layers.read_heatmapSED(), heatmapFeatureLayerOptions);
+
+    var heatmapFeatureLayer1 = new FeatureLayer(layers.read_heatmapClientes(), heatmapFeatureLayerOptions2);
+
+    var heatmapRenderer = new HeatmapRenderer({
+      colors: ["rgba(0,255,0, 0)","rgb(255, 255, 0)","rgb(255, 0, 0)"],
+      blurRadius: 16,
+      maxPixelIntensity: 250,
+      minPixelIntensity: 5
+    });
+
+    heatmapFeatureLayer.setRenderer(heatmapRenderer);
+    heatmapFeatureLayer.hide();
+
+    heatmapFeatureLayer1.setRenderer(heatmapRenderer);
+    heatmapFeatureLayer1.hide();
+
+
+    mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1]);
 
   }
 

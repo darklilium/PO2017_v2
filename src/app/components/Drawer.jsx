@@ -47,6 +47,7 @@ class DrawerTest extends React.Component {
     checkbox: false,
     checkbox2: false,
     checkbox3: false,
+    checkbox4: false,
     tipoBusqueda: 'NIS',
     valorBusqueda: '',
     labelBusqueda: 'Valor',
@@ -137,6 +138,25 @@ class DrawerTest extends React.Component {
         }
       break;
 
+      case 'HEATMAPCLIENTES':
+         this.setState({checkbox4: !this.state.checkbox4});
+         if(!this.state.checkbox4){
+           console.log("en true, prender heatmap  clientes");
+           var heatmapc = mapp.getLayer("gis_heatmapclientes");
+           var heatmaps = mapp.getLayer("gis_heatmapsed");
+           heatmapc.show();
+           heatmaps.show();
+         }else{
+           console.log("en false, mapa chilquinta");
+           //mapp.removeLayer(mapp.getLayer("gis_chqmapabase"));
+
+           var heatmapc = mapp.getLayer("gis_heatmapclientes");
+           var heatmaps = mapp.getLayer("gis_heatmapsed");
+           heatmapc.hide();
+           heatmaps.hide();
+         }
+      break;
+      
       default:
 
     }
@@ -223,7 +243,8 @@ class DrawerTest extends React.Component {
 
 
         });
-        break;
+      break;
+
       default:
 
     }
@@ -490,6 +511,12 @@ class DrawerTest extends React.Component {
               checked={this.state.checkbox3}
               legend=''
               onChange={this.handleCheckboxChange.bind(this,"CHILQUINTA")}
+            />
+            <ListCheckbox
+              caption='Heatmap Clientes'
+              checked={this.state.checkbox4}
+              legend=''
+              onChange={this.handleCheckboxChange.bind(this,"HEATMAPCLIENTES")}
             />
             <ListDivider />
           </List>

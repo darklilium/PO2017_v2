@@ -130,6 +130,13 @@ function myLayers(){
     },
     read_criticalPO_ordenes(){
       return serviceURL + "Interrupciones/PO/MapServer/8?f=json&token="+ token.read();
+    },
+
+    read_heatmapSED(){
+        return serviceURL + "Interrupciones/PO/MapServer/0?f=json&token="+ token.read();
+    },
+    read_heatmapClientes(){
+        return serviceURL + "Interrupciones/PO/MapServer/1?f=json&token="+ token.read();
     }
 
 
