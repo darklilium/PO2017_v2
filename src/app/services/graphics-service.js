@@ -45,13 +45,13 @@ function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textT
   var dH = dynamicHeight.toString()+"px";
   console.log(dH,"div",divName);
   if(divName=="containerChilquinta1"){
-    $("#containerChilquinta1").css('height',dH);
+    $("#containerChilquinta1").css('height',dH*2);
   }
   if(divName=="containerChilquinta2"){
     $("#containerChilquinta2").css('height',dH*2);
   }
-  if(divName=="containerChilquinta2"){
-    $("#containerChilquinta3").css('height',dH);
+  if(divName=="containerChilquinta3"){
+    $("#containerChilquinta3").css('height',dH*2);
   }
 
 
@@ -137,16 +137,18 @@ function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel, textTit
   if(divName=="containerChilquinta2"){
     $("#containerChilquinta2").css('height',dH*2);
   }
-  if(divName=="containerChilquinta2"){
-    $("#containerChilquinta3").css('height',dH);
+  if(divName=="containerChilquinta3"){
+    $("#containerChilquinta3").css('height',dH*2);
   }
-  
-  $('.statistics-summary__chart').css('height',dH);
+
+  $('.statistics-summary__chart').css('height',dH*2);
 
     Highcharts.setOptions({
     chart: {
         style: {
-            fontFamily: 'arial'
+            fontFamily: 'arial',
+            fontSize: '12px',
+            margin: [0, 0, 0, 0]
         }
     }
   });
@@ -163,7 +165,7 @@ function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel, textTit
           categories: categories,
           labels: {
                 style: {
-                    fontSize:'9px'
+                    fontSize:'12px'
                 }
             }
       },

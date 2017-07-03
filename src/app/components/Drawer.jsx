@@ -26,7 +26,6 @@ import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLay
 import myLayers from '../services/layers-service';
 import ProgressBar from 'react-toolbox/lib/progress_bar';
 import Popup from 'esri/dijit/Popup';
-
 import VETiledLayer from 'esri/virtualearth/VETiledLayer';
 import env from '../services/config';
 
