@@ -92,6 +92,28 @@ function getInfoTemplate(){
       "<div style=padding-top: 10px;><b>Alimentador:</b> ${ARCGIS.DBO.Tramos_MT_006.alimentador}<br></div>";
       chqAlimInfoTemp.setContent(chqAlimInfoContent);
       return chqAlimInfoTemp;
+    },
+
+    getCarsInfo(){
+      let chqAlimInfoTemp= new InfoTemplate();
+      chqAlimInfoTemp.setTitle("<b>ID: ${GISRED.DBO.%GIS_GPS_DATA_MF_Features.ID_OBJECT}</b>");
+
+      let chqAlimInfoContent =
+      "<div style=padding-top: 10px;><b>Patente:</b> ${GISRED.DBO.%GIS_GPS_DATA_MF_Features.PATENTE}<br></div>"+
+      "<div style=padding-top: 10px;><b>Empresa:</b> ${GISRED.DBO.GIS_GPS_VEHICULOS.empresa}<br></div>"+
+      "<div style=padding-top: 10px;><b>Tipo:</b> ${GISRED.DBO.GIS_GPS_VEHICULOS.tipo}<br></div>"+
+      "<div style=padding-top: 10px;><b>Marca:</b> ${GISRED.DBO.GIS_GPS_VEHICULOS.marca}<br></div>"+
+      "<div style=padding-top: 10px;><b>Modelo:</b> ${GISRED.DBO.GIS_GPS_VEHICULOS.modelo}<br></div>"+
+      "<div style=padding-top: 10px;><b>Año:</b> ${GISRED.DBO.GIS_GPS_VEHICULOS.año}<br></div>"+
+      "<div style=padding-top: 10px;><b>Responsable:</b> ${GISRED.DBO.GIS_GPS_VEHICULOS.responsable}<br></div>"+
+      "<div style=padding-top: 10px;><b>Rut:</b> ${GISRED.DBO.GIS_GPS_VEHICULOS.rut}<br></div>"
+      /*+
+      "<div style=padding-top: 10px;><b>Latitud:</b> ${GISRED.DBO.%GIS_GPS_DATA_MF_Features.LATITUD}<br></div>"+
+      "<div style=padding-top: 10px;><b>Longitud:</b> ${GISRED.DBO.%GIS_GPS_DATA_MF_Features.LONGITUD}<br></div>"
+      */
+      ;
+      chqAlimInfoTemp.setContent(chqAlimInfoContent);
+      return chqAlimInfoTemp;
     }
 
   }

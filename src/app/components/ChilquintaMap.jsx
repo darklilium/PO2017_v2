@@ -43,6 +43,7 @@ class ChilquintaMap extends React.Component {
 
       }
     });
+    interrClienteSED.show();
 
     var chqmapabase = new ArcGISDynamicMapServiceLayer(layers.read_mapabase(),{id:"gis_chqmapabase"});
     chqmapabase.hide();
@@ -76,8 +77,19 @@ class ChilquintaMap extends React.Component {
     heatmapFeatureLayer1.setRenderer(heatmapRenderer);
     heatmapFeatureLayer1.hide();
 
+    var gpsCars = new ArcGISDynamicMapServiceLayer(layers.read_GPS(), {id:"gis_gps"});
 
-    mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1]);
+    gpsCars.setInfoTemplates({
+      0: {infoTemplate: myinfotemplate.getCarsInfo()}
+    });
+    gpsCars.refreshInterval = 0.1;
+    gpsCars.setImageFormat("png32");
+    gpsCars.hide();
+
+
+
+
+    mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gpsCars]);
 
   }
 

@@ -2,15 +2,15 @@
 /*
 Author: Evelyn Hernández
 APP: po_interrupciones 2017
-Compiled: 11.5.2017
+Compiled: 24/07/2017
 */
 
 //Always use lower case for replace this content in prod and dev.
 
 
 //local: usando servicios internos dev.
-
-/* const env = {
+/*
+ const env = {
     ROOT: "/",
     CSSDIRECTORY: 'dist/css/',
     ROUTEPATH: '/',
@@ -23,8 +23,8 @@ Compiled: 11.5.2017
 */
 
 //local: usando servicios externos dev
-
-/*const env = {
+/*
+const env = {
   ROOT: "/",
   CSSDIRECTORY: 'dist/css/',
   ROUTEPATH: '/',
@@ -34,8 +34,8 @@ Compiled: 11.5.2017
   SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_DESA_v2',
   BUILDFOR: 'EXTERNA'
 }
-*/
 
+*/
 
 //servidor web: interno. servicios internos.
 

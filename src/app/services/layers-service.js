@@ -137,6 +137,9 @@ function myLayers(){
     },
     read_heatmapClientes(){
         return serviceURL + "Interrupciones/PO/MapServer/1?f=json&token="+ token.read();
+    },
+    read_GPS(){
+        return serviceURL + "GPS/GPS_VEHICULE/MapServer?f=json&token="+ token.read();
     }
 
 

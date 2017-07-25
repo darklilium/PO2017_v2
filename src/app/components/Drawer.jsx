@@ -48,6 +48,7 @@ class DrawerTest extends React.Component {
     checkbox2: false,
     checkbox3: false,
     checkbox4: false,
+    checkbox5: false,
     tipoBusqueda: 'NIS',
     valorBusqueda: '',
     labelBusqueda: 'Valor',
@@ -156,7 +157,22 @@ class DrawerTest extends React.Component {
            heatmaps.hide();
          }
       break;
-      
+
+      case 'GPS':
+         this.setState({checkbox5: !this.state.checkbox5});
+         if(!this.state.checkbox5){
+           console.log("en true, prender GPS");
+           var gis_gps = mapp.getLayer("gis_gps");
+           gis_gps.show();
+
+         }else{
+           console.log("en false, mapa GPS");
+           //mapp.removeLayer(mapp.getLayer("gis_chqmapabase"));
+
+           var gis_gps = mapp.getLayer("gis_gps");
+           gis_gps.hide();
+         }
+      break;
       default:
 
     }
@@ -517,6 +533,12 @@ class DrawerTest extends React.Component {
               checked={this.state.checkbox4}
               legend=''
               onChange={this.handleCheckboxChange.bind(this,"HEATMAPCLIENTES")}
+            />
+            <ListCheckbox
+              caption='GPS'
+              checked={this.state.checkbox5}
+              legend=''
+              onChange={this.handleCheckboxChange.bind(this,"GPS")}
             />
             <ListDivider />
           </List>
