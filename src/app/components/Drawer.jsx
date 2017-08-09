@@ -48,7 +48,7 @@ class DrawerTest extends React.Component {
     checkbox2: false,
     checkbox3: false,
     checkbox4: false,
-    checkbox5: false,
+    checkbox5: true,
     tipoBusqueda: 'NIS',
     valorBusqueda: '',
     labelBusqueda: 'Valor',

@@ -84,7 +84,7 @@ class ChilquintaMap extends React.Component {
     });
     gpsCars.refreshInterval = 0.1;
     gpsCars.setImageFormat("png32");
-    gpsCars.hide();
+    gpsCars.show();
 
 
 
