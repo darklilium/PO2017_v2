@@ -27,7 +27,7 @@ function myLayers(){
   return {
 
     read_generateTokenURL(){
-      return serviceMain + "tokens/generateToken";
+      return "http://gisred.chilquinta.cl:5555/arcgis/" + "tokens/generateToken";
     },
 
     read_dyn_layerClieSED(){  /*using*/

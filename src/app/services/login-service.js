@@ -65,10 +65,6 @@ function login(user, pass, app, callback){
         });
       break;
 
-
-
-
-
       case 'REACT_FACTIGIS':
           return callback();
       break;
@@ -96,7 +92,7 @@ function interrupciones_login(page, tkn, user, callback){
   console.log('Requesting service access..., logging in to gisred-interruptions');
   token.write(tkn);
   const module = env.SAVEAPPLICATIONMODULE;
-
+  return callback(true);
   saveLogin(user,page,module,tkn, (cb)=>{
     if(cb){
       return callback(true)
@@ -104,6 +100,7 @@ function interrupciones_login(page, tkn, user, callback){
       return callback(false)
     }
   });
+
 }
 
 //09/11
@@ -123,6 +120,7 @@ function saveLogin(user,page,mod,tkn, callback){
   })
   .done(d =>{
     let json = JSON.parse(d);
+    console.log(json);
     if( (_.has(json,'error')) ){
       return callback(false);
     }else{

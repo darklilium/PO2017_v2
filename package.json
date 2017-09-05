@@ -61,8 +61,8 @@
     "build": "cross-env NODE_ENV=production UV_THREADPOOL_SIZE=100 webpack --config webpack.config",
     "gulp": "gulp",
     "start": "start npm run dev:server & start npm run gulp",
-    "dev:server": "webpack-dev-server --history-api-fallback",
-    "prod:build": "webpack --optimize-minimize --progress --colors"
+    "dev:server": "webpack-dev-server --history-api-fallback --config webpackdev.config.js",
+    "prod:build": "cross-env NODE_ENV=production UV_THREADPOOL_SIZE=100 webpack -p --config webpackprod.config.js"
   },
   "license": "MIT",
   "homepage": "https://github.com/darklilium/PO2017",
