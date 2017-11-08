@@ -523,9 +523,7 @@ class DrawerTest extends React.Component {
 
       //si la seleccion está en nominal
       if(checkNominal.checked){
-      gps_new.setVisibleLayers([1]);
-
-
+        gps_new.setVisibleLayers([1]);
         var where = selectedValues.map(s => {
             return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${s.realName}'`;
         });
@@ -533,9 +531,9 @@ class DrawerTest extends React.Component {
         var w = where.toString();
         console.log(w,"Tengo")
         w = w.replace(/,/g , " or ")
-        console.log(w,"tengo esto como query 1");
-          layerDefinitions[1] = w;
+        layerDefinitions[1] = w;
       }
+
       //si la seleccion esta en contingencia
       if(checkContingencia.checked){
         gps_new.setVisibleLayers([3]);
@@ -545,7 +543,6 @@ class DrawerTest extends React.Component {
 
         var w2 = where2.toString();
         w2 = w2.replace(/,/g , " or ")
-        console.log(w2,"tengo esto como query 2");;
         var w2;
         layerDefinitions[2] = w2;
       }
@@ -559,11 +556,6 @@ class DrawerTest extends React.Component {
       mapp.addLayer(gps_new);
 
       var layersVisibles = _.concat(layersNominal,layersContingencia);
-
-      //console.log(layersVisibles,"los visibles");
-      //gps_new.setVisibleLayers(layersVisibles);
-
-
 
     }else{
       this.setState({snackbarMessage: "No se ha seleccionado ninguna capa a mostrar.", activeSnackbar: true, snackbarIcon: "info" });
