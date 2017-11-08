@@ -144,6 +144,12 @@ function myLayers(){
     },
     read_gps_new(){
         return serviceURL + "GPS/GPS_VEHICULOS/MapServer?f=json&token="+ token.read();
+    },
+    read_gps_nominal(){
+        return serviceURL + "GPS/GPS_Vehiculos_v3/MapServer?f=json&token="+ token.read();
+    },
+    read_gps_contingencia(){
+      return serviceURL + "GPS/GPS_Vehiculos_v3/MapServer?f=json&token="+ token.read();
     }
 
 

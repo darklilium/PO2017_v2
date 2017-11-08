@@ -35,23 +35,23 @@ import _ from 'lodash';
 import myinfotemplate from '../utils/infoTemplates';
 
 export const optionsProcesoNominal = [
-  {value: 1, label: "Administrativo"},
-  {value: 2, label: "Constr.Empalmes"},
-  {value: 3, label: "Constr. Mantención RRDD"},
-  {value: 4, label: "Corte y Reposición"},
-  {value: 5, label: "Ingeniería"},
-  {value: 6, label: "Inspección Pérdidas / Lectura"},
-  {value: 7, label: "Mtto. Empalmes"},
-  {value: 8, label: "Mtto. Líneas de Transmisión"},
-  {value: 9, label: "Mtto. Protecciones"},
-  {value: 10, label: "Mtto. Redes Aéreas"},
-  {value: 11, label: "Mtto. Redes Energizadas"},
-  {value: 12, label: "Mtto. Redes Subterráneas"},
-  {value: 13, label: "Mtto. Subestaciones"},
-  {value: 14, label: "SAT"},
-  {value: 15, label: "Poda"},
-  {value: 16, label: "A definir"},
-  {value: 17, label: "No Aplica"}
+  {value: 1, label: "Administrativo", realName: 'Administrativo'},
+  {value: 2, label: "Constr.Empalmes", realName:"Construcción de Empalmes"},
+  {value: 3, label: "Constr. Mantención RRDD", realName: "Construcción y Mantención RRDD"},
+  {value: 4, label: "Corte y Reposición", realName: 'Corte y Reposición'},
+  {value: 5, label: "Ingeniería", realName: "Ingeniería"},
+  {value: 6, label: "Inspección Pérdidas / Lectura", realName: 'Inspección Perdidas / Lectura '},
+  {value: 7, label: "Mtto. Empalmes", realName: 'Mantenimiento Empalmes'},
+  {value: 8, label: "Mtto. Líneas de Transmisión", realName: 'Mantenimiento Líneas de transmisión'},
+  {value: 9, label: "Mtto. Protecciones", realName: 'Mantenimiento Protecciones'},
+  {value: 10, label: "Mtto. Redes Aéreas", realName: 'Mantenimiento Redes Aéreas'},
+  {value: 11, label: "Mtto. Redes Energizadas", realName: 'Mantenimiento Redes Energizadas'},
+  {value: 12, label: "Mtto. Redes Subterráneas", realName: "Mantenimiento Redes Subterráneas"},
+  {value: 13, label: "Mtto. Subestaciones", realName: 'Mantenimiento Subestaciones'},
+  {value: 14, label: "SAT", realName: "SAT"},
+  {value: 15, label: "Poda", realName: "Poda"},
+  {value: 16, label: "A definir", realName: "A definir"},
+  {value: 17, label: "No Aplica", realName: "No Aplica"}
 ]
 export const optionsContingencia = [
   {value: 19, label: "Logística"},
@@ -501,61 +501,68 @@ class DrawerTest extends React.Component {
     this.setState({selectedValues2: val});
   }
 
-
-
   verLayersGPS(){
     var mapp = mymap.getMap();
     const {selectedValues2, selectedValues} = this.state;
-    console.log(selectedValues, selectedValues2);
+
 
     if(mapp.getLayer("gps_new")){
       this.removerLayersGPS();
     }
-
+    //si hay valores para cualquiera de las opciones seleccionadas (nominal o contingencia)
     if((selectedValues.length) || (selectedValues2.length)){
-      var gps_new = new ArcGISDynamicMapServiceLayer(myLayers.read_gps_new(), {id:"gps_new"});
+
+      var gps_new = new ArcGISDynamicMapServiceLayer(myLayers.read_gps_nominal(), {id:"gps_new"});
       gps_new.setInfoTemplates({
         1: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        2: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        3: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        4: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        5: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        6: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        7: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        8: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        9: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        10: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        11: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        12: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        13: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        14: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        15: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        16: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-        17: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-
-        18: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        19: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        20: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        21: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        22: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        23: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        24: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        25: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        26: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        27: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        28: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
-        29: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()}
+        3: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()}
       });
       gps_new.refreshInterval = 1;
       gps_new.setImageFormat("png32");
+      var layerDefinitions = [];
 
+      //si la seleccion está en nominal
+      if(checkNominal.checked){
+      gps_new.setVisibleLayers([1]);
+
+
+        var where = selectedValues.map(s => {
+            return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${s.realName}'`;
+        });
+
+        var w = where.toString();
+        console.log(w,"Tengo")
+        w = w.replace(/,/g , " or ")
+        console.log(w,"tengo esto como query 1");
+          layerDefinitions[1] = w;
+      }
+      //si la seleccion esta en contingencia
+      if(checkContingencia.checked){
+        gps_new.setVisibleLayers([3]);
+        var where2 = selectedValues2.map(s => {
+            return `CONTROL_FLOTA.dbo.GPS_CONTINGENCIA.ds_nombre='${s.realName}'`;
+        });
+
+        var w2 = where2.toString();
+        w2 = w2.replace(/,/g , " or ")
+        console.log(w2,"tengo esto como query 2");;
+        var w2;
+        layerDefinitions[2] = w2;
+      }
+
+      //obtener valores de layers nominal y contingencia seleccionados. Puede ser nominal : 0  , contin 1 o + ; Contin: 1 o + , 0
       var layersNominal = selectedValues.map(layer => layer.value);
       var layersContingencia = selectedValues2.map(layer => layer.value);
-      var layersVisibles = _.concat(layersNominal,layersContingencia);
-    //  this.setState({selectedValues2: layersContingencia, selectedValues: layersNominal})
-      console.log(layersVisibles,"los visibles");
-      gps_new.setVisibleLayers(layersVisibles);
+      this.setState({selectedValues2: layersContingencia, selectedValues: layersNominal})
+
+      gps_new.setLayerDefinitions(layerDefinitions);
       mapp.addLayer(gps_new);
+
+      var layersVisibles = _.concat(layersNominal,layersContingencia);
+
+      //console.log(layersVisibles,"los visibles");
+      //gps_new.setVisibleLayers(layersVisibles);
+
 
 
     }else{
@@ -574,7 +581,7 @@ class DrawerTest extends React.Component {
       }
 
       if(checkNominal.checked){
-        console.log("hola", checkNominal.checked);
+
         this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, selectedValues: optionsProcesoNominal, selectedValues2: []});
         //this.verLayersGPS();
       }

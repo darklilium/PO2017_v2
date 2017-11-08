@@ -150,29 +150,16 @@ class ChilquintaMap extends React.Component {
     gpsCars.hide();
     */
 
-    var gps_new = new ArcGISDynamicMapServiceLayer(layers.read_gps_new(), {id:"gps_new"});
+    var gps_new = new ArcGISDynamicMapServiceLayer(layers.read_gps_nominal(), {id:"gps_new"});
     gps_new.setInfoTemplates({
       1: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      2: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      3: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      4: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      5: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      6: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      7: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      8: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      9: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      10: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      11: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      12: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      13: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      14: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      15: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      16: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      17: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()}
+      3: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()}
     });
     gps_new.refreshInterval = 1;
     gps_new.setImageFormat("png32");
-    gps_new.setVisibleLayers([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]);
+
+
+    gps_new.setVisibleLayers([1]);
     gps_new.show();
     mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
 
