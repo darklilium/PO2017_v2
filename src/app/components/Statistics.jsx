@@ -144,7 +144,7 @@ class Statistics extends React.Component {
       case 1:
         getStatisticPerOfficeChilquinta(cb=>{
           if(cb!=false){
-          
+
 
             makeStackedGraphic(cb.offices, cb.qttyRED, cb.qttyDOM, "containerChilquinta2", "Cant. Clientes (u)", "Interrupciones por Oficina.");
           }
@@ -153,7 +153,7 @@ class Statistics extends React.Component {
       break;
       case 2:
         getStatisticsRegionPercentChilquinta((cb,cb2)=>{
-
+            console.log(cb,cb2,"por comuna");
           if(cb!=false){
             makeBarsGraphic(cb,cb2, "containerChilquinta3", "% Clientes", "% Clientes", "Interrupciones por comuna.");
           }

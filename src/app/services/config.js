@@ -9,7 +9,7 @@ Compiled: 24/07/2017
 
 
 //local: usando servicios internos dev.
-
+/*
  const env = {
     ROOT: "/",
     CSSDIRECTORY: 'dist/css/',
@@ -20,7 +20,7 @@ Compiled: 24/07/2017
     SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_DESA_v2',
     BUILDFOR: 'INTERNA'
   }
-
+*/
 
 //local: usando servicios externos dev
 /*
@@ -34,23 +34,23 @@ const env = {
   SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_DESA_v2',
   BUILDFOR: 'EXTERNA'
 }
-
 */
+
 
 //servidor web: interno. servicios internos.
 
-/*
+
   const env = {
-    ROOT: "potest/",
+    ROOT: "potest2/",
     CSSDIRECTORY: 'css/',
     ROUTEPATH: 'index.html',
     ENVIRONMENT: 'PRODUCTION',
-    WEBSERVERADDRESS: "http://gisred.chilquinta/potest/",
-    SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_PROD_v2",
-    SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V2',
+    WEBSERVERADDRESS: "http://gisred.chilquinta/potest2/",
+    SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_PROD_v3",
+    SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V3',
     BUILDFOR: 'INTERNA'
   }
-*/
+
 
 
 //servidor web: externo, servicios externos.

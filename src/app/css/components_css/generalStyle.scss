@@ -4,22 +4,35 @@
 *{
   clear: both;
 }
+/*
 .wrapperTop{
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 6.4rem;
 }
+*/
+.wrapperTop{
+  display: flex;
+  flex-direction: row;
+  height: 5.4rem;
+  width: 100%;
+}
 
 .logo_content{
   display: flex;
 }
 
-.img_logo{
-  width: 7em;
-  margin: 0.3em;
+.img_logo {
+    width: 10em;
+    margin: 0.2em;
 }
 
+.img_logo2 {
+  width: 7em;
+  height: 3em;
+  margin: 0.4em 0.1em 0em 0.5em;
+}
 
 //online statistics bar
 .onlineStatistics_wrapper{
@@ -121,6 +134,15 @@ background-color: #007bf7;
   color: #757575;
 }
 
+.drawer_listSubHeader2{
+  padding-left: 2.6rem;
+  margin: -.8rem 0 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 4.8rem;
+  color: #757575;
+}
+
 .drawer_busquedaTitle{
   font-size:12px;
 }
@@ -140,7 +162,7 @@ background-color: #007bf7;
     background-blend-mode: screen;
     bottom: 0;
     z-index: 3;
-    padding: 1em;
+    //padding: 1em;
     position: absolute;
 }
 
@@ -235,7 +257,130 @@ background-color: #007bf7;
   table-layout: auto !important;
 }
 
+/**/
+.drawer_layers{
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
 
+.theme__item___1WzdF{
+  padding: 0px 7rem;
+}
+.content_drawer{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.content_drawer_left{
+  display: flex;
+  width: 100%;
+  justify-items: center;
+  flex-direction: column;
+}
+
+.content_drawer_right{
+  display: flex;
+      width: 100%;
+      height: 100%;
+      flex-direction: column;
+      margin-left: 0.5em;
+      margin-right: 1em;
+}
+
+.h4_title_layers{
+  font-size: initial;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.h4_title_special{
+  margin-top: 1em;
+}
+
+.drawer_buttonsContent{
+  display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    justify-content: space-around;
+}
+
+.btn50{
+  width: 50%;
+  margin: 1em;
+}
+
+.marginr1{
+  margin-right: 1em;
+}
+
+.checkLayers{
+  margin-top: 1em;
+  margin-bottom: 1em;
+  width: 30%;
+}
+
+
+//toggle img for symbology:
+  .toggler {
+    width: 500px;
+    height: 200px;
+    display: flex;
+    z-index: 15;
+    position: absolute;
+    bottom: 1em;
+    margin-left: 1em;
+    flex-direction: column-reverse;
+  }
+  #buttonToggler {
+    padding: .5em 1em;
+    text-decoration: none;
+    position: absolute;
+    z-index: 15;
+    display: flex;
+  }
+
+  #buttonToggler2 {
+    padding: .5em 1em;
+    text-decoration: none;
+    position: absolute;
+    z-index: 15;
+    display: flex;
+    margin-left: 2em;
+  }
+
+  #buttonToggler3 {
+    padding: .5em 1em;
+    text-decoration: none;
+    position: absolute;
+    z-index: 15;
+    display: flex;
+    margin-left: 4em;
+  }
+
+  #effect {
+    position: relative;
+    width: 240px;
+    height: 170px;
+    padding: 0.4em;
+    bottom: 3em;
+  }
+
+  #effect h3 {
+    margin: 0;
+    padding: 0.4em;
+    text-align: center;
+  }
+
+  .griddle-footer div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
 //LOGIN MEDIAS
 @media screen and (max-width: 600px) and (orientation: portrait){
@@ -284,7 +429,13 @@ background-color: #007bf7;
 
 
 //interrupciones media
-
+@media screen and (max-width: 360px) and (max-height: 640px)  and (orientation: portrait){
+  .img_logo {
+      width: 4em;
+      height: 2em;
+      margin: 1em 0em 1em 0.5em;
+  }
+}
 
 @media screen and (max-width: 360px)  and (orientation: portrait){
   .theme__appBar___b1hGI {
@@ -318,7 +469,7 @@ background-color: #007bf7;
   .simbologia_container{
     padding: 1em 0.5em 0em 0.5em;
     height: auto;
-    width: 15%;
+    //width: 15%;
   }
 
   .simbologia_container img{
@@ -341,7 +492,7 @@ background-color: #007bf7;
   }
 }
 //nexus 4, iphone 6
-@media screen and (max-width: 384px) and (min-width: 361px) and (orientation: portrait){
+@media screen and (max-width: 384px) and (orientation: portrait) {//and (min-width: 361px) and (orientation: portrait){
   .theme__appBar___b1hGI {
     padding: 0;
     width: 100%;
@@ -370,7 +521,7 @@ background-color: #007bf7;
   .simbologia_container{
     padding: 1em 0.5em 0em 0.5em;
     height: auto;
-    width: 15%;
+    //width: 15%;
   }
 
   .simbologia_container img{
@@ -389,7 +540,8 @@ background-color: #007bf7;
   }
 }
 
-@media screen and (max-width: 412px) and (min-width: 385px) and (orientation: portrait){
+//@media screen and (max-width: 412px) and (min-width: 385px) and (orientation: portrait){
+@media screen and (max-width: 412px) and (orientation: portrait){
   .theme__appBar___b1hGI {
     padding: 0;
     width: 100%;
@@ -418,7 +570,7 @@ background-color: #007bf7;
   .simbologia_container{
     padding: 1em 0.5em 0em 0.5em;
     height: auto;
-    width: 15%;
+    //width: 15%;
   }
 
   .simbologia_container img{
@@ -446,7 +598,8 @@ background-color: #007bf7;
   }
 }
 
-@media screen and (max-width: 600px) and (min-width: 413px) and (orientation: portrait){
+//@media screen and (max-width: 600px) and (min-width: 413px) and (orientation: portrait){
+@media screen and (max-width: 600px) and (orientation: portrait){
   .theme__appBar___b1hGI {
     padding: 0;
     width: 100%;
@@ -475,7 +628,7 @@ background-color: #007bf7;
   .simbologia_container{
     padding: 1em 0.5em 0em 0.5em;
     height: auto;
-    width: 15%;
+    //width: 15%;
   }
 
   .simbologia_container img{
@@ -507,7 +660,8 @@ background-color: #007bf7;
   }
 }
 
-@media screen and (max-width: 768px) and (min-width: 601px) and (orientation: portrait){
+//@media screen and (max-width: 768px) and (min-width: 601px) and (orientation: portrait){
+@media screen and (max-width: 768px) and (orientation: portrait){
   .theme__appBar___b1hGI {
     padding: 0;
     width: 100%;
@@ -536,7 +690,7 @@ background-color: #007bf7;
   .simbologia_container{
     padding: 1em 0.5em 0em 0.5em;
     height: auto;
-    width: 15%;
+    //width: 15%;
   }
 
   .simbologia_container img{
@@ -568,7 +722,8 @@ background-color: #007bf7;
   }
 }
 
-@media screen and (max-width: 800px) and (min-width: 769px) and (orientation: portrait){
+//@media screen and (max-width: 800px) and (min-width: 769px) and (orientation: portrait){
+@media screen and (max-width: 800px) and (orientation: portrait){
   .theme__appBar___b1hGI {
     padding: 0;
     width: 100%;
@@ -597,7 +752,7 @@ background-color: #007bf7;
   .simbologia_container{
     padding: 1em 0.5em 0em 0.5em;
     height: auto;
-    width: 15%;
+    //width: 15%;
   }
 
   .simbologia_container img{
@@ -627,6 +782,56 @@ background-color: #007bf7;
   .onlineStatistics_wrapper{
     font-size: x-small;
   }
+
+  .drawer_listSubHeader{
+    padding-left: 1.6rem;
+    margin: -.8rem 0 0;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 4.8rem;
+    color: #757575;
+  }
+
+  .drawer_listSubHeader2{
+    padding-left: 1.6rem;
+    margin: -.8rem 0 0;
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 4.8rem;
+    color: #757575;
+  }
+
+  .theme__item___1WzdF {
+    padding: 0px 1rem;
+  }
+
+  .content_drawer_right {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    margin-left: 0.5em;
+    margin-right: 1em;
+    font-size: 11px;
+  }
+
+  .btn50 {
+    width: 80%;
+    margin: 1em;
+  }
+
+  .drawer_buttonsContent {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .drawer_layers {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+  }
+
 }
 
 //landscape
@@ -634,7 +839,7 @@ background-color: #007bf7;
   .simbologia_container{
     padding: 1em 0.5em 0em 0.5em;
     height: 55%;
-      width: 10%;
+    width: 10%;
   }
 
   .simbologia_container img{
@@ -758,15 +963,20 @@ background-color: #007bf7;
   }
 }
 
-@media screen and (max-width: 736px) and (min-width:641px) and (orientation: landscape){
+//@media screen and (max-width: 732px) and (min-width:641px) and (orientation: landscape){
+@media screen and (max-width: 732px) and (max-height: 412px) and (orientation: landscape){
   .simbologia_container{
     padding: 1em 0.5em 0em 0.5em;
-    height: 55%;
-      width: 10%;
+    height: auto;
+    //width: 15%;
   }
 
   .simbologia_container img{
-    width: 90%;
+    width: 100%;
+  }
+
+  .theme__item___1WzdF {
+    padding: 0px 1rem;
   }
 
   .img_logo{
@@ -820,10 +1030,62 @@ background-color: #007bf7;
   .theme__label___3Q1BH{
     font-size: 8px;
   }
+
+  .drawer_layers {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+  }
+
 }
 
-.griddle-footer div{
-  display: flex;
-    justify-content: center;
-    align-items: center;
+//17.10.2017
+@media screen and (max-width: 800px) and (orientation: landscape){
+  .drawer_listSubHeader{
+    padding-left: 1.6rem;
+    margin: -.8rem 0 0;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 4.8rem;
+    color: #757575;
+  }
+
+  .drawer_listSubHeader2{
+    padding-left: 1.6rem;
+    margin: -.8rem 0 0;
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 4.8rem;
+    color: #757575;
+  }
+
+  .theme__item___1WzdF {
+    padding: 0px 1rem;
+  }
+
+  .content_drawer_right {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    margin-left: 0.5em;
+    margin-right: 1em;
+    font-size: 11px;
+  }
+
+  .btn50 {
+    width: 80%;
+    margin: 1em;
+  }
+
+  .drawer_buttonsContent {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .griddle {
+    font-size: 8px;
+    text-align: center;
+  }
 }

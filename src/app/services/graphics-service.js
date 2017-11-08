@@ -437,7 +437,7 @@ function getRegionTotal(nowAffected, callback){
 }
 
 function calculatePercentaje(totalObj, affectedObj, callback){
-
+  console.log(totalObj,affectedObj, "tengo para calcular..")
   /*Search if affected is in total objects*/
   var t = Array.from(totalObj);
   var a = Array.from(affectedObj);

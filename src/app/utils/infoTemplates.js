@@ -114,6 +114,47 @@ function getInfoTemplate(){
       ;
       chqAlimInfoTemp.setContent(chqAlimInfoContent);
       return chqAlimInfoTemp;
+    },
+    //12-10-2017: Agregando layers gps nuevos:
+    getCarsInfo_layerNominal(){
+      let chqAlimInfoTemp= new InfoTemplate();
+      chqAlimInfoTemp.setTitle("<b>Patente: ${CONTROL_FLOTA.dbo.GPS_MOVIL.id_placa}</b>");
+
+      let chqAlimInfoContent =
+      "<div style=padding-top: 10px;><b>Tipo:</b> ${CONTROL_FLOTA.dbo.GPS_MOVIL_TIPO.ds_nombre}<br></div>"+
+      "<div style=padding-top: 10px;><b>Características:</b> ${CONTROL_FLOTA.dbo.GPS_CARACTERISTICA.ds_nombre}<br></div>"+
+      "<div style=padding-top: 10px;><b>Empresa:</b> ${CONTROL_FLOTA.dbo.GPS_EMPRESA.ds_nombre}<br></div>"+
+      "<div style=padding-top: 10px;><b>Zona Operación:</b> ${CONTROL_FLOTA.dbo.GPS_ZONA_OPERACION.ds_nombre}<br></div>"+
+      "<div style=padding-top: 10px;><b>Operador:</b> ${CONTROL_FLOTA.dbo.GPS_MOVIL.ds_nom_operador}<br></div>"+
+      "<div style=padding-top: 10px;><b>Proceso Nominal:</b> ${CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre}<br></div>"+
+      "<div style=padding-top: 10px;><b>Contingencia:</b> - </div>"
+      /*+
+      "<div style=padding-top: 10px;><b>Latitud:</b> ${GISRED.DBO.%GIS_GPS_DATA_MF_Features.LATITUD}<br></div>"+
+      "<div style=padding-top: 10px;><b>Longitud:</b> ${GISRED.DBO.%GIS_GPS_DATA_MF_Features.LONGITUD}<br></div>"
+      */
+      ;
+      chqAlimInfoTemp.setContent(chqAlimInfoContent);
+      return chqAlimInfoTemp;
+    },
+    getCarsInfo_layerContingencia(){
+      let chqAlimInfoTemp= new InfoTemplate();
+      chqAlimInfoTemp.setTitle("<b>Patente: ${CONTROL_FLOTA.dbo.GPS_MOVIL.id_placa}</b>");
+
+      let chqAlimInfoContent =
+      "<div style=padding-top: 10px;><b>Tipo:</b> ${CONTROL_FLOTA.dbo.GPS_MOVIL_TIPO.ds_nombre}<br></div>"+
+      "<div style=padding-top: 10px;><b>Características:</b> ${CONTROL_FLOTA.dbo.GPS_CARACTERISTICA.ds_nombre}<br></div>"+
+      "<div style=padding-top: 10px;><b>Empresa:</b> ${CONTROL_FLOTA.dbo.GPS_EMPRESA.ds_nombre}<br></div>"+
+      "<div style=padding-top: 10px;><b>Zona Operación:</b> ${CONTROL_FLOTA.dbo.GPS_ZONA_OPERACION.ds_nombre}<br></div>"+
+      "<div style=padding-top: 10px;><b>Operador:</b> ${CONTROL_FLOTA.dbo.GPS_MOVIL.ds_nom_operador}<br></div>"+
+      "<div style=padding-top: 10px;><b>Proceso Nominal:</b> - <br></div>"+
+      "<div style=padding-top: 10px;><b>Contingencia:</b>  ${CONTROL_FLOTA.dbo.GPS_CONTINGENCIA.ds_nombre}</div>"
+      /*+
+      "<div style=padding-top: 10px;><b>Latitud:</b> ${GISRED.DBO.%GIS_GPS_DATA_MF_Features.LATITUD}<br></div>"+
+      "<div style=padding-top: 10px;><b>Longitud:</b> ${GISRED.DBO.%GIS_GPS_DATA_MF_Features.LONGITUD}<br></div>"
+      */
+      ;
+      chqAlimInfoTemp.setContent(chqAlimInfoContent);
+      return chqAlimInfoTemp;
     }
 
   }

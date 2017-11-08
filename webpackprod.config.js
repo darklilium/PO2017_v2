@@ -2,8 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
- const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
- 
+ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   context: __dirname,
   entry: {
@@ -70,18 +71,25 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new UglifyJSPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
+    new HtmlWebpackPlugin({
+      title: "PO Interrupciones",
+      template: "index.html",
+      filename: "index.html",
+      hash: true
+
+    }),
+
+    new UglifyJsPlugin({
       sourceMap: true,
-      beautify: false,
-      mangle: {
-        screw_ie8: true,
-        keep_fnames: true
-      },
-      compress: {
-        screw_ie8: true
-      },
-      comments: false
+      uglifyOptions: {
+        mangle: {
+          keep_fnames: true
+        },
+        output: {
+          comments: false,
+          beautify: false,
+        }
+      }
     })
   ]
 };

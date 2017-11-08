@@ -8,9 +8,10 @@ import env from '../services/config';
 function myLayers(){
   var serviceMain;
   var serviceURL;
-
+  var index=1;
   if(env.BUILDFOR=="INTERNA"){
     serviceMain = 'http://gisred.chilquinta/arcgis/';
+    //  serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
   }else{
     serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
 
@@ -140,6 +141,9 @@ function myLayers(){
     },
     read_GPS(){
         return serviceURL + "GPS/GPS_VEHICULE/MapServer?f=json&token="+ token.read();
+    },
+    read_gps_new(){
+        return serviceURL + "GPS/GPS_VEHICULOS/MapServer?f=json&token="+ token.read();
     }
 
 

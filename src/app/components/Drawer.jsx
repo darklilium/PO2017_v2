@@ -8,7 +8,7 @@ import Statistics from './Statistics.jsx';
 import {Router, Route, browserHistory} from "react-router";
 
 import {Link} from "react-router";
-import {Logo} from "./Logo.jsx";
+import {Logo, LogoDrawer} from "./Logo.jsx";
 import {OnlineStatistics} from "./OnlineStatistics.jsx";
 import Drawer from 'react-toolbox/lib/drawer';
 import Select from 'react-select';
@@ -28,9 +28,44 @@ import ProgressBar from 'react-toolbox/lib/progress_bar';
 import Popup from 'esri/dijit/Popup';
 import VETiledLayer from 'esri/virtualearth/VETiledLayer';
 import env from '../services/config';
+//11.10.2017
+import LayerList from "esri/dijit/LayerList";
+import FeatureLayer from 'esri/layers/FeatureLayer';
+import _ from 'lodash';
+import myinfotemplate from '../utils/infoTemplates';
 
-//03.04.2017: agregando multiempresa.
-
+export const optionsProcesoNominal = [
+  {value: 1, label: "Administrativo"},
+  {value: 2, label: "Constr.Empalmes"},
+  {value: 3, label: "Constr. Mantención RRDD"},
+  {value: 4, label: "Corte y Reposición"},
+  {value: 5, label: "Ingeniería"},
+  {value: 6, label: "Inspección Pérdidas / Lectura"},
+  {value: 7, label: "Mtto. Empalmes"},
+  {value: 8, label: "Mtto. Líneas de Transmisión"},
+  {value: 9, label: "Mtto. Protecciones"},
+  {value: 10, label: "Mtto. Redes Aéreas"},
+  {value: 11, label: "Mtto. Redes Energizadas"},
+  {value: 12, label: "Mtto. Redes Subterráneas"},
+  {value: 13, label: "Mtto. Subestaciones"},
+  {value: 14, label: "SAT"},
+  {value: 15, label: "Poda"},
+  {value: 16, label: "A definir"},
+  {value: 17, label: "No Aplica"}
+]
+export const optionsContingencia = [
+  {value: 19, label: "Logística"},
+  {value: 20, label: "Concurrencia"},
+  {value: 21, label: "Atención Domiciliaria"},
+  {value: 22, label: "Insp. / Reparación LLTT"},
+  {value: 23, label: "Operación BT/MT"},
+  {value: 24, label: "Podas BT/MT"},
+  {value: 25, label: "Insp. Protecciones/SSEE"},
+  {value: 26, label: "Reparación Liviana"},
+  {value: 27, label: "Reparación Pesada"},
+  {value: 28, label: "A definir"},
+  {value: 29, label: "No Aplica"}
+]
 
 var options = [
     { value: 'NIS', label: 'NIS' },
@@ -44,6 +79,7 @@ class DrawerTest extends React.Component {
     active: false,
     active2: false,
     active3: false,
+    active4: false,
     checkbox: false,
     checkbox2: false,
     checkbox3: false,
@@ -56,7 +92,12 @@ class DrawerTest extends React.Component {
     activeSnackbar: false,
     snackbarIcon: 'error',
     mapSelected: 'topo',
-    layersOrder: ''
+    layersOrder: '',
+    selectedValues: optionsProcesoNominal,
+    selectedValues2: [],
+    checkDefault: true,
+    selectNominalDisabled: false,
+    selectContingenciaDisabled: true,
   };
 
   handleToggle = () => {
@@ -450,6 +491,122 @@ class DrawerTest extends React.Component {
       this.setState({ activeSnackbar : false });
   };
 
+  logChangeLayers(val) {
+    //console.log("Selected layers: " + JSON.stringify(val));
+    this.setState({selectedValues: val});
+  }
+
+  logChangeLayers2(val) {
+    //console.log("Selected layers: " + JSON.stringify(val));
+    this.setState({selectedValues2: val});
+  }
+
+
+
+  verLayersGPS(){
+    var mapp = mymap.getMap();
+    const {selectedValues2, selectedValues} = this.state;
+    console.log(selectedValues, selectedValues2);
+
+    if(mapp.getLayer("gps_new")){
+      this.removerLayersGPS();
+    }
+
+    if((selectedValues.length) || (selectedValues2.length)){
+      var gps_new = new ArcGISDynamicMapServiceLayer(myLayers.read_gps_new(), {id:"gps_new"});
+      gps_new.setInfoTemplates({
+        1: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        2: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        3: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        4: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        5: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        6: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        7: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        8: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        9: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        10: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        11: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        12: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        13: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        14: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        15: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        16: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        17: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+
+        18: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        19: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        20: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        21: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        22: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        23: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        24: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        25: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        26: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        27: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        28: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()},
+        29: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()}
+      });
+      gps_new.refreshInterval = 1;
+      gps_new.setImageFormat("png32");
+
+      var layersNominal = selectedValues.map(layer => layer.value);
+      var layersContingencia = selectedValues2.map(layer => layer.value);
+      var layersVisibles = _.concat(layersNominal,layersContingencia);
+    //  this.setState({selectedValues2: layersContingencia, selectedValues: layersNominal})
+      console.log(layersVisibles,"los visibles");
+      gps_new.setVisibleLayers(layersVisibles);
+      mapp.addLayer(gps_new);
+
+
+    }else{
+      this.setState({snackbarMessage: "No se ha seleccionado ninguna capa a mostrar.", activeSnackbar: true, snackbarIcon: "info" });
+    }
+
+
+  }
+
+  removerLayersGPS(){
+      var mapp = mymap.getMap();
+        this.setState({selectedValues2: [], selectedValues: []})
+      if(mapp.getLayer("gps_new")){
+        mapp.removeLayer(mapp.getLayer("gps_new"));
+
+      }
+
+      if(checkNominal.checked){
+        console.log("hola", checkNominal.checked);
+        this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, selectedValues: optionsProcesoNominal, selectedValues2: []});
+        //this.verLayersGPS();
+      }
+
+      if(checkContingencia.checked){
+
+        console.log("hola2", checkContingencia.checked);
+        this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false, selectedValues2: optionsContingencia, selectedValues: []});
+        //this.verLayersGPS();
+      }
+  }
+
+  onCheckChange(e){
+
+    //this.removerLayersGPS();
+    //si está seleccionado, deshabilitar select contingencia.
+    if(e.currentTarget.id=="checkNominal"){
+      this.removerLayersGPS();
+      console.log("hola", e.currentTarget.id);
+      this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, selectedValues: optionsProcesoNominal, selectedValues2: []});
+      //this.verLayersGPS();
+    }
+    //si es nominal
+    if(e.currentTarget.id=="checkContingencia"){
+      this.removerLayersGPS();
+      console.log("hola", e.currentTarget.id);
+      this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false, selectedValues2: optionsContingencia, selectedValues: []});
+      //this.verLayersGPS();
+    }
+
+  }
+
   render () {
 
     return (
@@ -462,7 +619,7 @@ class DrawerTest extends React.Component {
 
         <Drawer active={this.state.active} onOverlayClick={this.handleToggle}>
           <div className="drawer_banner">
-            <Logo />
+            <LogoDrawer />
             <h6 className="drawer_banner_title">Búsqueda</h6>
 
           </div>
@@ -488,7 +645,7 @@ class DrawerTest extends React.Component {
 
         <Drawer active={this.state.active2} onOverlayClick={this.handleToggle2}>
           <div className="drawer_banner">
-            <Logo />
+            <LogoDrawer />
             <h6  className="drawer_banner_title">Seleccionar Mapa</h6>
           </div>
           <ListSubHeader className="drawer_listSubHeader" caption='Seleccione un mapa para visualizar:' />
@@ -503,46 +660,92 @@ class DrawerTest extends React.Component {
           <ProgressBar type="circular" mode="indeterminate" className="drawer_progressBar" />
         </Drawer>
 
-        <Drawer active={this.state.active3} onOverlayClick={this.handleToggle3}>
+        <Drawer className="drawer_layers" active={this.state.active3} onOverlayClick={this.handleToggle3}>
           <div className="drawer_banner">
-            <Logo />
+            <LogoDrawer />
             <h6  className="drawer_banner_title">Seleccionar Layers</h6>
           </div>
-          <List selectable ripple>
-            <ListSubHeader className="drawer_listSubHeader" caption='Seleccione uno o más layers para visualizar:' />
-            <ListCheckbox
-              caption='SSEE'
-              checked={this.state.checkbox}
-              legend=''
-              onChange={this.handleCheckboxChange.bind(this,"SSEE")}
-            />
-            <ListCheckbox
-              caption='Alimentador'
-              checked={this.state.checkbox2}
-              legend=''
-              onChange={this.handleCheckboxChange.bind(this,"ALIMENTADOR")}
-            />
-            <ListCheckbox
-              caption='Chilquinta Basemap'
-              checked={this.state.checkbox3}
-              legend=''
-              onChange={this.handleCheckboxChange.bind(this,"CHILQUINTA")}
-            />
-            <ListCheckbox
-              caption='Heatmap Clientes'
-              checked={this.state.checkbox4}
-              legend=''
-              onChange={this.handleCheckboxChange.bind(this,"HEATMAPCLIENTES")}
-            />
-            <ListCheckbox
-              caption='GPS'
-              checked={this.state.checkbox5}
-              legend=''
-              onChange={this.handleCheckboxChange.bind(this,"GPS")}
-            />
-            <ListDivider />
-          </List>
+          <div className="content_drawer">
+            <div className="content_drawer_left">
+              <List>
+                <ListSubHeader className="drawer_listSubHeader2" caption='OTROS: Seleccione uno o más layers para visualizar:' />
+                <ListCheckbox
+                  caption='SSEE'
+                  checked={this.state.checkbox}
+                  legend=''
+                  onChange={this.handleCheckboxChange.bind(this,"SSEE")}
+                />
+                <ListCheckbox
+                  caption='Alimentador'
+                  checked={this.state.checkbox2}
+                  legend=''
+                  onChange={this.handleCheckboxChange.bind(this,"ALIMENTADOR")}
+                />
+                <ListCheckbox
+                  caption='Chilquinta Basemap'
+                  checked={this.state.checkbox3}
+                  legend=''
+                  onChange={this.handleCheckboxChange.bind(this,"CHILQUINTA")}
+                />
+                <ListCheckbox
+                  caption='Heatmap Clientes'
+                  checked={this.state.checkbox4}
+                  legend=''
+                  onChange={this.handleCheckboxChange.bind(this,"HEATMAPCLIENTES")}
+                />
+                {/*<ListCheckbox
+                  caption='GPS'
+                  checked={this.state.checkbox5}
+                  legend=''
+                  onChange={this.handleCheckboxChange.bind(this,"GPS")}
+                />
+                */}
+              </List>
+              </div>
+              <div className="content_drawer_right">
+                <List >
+                  <ListSubHeader className="drawer_listSubHeader2" caption='GPS: Seleccione uno o más layers para visualizar:' />
+                </List>
+
+                <div className="combo_wrapper">
+                  <input type="radio" onChange={this.onCheckChange.bind(this)}  id="checkNominal" className="checkLayers"  name="checklayers" value="NOMINAL" defaultChecked={this.state.checkDefault} />Proceso Nominal<br />
+                  {/* <h4 className="h4_title_layers h4_title_special ">Proceso Nominal</h4> */}
+                  <Select className="marginr1"
+                    name="procesoNominal"
+                    value={this.state.selectedValues}
+                    multi
+                    options={optionsProcesoNominal}
+                    disabled = {this.state.selectNominalDisabled}
+                    placeholder= "Selecciona Layers de Proceso Nominal"
+                    onChange={this.logChangeLayers.bind(this)}
+                  />
+
+                  <input type="radio" onChange={this.onCheckChange.bind(this)}  id="checkContingencia" className="checkLayers" name="checklayers" value="CONTINGENCIA" />Contingencia<br />
+
+                  {/*<h4 className="h4_title_layers h4_title_special ">Contingencia</h4> */}
+                  <Select className="marginr1"
+                    name="contingencia"
+                    value={this.state.selectedValues2}
+                    multi
+                    options={optionsContingencia}
+                    disabled = {this.state.selectContingenciaDisabled}
+                    placeholder= "Selecciona Layers de Contingencia"
+                    onChange={this.logChangeLayers2.bind(this)}
+                  />
+                </div>
+                <div className="drawer_buttonsContent">
+                  <Button className="drawer_button btn50" icon='close' label='Remover' onClick={this.removerLayersGPS.bind(this)} raised primary  />
+                  <Button className="drawer_button btn50" icon='check' label="Ver en Mapa" onClick={this.verLayersGPS.bind(this)} raised primary />
+                </div>
+              </div>
+          </div>
+
+
+
         </Drawer>
+
+
+
         <Snackbar
           className={this.state.snackbarStyle}
           action='Aceptar'
