@@ -569,39 +569,31 @@ class DrawerTest extends React.Component {
         this.setState({selectedValues2: [], selectedValues: []})
       if(mapp.getLayer("gps_new")){
         mapp.removeLayer(mapp.getLayer("gps_new"));
-
       }
 
       if(checkNominal.checked){
-
         this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, selectedValues: optionsProcesoNominal, selectedValues2: []});
-        //this.verLayersGPS();
       }
 
       if(checkContingencia.checked){
-
-        console.log("hola2", checkContingencia.checked);
         this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false, selectedValues2: optionsContingencia, selectedValues: []});
-        //this.verLayersGPS();
       }
   }
 
   onCheckChange(e){
 
-    //this.removerLayersGPS();
+
     //si está seleccionado, deshabilitar select contingencia.
     if(e.currentTarget.id=="checkNominal"){
       this.removerLayersGPS();
-      console.log("hola", e.currentTarget.id);
       this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, selectedValues: optionsProcesoNominal, selectedValues2: []});
-      //this.verLayersGPS();
+
     }
     //si es nominal
     if(e.currentTarget.id=="checkContingencia"){
       this.removerLayersGPS();
-      console.log("hola", e.currentTarget.id);
       this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false, selectedValues2: optionsContingencia, selectedValues: []});
-      //this.verLayersGPS();
+    
     }
 
   }
