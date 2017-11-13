@@ -244,6 +244,24 @@ html, body, #app, #map { height: 100%; margin: 0; padding: 0; }
 
 .griddle-footer div { display: flex; justify-content: center; align-items: center; }
 
+.ui.checkbox .box:before, .ui.checkbox label:before { border: 2px solid black; }
+
+.ui.checkbox input:focus ~ .box:before, .ui.checkbox input:focus ~ label:before { background: #fff !important; border-color: black; }
+
+.ui.checkbox input:checked ~ .box:before, .ui.checkbox input:checked ~ label:before { background: #fff !important; border-color: #222426; }
+
+.ui.checkbox .box:before, .ui.checkbox label:after, .ui.checkbox label:focus { background: #007bf7; color: white !important; }
+
+.ui.checkbox input:checked ~ .box:after, .ui.checkbox input:checked ~ label:after { color: white !important; }
+
+.ui.checkbox { font-style: normal; font-size: 15px; font-weight: 500; margin-top: 0.5em; }
+
+.ui.checkbox label { padding-left: 3.85714em; }
+
+.wrapper_checksLayers { display: flex; flex-direction: column; margin-left: 1em; margin-right: 1em; float: right; width: 80%; }
+
+.theme__list___YVXcL { width: 96%; }
+
 @media screen and (max-width: 600px) and (orientation: portrait) { .login_input { width: 50%; }
   .login_div { flex-direction: column; }
   .login_logo { width: 45%; }

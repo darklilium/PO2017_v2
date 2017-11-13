@@ -14,6 +14,9 @@ import {optionsProcesoNominal} from './Drawer';
 import $ from 'jquery';
 import {Button, IconButton} from 'react-toolbox/lib/button';
 
+//13-11-2017
+import {userPermissions} from './Drawer';
+
 
 const SymbologyImg = ({imagen}) => {
   return   <div className="simbologia_container"><img src={imagen}></img></div>
@@ -140,15 +143,7 @@ class ChilquintaMap extends React.Component {
     heatmapFeatureLayer1.setRenderer(heatmapRenderer);
     heatmapFeatureLayer1.hide();
 
-    /*var gpsCars = new ArcGISDynamicMapServiceLayer(layers.read_GPS(), {id:"gis_gps"});
-
-    gpsCars.setInfoTemplates({
-      0: {infoTemplate: myinfotemplate.getCarsInfo()}
-    });
-    gpsCars.refreshInterval = 0.1;
-    gpsCars.setImageFormat("png32");
-    gpsCars.hide();
-    */
+// HACK: Inicializar layer gps con definition expression segun permisos del usuario:
 
     var gps_new = new ArcGISDynamicMapServiceLayer(layers.read_gps_nominal(), {id:"gps_new"});
     gps_new.setInfoTemplates({
@@ -158,10 +153,27 @@ class ChilquintaMap extends React.Component {
     gps_new.refreshInterval = 1;
     gps_new.setImageFormat("png32");
 
+      var layerDefinitions = [];
+      //obtener todos los layers del servicio (sólo su nombre real de layer)
+      var todos = optionsProcesoNominal.map(p=>{return p.realName});
+      //obtener los nombres de layers restringidos segun permisos del usuario
+      var restringidos = userPermissions.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName});
 
-    gps_new.setVisibleLayers([1]);
-    gps_new.show();
-    mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
+      //Excluir los layers restringidos del total y agregar premisa de DB.
+      var filtro = todos.filter(el=>{
+        return !restringidos.includes(el);
+      }).map(f=>{
+        return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${f}'`;
+      }).toString();
+      //Reemplazar la coma del string por or para realizar definition expression
+      filtro = filtro.replace(/,/g , " or ")
+      layerDefinitions[1] = filtro;
+      gps_new.setLayerDefinitions(layerDefinitions);
+      gps_new.setVisibleLayers([1]);
+      gps_new.show();
+
+      //Agregar todos los layers al mapa.
+      mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
 
 
   }

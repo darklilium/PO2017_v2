@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Button } from 'react-toolbox/lib/button'; // Bundled component import
 import { Layout, NavDrawer, Panel, Sidebar } from 'react-toolbox';
-import { AppBar, Checkbox, IconButton } from 'react-toolbox';
+
 import Statistics from './Statistics.jsx';
 import {Router, Route, browserHistory} from "react-router";
 
@@ -34,38 +34,49 @@ import FeatureLayer from 'esri/layers/FeatureLayer';
 import _ from 'lodash';
 import myinfotemplate from '../utils/infoTemplates';
 
+import { Checkbox } from 'semantic-ui-react';
+import { AppBar, IconButton } from 'react-toolbox';
+
 export const optionsProcesoNominal = [
-  {value: 1, label: "Administrativo", realName: 'Administrativo'},
-  {value: 2, label: "Constr.Empalmes", realName:"Construcción de Empalmes"},
-  {value: 3, label: "Constr. Mantención RRDD", realName: "Construcción y Mantención RRDD"},
-  {value: 4, label: "Corte y Reposición", realName: 'Corte y Reposición'},
-  {value: 5, label: "Ingeniería", realName: "Ingeniería"},
-  {value: 6, label: "Inspección Pérdidas / Lectura", realName: 'Inspección Perdidas / Lectura '},
-  {value: 7, label: "Mtto. Empalmes", realName: 'Mantenimiento Empalmes'},
-  {value: 8, label: "Mtto. Líneas de Transmisión", realName: 'Mantenimiento Líneas de transmisión'},
-  {value: 9, label: "Mtto. Protecciones", realName: 'Mantenimiento Protecciones'},
-  {value: 10, label: "Mtto. Redes Aéreas", realName: 'Mantenimiento Redes Aéreas'},
-  {value: 11, label: "Mtto. Redes Energizadas", realName: 'Mantenimiento Redes Energizadas'},
-  {value: 12, label: "Mtto. Redes Subterráneas", realName: "Mantenimiento Redes Subterráneas"},
-  {value: 13, label: "Mtto. Subestaciones", realName: 'Mantenimiento Subestaciones'},
-  {value: 14, label: "SAT", realName: "SAT"},
-  {value: 15, label: "Poda", realName: "Poda"},
-  {value: 16, label: "A definir", realName: "A definir"},
-  {value: 17, label: "No Aplica", realName: "No Aplica"}
+  {value: 1, label: "Administrativo", name: 'Administrativo', realName: 'Administrativo', shortName: 'checkN_Admin', disabled: false, checked: true},
+  {value: 2, label: "Constr.Empalmes", name:"Construcción de Empalmes", realName:"Construcción de Empalmes", shortName: 'checkN_ConstEmpalmes', disabled: false, checked: true},
+  {value: 3, label: "Constr. Mantención RRDD", name: "Construcción y Mantención RRDD", realName: "Construcción y Mantención RRDD", disabled: false, checked: true},
+  {value: 4, label: "Corte y Reposición", name: 'Corte y Reposición', realName: 'Corte y Reposición', disabled: false, checked: true},
+  {value: 5, label: "Ingeniería", name: "Ingeniería", realName: "Ingeniería", disabled: false, checked: true},
+  {value: 6, label: "Inspección Pérdidas / Lectura", name: 'Inspección Perdidas / Lectura ' , realName: 'Inspección Perdidas / Lectura ', disabled: false, checked: true},
+  {value: 7, label: "Mtto. Empalmes", name: 'Mantenimiento Empalmes' , realName: 'Mantenimiento Empalmes', disabled: false, checked: true},
+  {value: 8, label: "Mtto. Líneas de Transmisión", name: 'Mantenimiento Líneas de transmisión', realName: 'Mantenimiento Líneas de transmisión', disabled: false, checked: true},
+  {value: 9, label: "Mtto. Protecciones", name: 'Mantenimiento Protecciones' , realName: 'Mantenimiento Protecciones', disabled: false, checked: true},
+  {value: 10, label: "Mtto. Redes Aéreas", name: 'Mantenimiento Redes Aéreas', realName: 'Mantenimiento Redes Aéreas', disabled: false, checked: true},
+  {value: 11, label: "Mtto. Redes Energizadas", name: 'Mantenimiento Redes Energizadas',  realName: 'Mantenimiento Redes Energizadas', disabled: false, checked: true},
+  {value: 12, label: "Mtto. Redes Subterráneas", name: "Mantenimiento Redes Subterráneas", realName: "Mantenimiento Redes Subterráneas", disabled: false, checked: true},
+  {value: 13, label: "Mtto. Subestaciones", name: 'Mantenimiento Subestaciones', realName: 'Mantenimiento Subestaciones', disabled: false, checked: true},
+  {value: 14, label: "SAT", name: "SAT", realName: "SAT", disabled: false, checked: true},
+  {value: 15, label: "Poda", name: 'Poda' , realName: "Poda", disabled: false, checked: true},
+  {value: 16, label: "A definir", name: 'A definirNominal'  , realName: "A definir", disabled: false, checked: true},
+  {value: 17, label: "No Aplica", name: 'No AplicaNominal', realName: "No Aplica", disabled: false, checked: true}
 ]
 export const optionsContingencia = [
-  {value: 19, label: "Logística"},
-  {value: 20, label: "Concurrencia"},
-  {value: 21, label: "Atención Domiciliaria"},
-  {value: 22, label: "Insp. / Reparación LLTT"},
-  {value: 23, label: "Operación BT/MT"},
-  {value: 24, label: "Podas BT/MT"},
-  {value: 25, label: "Insp. Protecciones/SSEE"},
-  {value: 26, label: "Reparación Liviana"},
-  {value: 27, label: "Reparación Pesada"},
-  {value: 28, label: "A definir"},
-  {value: 29, label: "No Aplica"}
+  {value: 19, label: "Logística", name: "Logística", realName: "Logística", disabled: false, checked: false},
+  {value: 20, label: "Concurrencia", name: "Concurrencia", realName: "Concurrencia", disabled: false, checked: false},
+  {value: 21, label: "Atención Domiciliaria", name: "Atención Domiciliaria", realName: "Atención Domiciliaria", disabled: false, checked: false},
+  {value: 22, label: "Insp. / Reparación LLTT", name: "Inspección / Reparación LLTT", realName: "Inspección / Reparación LLTT", disabled: false, checked: false},
+  {value: 23, label: "Operación BT/MT", name: "Operación BT MT", realName: "Operación BT MT", disabled: false, checked: false},
+  {value: 24, label: "Podas BT/MT", name: "Podas BT MT", realName: "Podas BT MT", disabled: false, checked: false},
+  {value: 25, label: "Insp. Protecciones/SSEE", name: "Inspección Protecciones / SSEE", realName: "Inspección Protecciones / SSEE", disabled: false, checked: false},
+  {value: 26, label: "Reparación Liviana", name: "Reparación Liviana", realName: "Reparación Liviana", disabled: false, checked: false},
+  {value: 27, label: "Reparación Pesada", name: "Reparación Pesada", realName: "Reparación Pesada", disabled: false, checked: false},
+  {value: 28, label: "A definir", name: "A definirContingencia", realName: "A definir", disabled: false, checked: false},
+  {value: 29, label: "No Aplica", name: "No AplicaContingencia", realName: "No Aplica", disabled: false, checked: false}
 ]
+// HACK: Permisos de check de layers restringidos:
+export const userPermissions = [
+  {tipo: 'NOMINAL', realName: 'Administrativo'},
+  {tipo: 'NOMINAL', realName: 'Inspección Perdidas / Lectura '},
+  {tipo: 'CONTINGENCIA', realName: "Logística"},
+  {tipo: 'CONTINGENCIA', realName: "Concurrencia"},
+  {tipo: 'CONTINGENCIA', realName: "No AplicaContingencia"}
+];
 
 var options = [
     { value: 'NIS', label: 'NIS' },
@@ -75,6 +86,11 @@ var options = [
 ];
 
 class DrawerTest extends React.Component {
+  constructor(props){
+    super(props);
+    this.filtrarContenido = this.filtrarContenido.bind(this);
+
+  }
   state = {
     active: false,
     active2: false,
@@ -93,11 +109,18 @@ class DrawerTest extends React.Component {
     snackbarIcon: 'error',
     mapSelected: 'topo',
     layersOrder: '',
-    selectedValues: optionsProcesoNominal,
-    selectedValues2: [],
-    checkDefault: true,
+    //selectedValues: optionsProcesoNominal,
+    //selectedValues2: [],
+    checkContingenciaChecked: false,
+    checkNominalChecked: true,
     selectNominalDisabled: false,
     selectContingenciaDisabled: true,
+    optionsProcesoNominal: optionsProcesoNominal,
+    optionsContingencia: optionsContingencia
+
+
+    //checkboxes para layers: (Contingencia)
+
   };
 
   handleToggle = () => {
@@ -491,27 +514,47 @@ class DrawerTest extends React.Component {
       this.setState({ activeSnackbar : false });
   };
 
-  logChangeLayers(val) {
-    //console.log("Selected layers: " + JSON.stringify(val));
-    this.setState({selectedValues: val});
-  }
+/*logChangeLayers(val) {
 
+    //this.setState({selectedValues: val});
+  }
+*/
+/*
   logChangeLayers2(val) {
-    //console.log("Selected layers: " + JSON.stringify(val));
+
     this.setState({selectedValues2: val});
   }
-
+*/
   verLayersGPS(){
     var mapp = mymap.getMap();
-    const {selectedValues2, selectedValues} = this.state;
-
-
     if(mapp.getLayer("gps_new")){
       this.removerLayersGPS();
     }
-    //si hay valores para cualquiera de las opciones seleccionadas (nominal o contingencia)
-    if((selectedValues.length) || (selectedValues2.length)){
+  // HACK: Ver layers segun tipo nominal o contingencia:
+    //si contingencia está seleccionado, sólo ver los layers habilitados y checkeados.
 
+    //si nominal está seleccionado, sólo ver los layers habilitados y checkeados.
+    if(checkNominal.checked){
+      var selectedChecks =  this.state.optionsProcesoNominal.map(pnom =>{
+        var el = document.getElementsByName(pnom.name);
+
+        if(el.length){
+          if(el[0].checked){
+            //console.log("Checked", el[0].attributes.name);
+            return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${pnom.realName}'`;
+          }else{
+            return '';
+          }
+        }else{
+          return '';
+        }
+
+      });
+      var filtrados = selectedChecks.filter(valor=>{
+        return valor !='';
+      })
+
+      //agregar el layer con la definición según los layers seleccionados.
       var gps_new = new ArcGISDynamicMapServiceLayer(myLayers.read_gps_nominal(), {id:"gps_new"});
       gps_new.setInfoTemplates({
         1: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
@@ -520,82 +563,195 @@ class DrawerTest extends React.Component {
       gps_new.refreshInterval = 1;
       gps_new.setImageFormat("png32");
       var layerDefinitions = [];
+      gps_new.setVisibleLayers([1]);
 
-      //si la seleccion está en nominal
-      if(checkNominal.checked){
-        gps_new.setVisibleLayers([1]);
-        var where = selectedValues.map(s => {
-            return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${s.realName}'`;
-        });
 
-        var w = where.toString();
-        console.log(w,"Tengo")
-        w = w.replace(/,/g , " or ")
-        layerDefinitions[1] = w;
-      }
+      var w = filtrados.toString();
 
-      //si la seleccion esta en contingencia
-      if(checkContingencia.checked){
-        gps_new.setVisibleLayers([3]);
-        var where2 = selectedValues2.map(s => {
-            return `CONTROL_FLOTA.dbo.GPS_CONTINGENCIA.ds_nombre='${s.realName}'`;
-        });
+      w = w.replace(/,/g , " or ")
 
-        var w2 = where2.toString();
-        w2 = w2.replace(/,/g , " or ")
-        var w2;
-        layerDefinitions[2] = w2;
-      }
-
-      //obtener valores de layers nominal y contingencia seleccionados. Puede ser nominal : 0  , contin 1 o + ; Contin: 1 o + , 0
-      var layersNominal = selectedValues.map(layer => layer.value);
-      var layersContingencia = selectedValues2.map(layer => layer.value);
-      this.setState({selectedValues2: layersContingencia, selectedValues: layersNominal})
-
+      layerDefinitions[1] = w;
       gps_new.setLayerDefinitions(layerDefinitions);
-      mapp.addLayer(gps_new);
+      //si hay algun check seleccionado
+      if(filtrados.length){
+        mapp.addLayer(gps_new);
+      }
 
-      var layersVisibles = _.concat(layersNominal,layersContingencia);
 
-    }else{
-      this.setState({snackbarMessage: "No se ha seleccionado ninguna capa a mostrar.", activeSnackbar: true, snackbarIcon: "info" });
     }
 
+    if(checkContingencia.checked){
+      var selectedChecks =  this.state.optionsContingencia.map(pnom =>{
 
+
+        var el = document.getElementsByName(pnom.name);
+
+        if(el.length){
+          if(el[0].checked){
+
+            return `CONTROL_FLOTA.dbo.GPS_CONTINGENCIA.ds_nombre='${pnom.realName}'`;
+          }else{
+            return '';
+          }
+        }else{
+          return '';
+        }
+
+      });
+      var filtrados = selectedChecks.filter(valor=>{
+        return valor !='';
+      })
+
+
+      //agregar el layer con la definición según los layers seleccionados.
+      var gps_new = new ArcGISDynamicMapServiceLayer(myLayers.read_gps_nominal(), {id:"gps_new"});
+      gps_new.setInfoTemplates({
+        1: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        3: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()}
+      });
+      gps_new.refreshInterval = 1;
+      gps_new.setImageFormat("png32");
+      var layerDefinitions = [];
+      gps_new.setVisibleLayers([3]);
+
+
+      var w = filtrados.toString();
+      //console.log(w,"Tengo")
+      w = w.replace(/,/g , " or ")
+
+      layerDefinitions[3] = w;
+      gps_new.setLayerDefinitions(layerDefinitions);
+      //si hay algun check seleccionado
+      if(filtrados.length){
+        mapp.addLayer(gps_new);
+      }
+
+
+    }
   }
 
   removerLayersGPS(){
       var mapp = mymap.getMap();
-        this.setState({selectedValues2: [], selectedValues: []})
+        //this.setState({selectedValues2: [], selectedValues: []})
       if(mapp.getLayer("gps_new")){
         mapp.removeLayer(mapp.getLayer("gps_new"));
       }
 
       if(checkNominal.checked){
-        this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, selectedValues: optionsProcesoNominal, selectedValues2: []});
+        //this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, selectedValues: optionsProcesoNominal, selectedValues2: []});
+        this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false});
       }
 
       if(checkContingencia.checked){
-        this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false, selectedValues2: optionsContingencia, selectedValues: []});
+        //this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false, selectedValues2: optionsContingencia, selectedValues: []});
+        this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false});
       }
   }
 
+
+
   onCheckChange(e){
 
-
-    //si está seleccionado, deshabilitar select contingencia.
     if(e.currentTarget.id=="checkNominal"){
       this.removerLayersGPS();
-      this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, selectedValues: optionsProcesoNominal, selectedValues2: []});
+
+      this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, checkNominalChecked: true, checkContingenciaChecked: false});
+
+      this.state.optionsContingencia.map((check, index)=>{
+        check.disabled=true;
+      });
+      this.state.optionsProcesoNominal.map((check, index)=>{
+        check.disabled=false;
+      });
+      this.filtrarContenido();
+
+
 
     }
-    //si es nominal
+
     if(e.currentTarget.id=="checkContingencia"){
       this.removerLayersGPS();
-      this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false, selectedValues2: optionsContingencia, selectedValues: []});
-    
+
+      this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false, checkContingenciaChecked: true, checkNominalChecked: false});
+
+      this.state.optionsContingencia.map((check, index)=>{
+        check.disabled=false;
+      });
+      this.state.optionsProcesoNominal.map((check, index)=>{
+        check.disabled=true;
+      });
+
+      this.filtrarContenido();
     }
 
+
+  }
+
+  handleCheckboxLayersChange(e, data){
+    console.log(e,"tengo esto en e", data);
+
+    if(this.state.checkNominalChecked){
+        this.setState({optionsProcesoNominal: this.state.optionsProcesoNominal.map( (el)=> el.name===data.name ? Object.assign({}, el, {checked: data.checked}): el)})
+    }
+
+    if(this.state.checkContingenciaChecked){
+        this.setState({optionsContingencia: this.state.optionsContingencia.map( (el)=> el.name===data.name ? Object.assign({}, el, {checked: data.checked}): el)})
+    }
+
+
+
+  }
+
+  componentDidMount(){
+  // HACK: habilitar, deshabilitar y filtrar combos segun permisos de usuario:
+
+    //habilitar los combos de proceso nominal
+    this.state.optionsProcesoNominal.map((check, index)=>{
+      check.disabled=false;
+    });
+    //deshabilitar los combos de contingencia
+    this.state.optionsContingencia.map((check, index)=>{
+      check.disabled=true;
+    });
+    //filtrar segun permisos
+    this.filtrarContenido();
+
+  }
+
+  filtrarContenido(){
+    // HACK: Filtrar checkboxes segun permisos de usuario:
+      //filtro de permisos de usuario segun tipo
+      var nominal = _.filter(userPermissions, (o)=> {return o.tipo=='NOMINAL'});
+      console.log(nominal,"solo nominales");
+
+      var contin = _.filter(userPermissions, (o)=> {return o.tipo=="CONTINGENCIA"});
+      console.log(contin,"solo conting");
+
+      //deshabilitar optiones para proceso nominal segun permisos de usuario
+      nominal.map(u=>{
+          var res = _.filter(this.state.optionsProcesoNominal, (o)=>{
+            return o.name==u.realName;
+          });
+
+          res.map(r=>{
+            r.disabled=true;
+            r.checked=false;
+
+          })
+      });
+      //deshabilitar optiones para contingencia segun permisos de usuario
+      contin.map(u=>{
+
+          var res = _.filter(this.state.optionsContingencia, (o)=>{
+            return o.name==u.realName;
+          });
+
+          res.map(r=>{
+            r.disabled=true;
+            r.checked=false;
+
+          })
+      })
   }
 
   render () {
@@ -684,13 +840,7 @@ class DrawerTest extends React.Component {
                   legend=''
                   onChange={this.handleCheckboxChange.bind(this,"HEATMAPCLIENTES")}
                 />
-                {/*<ListCheckbox
-                  caption='GPS'
-                  checked={this.state.checkbox5}
-                  legend=''
-                  onChange={this.handleCheckboxChange.bind(this,"GPS")}
-                />
-                */}
+
               </List>
               </div>
               <div className="content_drawer_right">
@@ -699,9 +849,9 @@ class DrawerTest extends React.Component {
                 </List>
 
                 <div className="combo_wrapper">
-                  <input type="radio" onChange={this.onCheckChange.bind(this)}  id="checkNominal" className="checkLayers"  name="checklayers" value="NOMINAL" defaultChecked={this.state.checkDefault} />Proceso Nominal<br />
-                  {/* <h4 className="h4_title_layers h4_title_special ">Proceso Nominal</h4> */}
-                  <Select className="marginr1"
+                  <input type="radio" onChange={this.onCheckChange.bind(this)}  id="checkNominal" className="checkLayers"  name="checklayers" value="NOMINAL" checked={this.state.checkNominalChecked} />Proceso Nominal<br />
+
+                  {/*<Select className="marginr1"
                     name="procesoNominal"
                     value={this.state.selectedValues}
                     multi
@@ -710,11 +860,154 @@ class DrawerTest extends React.Component {
                     placeholder= "Selecciona Layers de Proceso Nominal"
                     onChange={this.logChangeLayers.bind(this)}
                   />
+                  */}
 
-                  <input type="radio" onChange={this.onCheckChange.bind(this)}  id="checkContingencia" className="checkLayers" name="checklayers" value="CONTINGENCIA" />Contingencia<br />
+                  <List>
+                    <div className="wrapper_checksLayers">
+                    <Checkbox
+                      label= {optionsProcesoNominal[0].label}
+                      name= {optionsProcesoNominal[0].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[0].disabled}
+                      checked={this.state.optionsProcesoNominal[0].checked}
+                    />
 
-                  {/*<h4 className="h4_title_layers h4_title_special ">Contingencia</h4> */}
-                  <Select className="marginr1"
+                    <Checkbox
+                      label= {optionsProcesoNominal[1].label}
+                      name = {optionsProcesoNominal[1].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[1].disabled}
+                      checked={this.state.optionsProcesoNominal[1].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[2].label}
+                      name= {optionsProcesoNominal[2].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[2].disabled}
+                      checked={this.state.optionsProcesoNominal[2].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[3].label}
+                      name = {optionsProcesoNominal[3].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[3].disabled}
+                      checked={this.state.optionsProcesoNominal[3].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[4].label}
+                      name= {optionsProcesoNominal[4].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[4].disabled}
+                      checked={this.state.optionsProcesoNominal[4].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[5].label}
+                      name = {optionsProcesoNominal[5].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[5].disabled}
+                      checked={this.state.optionsProcesoNominal[5].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[6].label}
+                      name= {optionsProcesoNominal[6].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[6].disabled}
+                      checked={this.state.optionsProcesoNominal[6].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[7].label}
+                      name = {optionsProcesoNominal[7].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[7].disabled}
+                      checked={this.state.optionsProcesoNominal[7].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[8].label}
+                      name= {optionsProcesoNominal[8].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[8].disabled}
+                      checked={this.state.optionsProcesoNominal[8].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[9].label}
+                      name = {optionsProcesoNominal[9].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[9].disabled}
+                      checked={this.state.optionsProcesoNominal[9].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[10].label}
+                      name = {optionsProcesoNominal[10].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[10].disabled}
+                      checked={this.state.optionsProcesoNominal[10].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[11].label}
+                      name = {optionsProcesoNominal[11].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[11].disabled}
+                      checked={this.state.optionsProcesoNominal[11].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[12].label}
+                      name = {optionsProcesoNominal[12].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[12].disabled}
+                      checked={this.state.optionsProcesoNominal[12].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[13].label}
+                      name = {optionsProcesoNominal[13].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[13].disabled}
+                      checked={this.state.optionsProcesoNominal[13].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[14].label}
+                      name = {optionsProcesoNominal[14].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[14].disabled}
+                      checked={this.state.optionsProcesoNominal[14].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[15].label}
+                      name = {optionsProcesoNominal[15].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[15].disabled}
+                      checked={this.state.optionsProcesoNominal[15].checked}
+                    />
+
+                    <Checkbox
+                      label= {optionsProcesoNominal[16].label}
+                      name = {optionsProcesoNominal[16].name}
+                      onChange={this.handleCheckboxLayersChange.bind(this)}
+                      disabled={this.state.optionsProcesoNominal[16].disabled}
+                      checked={this.state.optionsProcesoNominal[16].checked}
+                    />
+
+                    </div>
+                  </List>
+
+
+                  <input type="radio" onChange={this.onCheckChange.bind(this)} id="checkContingencia" className="checkLayers" name="checklayers" value="CONTINGENCIA" checked={this.state.checkContingenciaChecked} />Contingencia<br />
+
+
+                  {/*<Select className="marginr1"
                     name="contingencia"
                     value={this.state.selectedValues2}
                     multi
@@ -723,6 +1016,99 @@ class DrawerTest extends React.Component {
                     placeholder= "Selecciona Layers de Contingencia"
                     onChange={this.logChangeLayers2.bind(this)}
                   />
+                  */}
+
+                  <div className="wrapper_checksLayers">
+                  <Checkbox
+                    label= {optionsContingencia[0].label}
+                    name= {optionsContingencia[0].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[0].disabled}
+                    checked={this.state.optionsContingencia[0].checked}
+
+                  />
+                  <Checkbox
+                    label= {optionsContingencia[1].label}
+                    name = {optionsContingencia[1].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[1].disabled}
+                    checked={this.state.optionsContingencia[1].checked}
+                  />
+
+                  <Checkbox
+                    label= {optionsContingencia[2].label}
+                    name= {optionsContingencia[2].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[2].disabled}
+                    checked={this.state.optionsContingencia[2].checked}
+
+                  />
+                  <Checkbox
+                    label= {optionsContingencia[3].label}
+                    name = {optionsContingencia[3].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[3].disabled}
+                    checked={this.state.optionsContingencia[3].checked}
+                  />
+
+                  <Checkbox
+                    label= {optionsContingencia[4].label}
+                    name= {optionsContingencia[4].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[4].disabled}
+                    checked={this.state.optionsContingencia[4].checked}
+                  />
+
+                  <Checkbox
+                    label= {optionsContingencia[5].label}
+                    name = {optionsContingencia[5].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[5].disabled}
+                    checked={this.state.optionsContingencia[5].checked}
+                  />
+
+                  <Checkbox
+                    label= {optionsContingencia[6].label}
+                    name= {optionsContingencia[6].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[6].disabled}
+                    checked={this.state.optionsContingencia[6].checked}
+                  />
+
+                  <Checkbox
+                    label= {optionsContingencia[7].label}
+                    name = {optionsContingencia[7].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[7].disabled}
+                    checked={this.state.optionsContingencia[7].checked}
+                  />
+
+                  <Checkbox
+                    label= {optionsContingencia[8].label}
+                    name= {optionsContingencia[8].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[8].disabled}
+                    checked={this.state.optionsContingencia[8].checked}
+                  />
+
+                  <Checkbox
+                    label= {optionsContingencia[9].label}
+                    name = {optionsContingencia[9].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[9].disabled}
+                    checked={this.state.optionsContingencia[9].checked}
+                  />
+
+                  <Checkbox
+                    label= {optionsContingencia[10].label}
+                    name = {optionsContingencia[10].name}
+                    onChange={this.handleCheckboxLayersChange.bind(this)}
+                    disabled={this.state.optionsContingencia[10].disabled}
+                    checked={this.state.optionsContingencia[10].checked}
+                  />
+
+                  </div>
+
                 </div>
                 <div className="drawer_buttonsContent">
                   <Button className="drawer_button btn50" icon='close' label='Remover' onClick={this.removerLayersGPS.bind(this)} raised primary  />
