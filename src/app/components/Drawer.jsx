@@ -71,11 +71,12 @@ export const optionsContingencia = [
 ]
 // HACK: Permisos de check de layers restringidos:
 export const userPermissions = [
-  {tipo: 'NOMINAL', realName: 'Administrativo'},
+  /*{tipo: 'NOMINAL', realName: 'Administrativo'},
   {tipo: 'NOMINAL', realName: 'Inspección Perdidas / Lectura '},
   {tipo: 'CONTINGENCIA', realName: "Logística"},
   {tipo: 'CONTINGENCIA', realName: "Concurrencia"},
   {tipo: 'CONTINGENCIA', realName: "No AplicaContingencia"}
+  */
 ];
 
 var options = [
@@ -703,6 +704,7 @@ class DrawerTest extends React.Component {
   }
 
   componentDidMount(){
+      console.log("Did mount")
   // HACK: habilitar, deshabilitar y filtrar combos segun permisos de usuario:
 
     //habilitar los combos de proceso nominal

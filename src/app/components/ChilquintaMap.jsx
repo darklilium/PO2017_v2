@@ -67,7 +67,7 @@ class ToggleSymbology extends React.Component {
 
         <IconButton onClick={this.runEffect.bind(this)} id="buttonToggler" className="ui-state-default ui-corner-all" icon='power' accent />
         <IconButton onClick={this.runEffect.bind(this)} id="buttonToggler2" className="ui-state-default ui-corner-all" icon='time_to_leave' accent />
-          <IconButton onClick={this.runEffect.bind(this)} id="buttonToggler3" className="ui-state-default ui-corner-all" icon='notifications_active' accent />
+        {/*<IconButton onClick={this.runEffect.bind(this)} id="buttonToggler3" className="ui-state-default ui-corner-all" icon='notifications_active' accent />*/}
       </div>
 
     );
@@ -85,6 +85,7 @@ class ChilquintaMap extends React.Component {
           center: [-71.2905, -33.1009], // longitude, latitude
           zoom: 9});
   */
+  console.log("did mount map")
   var mapp = mymap.createMap("map","topo",-71.5215, -32.9934,9);
 
 
