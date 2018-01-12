@@ -37,48 +37,52 @@ import myinfotemplate from '../utils/infoTemplates';
 import { Checkbox } from 'semantic-ui-react';
 import { AppBar, IconButton } from 'react-toolbox';
 
+import gps_user_permissions from '../services/gps_user_permissions';
+
 export const optionsProcesoNominal = [
-  {value: 1, label: "Administrativo", name: 'Administrativo', realName: 'Administrativo', shortName: 'checkN_Admin', disabled: false, checked: true},
-  {value: 2, label: "Constr.Empalmes", name:"Construcción de Empalmes", realName:"Construcción de Empalmes", shortName: 'checkN_ConstEmpalmes', disabled: false, checked: true},
-  {value: 3, label: "Constr. Mantención RRDD", name: "Construcción y Mantención RRDD", realName: "Construcción y Mantención RRDD", disabled: false, checked: true},
-  {value: 4, label: "Corte y Reposición", name: 'Corte y Reposición', realName: 'Corte y Reposición', disabled: false, checked: true},
-  {value: 5, label: "Ingeniería", name: "Ingeniería", realName: "Ingeniería", disabled: false, checked: true},
-  {value: 6, label: "Inspección Pérdidas / Lectura", name: 'Inspección Perdidas / Lectura ' , realName: 'Inspección Perdidas / Lectura ', disabled: false, checked: true},
-  {value: 7, label: "Mtto. Empalmes", name: 'Mantenimiento Empalmes' , realName: 'Mantenimiento Empalmes', disabled: false, checked: true},
-  {value: 8, label: "Mtto. Líneas de Transmisión", name: 'Mantenimiento Líneas de transmisión', realName: 'Mantenimiento Líneas de transmisión', disabled: false, checked: true},
-  {value: 9, label: "Mtto. Protecciones", name: 'Mantenimiento Protecciones' , realName: 'Mantenimiento Protecciones', disabled: false, checked: true},
-  {value: 10, label: "Mtto. Redes Aéreas", name: 'Mantenimiento Redes Aéreas', realName: 'Mantenimiento Redes Aéreas', disabled: false, checked: true},
-  {value: 11, label: "Mtto. Redes Energizadas", name: 'Mantenimiento Redes Energizadas',  realName: 'Mantenimiento Redes Energizadas', disabled: false, checked: true},
-  {value: 12, label: "Mtto. Redes Subterráneas", name: "Mantenimiento Redes Subterráneas", realName: "Mantenimiento Redes Subterráneas", disabled: false, checked: true},
-  {value: 13, label: "Mtto. Subestaciones", name: 'Mantenimiento Subestaciones', realName: 'Mantenimiento Subestaciones', disabled: false, checked: true},
-  {value: 14, label: "SAT", name: "SAT", realName: "SAT", disabled: false, checked: true},
-  {value: 15, label: "Poda", name: 'Poda' , realName: "Poda", disabled: false, checked: true},
-  {value: 16, label: "A definir", name: 'A definirNominal'  , realName: "A definir", disabled: false, checked: true},
-  {value: 17, label: "No Aplica", name: 'No AplicaNominal', realName: "No Aplica", disabled: false, checked: true}
+  {value: 1, label: "Administrativo", name: 'Administrativo', realName: 'Administrativo', shortName: 'checkN_Admin', disabled: true, checked: false},
+  {value: 2, label: "Constr.Empalmes", name:"Construcción de Empalmes", realName:"Construcción de Empalmes", shortName: 'checkN_ConstEmpalmes', disabled: true, checked: false},
+  {value: 3, label: "Constr. Mantención RRDD", name: "Construcción y Mantención RRDD", realName: "Construcción y Mantención RRDD", disabled: true, checked: false},
+  {value: 4, label: "Corte y Reposición", name: 'Corte y Reposición', realName: 'Corte y Reposición', disabled: true, checked: false},
+  {value: 5, label: "Ingeniería", name: "Ingeniería", realName: "Ingeniería", disabled: true, checked: false},
+  {value: 6, label: "Inspección Pérdidas / Lectura", name: 'Inspección Perdidas / Lectura ' , realName: 'Inspección Perdidas / Lectura ', disabled: true, checked: false},
+  {value: 7, label: "Mtto. Empalmes", name: 'Mantenimiento Empalmes' , realName: 'Mantenimiento Empalmes', disabled: true, checked: false},
+  {value: 8, label: "Mtto. Líneas de Transmisión", name: 'Mantenimiento Líneas de transmisión', realName: 'Mantenimiento Líneas de transmisión', disabled: true, checked: false},
+  {value: 9, label: "Mtto. Protecciones", name: 'Mantenimiento Protecciones' , realName: 'Mantenimiento Protecciones', disabled: true, checked: false},
+  {value: 10, label: "Mtto. Redes Aéreas", name: 'Mantenimiento Redes Aéreas', realName: 'Mantenimiento Redes Aéreas', disabled: true, checked: false},
+  {value: 11, label: "Mtto. Redes Energizadas", name: 'Mantenimiento Redes Energizadas',  realName: 'Mantenimiento Redes Energizadas', disabled: true, checked: false},
+  {value: 12, label: "Mtto. Redes Subterráneas", name: "Mantenimiento Redes Subterráneas", realName: "Mantenimiento Redes Subterráneas", disabled: true, checked: false},
+  {value: 13, label: "Mtto. Subestaciones", name: 'Mantenimiento Subestaciones', realName: 'Mantenimiento Subestaciones', disabled: true, checked: false},
+  {value: 14, label: "SAT", name: "SAT", realName: "SAT", disabled: true, checked: false},
+  {value: 15, label: "Poda", name: 'Poda' , realName: "Poda", disabled: true, checked: false},
+  {value: 16, label: "A definir", name: 'A definirNominal'  , realName: "A definir", disabled: true, checked: false},
+  {value: 17, label: "No Aplica", name: 'No AplicaNominal', realName: "No Aplica", disabled: true, checked: false}
 ]
 export const optionsContingencia = [
-  {value: 19, label: "Logística", name: "Logística", realName: "Logística", disabled: false, checked: false},
-  {value: 20, label: "Concurrencia", name: "Concurrencia", realName: "Concurrencia", disabled: false, checked: false},
-  {value: 21, label: "Atención Domiciliaria", name: "Atención Domiciliaria", realName: "Atención Domiciliaria", disabled: false, checked: false},
-  {value: 22, label: "Insp. / Reparación LLTT", name: "Inspección / Reparación LLTT", realName: "Inspección / Reparación LLTT", disabled: false, checked: false},
-  {value: 23, label: "Operación BT/MT", name: "Operación BT MT", realName: "Operación BT MT", disabled: false, checked: false},
-  {value: 24, label: "Podas BT/MT", name: "Podas BT MT", realName: "Podas BT MT", disabled: false, checked: false},
-  {value: 25, label: "Insp. Protecciones/SSEE", name: "Inspección Protecciones / SSEE", realName: "Inspección Protecciones / SSEE", disabled: false, checked: false},
-  {value: 26, label: "Reparación Liviana", name: "Reparación Liviana", realName: "Reparación Liviana", disabled: false, checked: false},
-  {value: 27, label: "Reparación Pesada", name: "Reparación Pesada", realName: "Reparación Pesada", disabled: false, checked: false},
-  {value: 28, label: "A definir", name: "A definirContingencia", realName: "A definir", disabled: false, checked: false},
-  {value: 29, label: "No Aplica", name: "No AplicaContingencia", realName: "No Aplica", disabled: false, checked: false}
+  {value: 19, label: "Logística", name: "Logística", realName: "Logística", disabled: true, checked: false},
+  {value: 20, label: "Concurrencia", name: "Concurrencia", realName: "Concurrencia", disabled: true, checked: false},
+  {value: 21, label: "Atención Domiciliaria", name: "Atención Domiciliaria", realName: "Atención Domiciliaria", disabled: true, checked: false},
+  {value: 22, label: "Insp. / Reparación LLTT", name: "Inspección / Reparación LLTT", realName: "Inspección / Reparación LLTT", disabled: true, checked: false},
+  {value: 23, label: "Operación BT/MT", name: "Operación BT MT", realName: "Operación BT MT", disabled: true, checked: false},
+  {value: 24, label: "Podas BT/MT", name: "Podas BT MT", realName: "Podas BT MT", disabled: true, checked: false},
+  {value: 25, label: "Insp. Protecciones/SSEE", name: "Inspección Protecciones / SSEE", realName: "Inspección Protecciones / SSEE", disabled: true, checked: false},
+  {value: 26, label: "Reparación Liviana", name: "Reparación Liviana", realName: "Reparación Liviana", disabled: true, checked: false},
+  {value: 27, label: "Reparación Pesada", name: "Reparación Pesada", realName: "Reparación Pesada", disabled: true, checked: false},
+  {value: 28, label: "A definir", name: "A definirContingencia", realName: "A definir", disabled: true, checked: false},
+  {value: 29, label: "No Aplica", name: "No AplicaContingencia", realName: "No Aplica", disabled: true, checked: false}
 ]
 // HACK: Permisos de check de layers restringidos:
-export const userPermissions = [
+/*
+export var userPermissions = [
   /*{tipo: 'NOMINAL', realName: 'Administrativo'},
   {tipo: 'NOMINAL', realName: 'Inspección Perdidas / Lectura '},
   {tipo: 'CONTINGENCIA', realName: "Logística"},
   {tipo: 'CONTINGENCIA', realName: "Concurrencia"},
   {tipo: 'CONTINGENCIA', realName: "No AplicaContingencia"}
-  */
-];
 
+];
+*/
+export var userPermissions
 var options = [
     { value: 'NIS', label: 'NIS' },
     { value: 'INCIDENCIA', label: 'INCIDENCIA' },
@@ -90,6 +94,7 @@ class DrawerTest extends React.Component {
   constructor(props){
     super(props);
     this.filtrarContenido = this.filtrarContenido.bind(this);
+    userPermissions = gps_user_permissions();
 
   }
   state = {
@@ -146,18 +151,18 @@ class DrawerTest extends React.Component {
   }
 
   handleCheckboxChange = (e) => {
-    console.log(this.state.layersOrder,"my layers order");
+    //console.log(this.state.layersOrder,"my layers order");
     var mapp = mymap.getMap(browserHistory.getCurrentLocation().pathname);
     switch (e) {
       case 'SSEE':
         this.setState({checkbox: !this.state.checkbox});
         if(!this.state.checkbox){
-          console.log("en true, prender ssee");
+          //console.log("en true, prender ssee");
           var sseeLayer = new ArcGISDynamicMapServiceLayer(myLayers.read_SSEE(),{id:"gis_SSEE"});
           mapp.addLayer(sseeLayer);
 
         }else{
-          console.log("en false, apagar ssee");
+          //console.log("en false, apagar ssee");
           mapp.removeLayer(mapp.getLayer("gis_SSEE"));
         }
       break;
@@ -165,7 +170,7 @@ class DrawerTest extends React.Component {
       case 'ALIMENTADOR':
         this.setState({checkbox2: !this.state.checkbox2});
         if(!this.state.checkbox2){
-          console.log("en true, prender alim");
+          //console.log("en true, prender alim");
           var alimLayer = new ArcGISDynamicMapServiceLayer(myLayers.read_layerAlimentador(),{id:"gis_alimentadores"});
           alimLayer.setImageFormat("png32");
           alimLayer.setVisibleLayers([0]);
@@ -176,7 +181,7 @@ class DrawerTest extends React.Component {
           mapp.addLayer(alimLayer);
 
         }else{
-          console.log("en false, apagar alim");
+          //console.log("en false, apagar alim");
           mapp.removeLayer(mapp.getLayer("gis_alimentadores"));
         }
       break;
@@ -184,7 +189,7 @@ class DrawerTest extends React.Component {
       case 'CHILQUINTA':
         this.setState({checkbox3: !this.state.checkbox3});
         if(!this.state.checkbox3){
-          console.log("en true, prender mapa chilquinta");
+          //console.log("en true, prender mapa chilquinta");
           //var chqmapabase = new ArcGISDynamicMapServiceLayer(myLayers.read_mapabase(),{id:"gis_chqmapabase"});
 
         /*  alimLayer.setInfoTemplates({
@@ -196,7 +201,7 @@ class DrawerTest extends React.Component {
           chqmapabase.show();
 
         }else{
-          console.log("en false, mapa chilquinta");
+          //console.log("en false, mapa chilquinta");
           //mapp.removeLayer(mapp.getLayer("gis_chqmapabase"));
 
           var chqmapabase = mapp.getLayer("gis_chqmapabase");
@@ -207,13 +212,13 @@ class DrawerTest extends React.Component {
       case 'HEATMAPCLIENTES':
          this.setState({checkbox4: !this.state.checkbox4});
          if(!this.state.checkbox4){
-           console.log("en true, prender heatmap  clientes");
+           //console.log("en true, prender heatmap  clientes");
            var heatmapc = mapp.getLayer("gis_heatmapclientes");
            var heatmaps = mapp.getLayer("gis_heatmapsed");
            heatmapc.show();
            heatmaps.show();
          }else{
-           console.log("en false, mapa chilquinta");
+           //console.log("en false, mapa chilquinta");
            //mapp.removeLayer(mapp.getLayer("gis_chqmapabase"));
 
            var heatmapc = mapp.getLayer("gis_heatmapclientes");
@@ -226,12 +231,12 @@ class DrawerTest extends React.Component {
       case 'GPS':
          this.setState({checkbox5: !this.state.checkbox5});
          if(!this.state.checkbox5){
-           console.log("en true, prender GPS");
+           //console.log("en true, prender GPS");
            var gis_gps = mapp.getLayer("gis_gps");
            gis_gps.show();
 
          }else{
-           console.log("en false, mapa GPS");
+           //console.log("en false, mapa GPS");
            //mapp.removeLayer(mapp.getLayer("gis_chqmapabase"));
 
            var gis_gps = mapp.getLayer("gis_gps");
@@ -248,7 +253,7 @@ class DrawerTest extends React.Component {
   };
 
   logChange(val) {
-      console.log("Selected: " + val.value);
+      //console.log("Selected: " + val.value);
       this.setState({tipoBusqueda: val.value});
 
       switch (val.value) {
@@ -272,13 +277,13 @@ class DrawerTest extends React.Component {
 
   onClickBusqueda(){
     var mapp = mymap.getMap();
-    console.log("Buscando para:",this.state.tipoBusqueda);
+    //console.log("Buscando para:",this.state.tipoBusqueda);
     $('.drawer_progressBar').css('visibility','visible');
 
     switch (this.state.tipoBusqueda) {
 
       case 'NIS':
-        console.log("searching for nis...");
+        //console.log("searching for nis...");
         searchBar_NIS(this.state.valorBusqueda, (nisFound)=>{
 
           this.handleToggle();
@@ -289,7 +294,7 @@ class DrawerTest extends React.Component {
       break;
 
       case 'INCIDENCIA':
-        console.log("searching for incidence...");
+        //console.log("searching for incidence...");
         searchBar_Incidence(this.state.valorBusqueda, (incidenciaFound)=>{
 
           this.handleToggle();
@@ -301,7 +306,7 @@ class DrawerTest extends React.Component {
       break;
 
       case 'ORDEN':
-        console.log("searching for order...");
+        //console.log("searching for order...");
         searchBar_Order(this.state.valorBusqueda, (orderFound)=>{
 
           this.handleToggle();
@@ -314,7 +319,7 @@ class DrawerTest extends React.Component {
       break;
 
       case 'SED':
-        console.log("searching for sed...");
+        //console.log("searching for sed...");
         searchBar_SED(this.state.valorBusqueda, (sedFound)=>{
 
           this.handleToggle();
@@ -388,17 +393,17 @@ class DrawerTest extends React.Component {
         mapp.setBasemap(mapaNow);
         //desabilitar ve tiled layers (bing maps)
         if(mapp.getLayer("veroad")){
-          console.log("habilitado veroad");
+          //console.log("habilitado veroad");
           mapp.removeLayer(mapp.getLayer("veroad"));
         }
 
         if(mapp.getLayer("veaerial")){
-          console.log("habilitado veaerial");
+          //console.log("habilitado veaerial");
           mapp.removeLayer(mapp.getLayer("veaerial"));
         }
 
         if(mapp.getLayer("velabels")){
-          console.log("habilitado velabels");
+          //console.log("habilitado velabels");
           mapp.removeLayer(mapp.getLayer("velabels"));
         }
 
@@ -409,17 +414,17 @@ class DrawerTest extends React.Component {
         mapp.setBasemap(mapaNow);
         //desabilitar ve tiled layers (bing maps)
         if(mapp.getLayer("veroad")){
-          console.log("habilitado veroad");
+          //console.log("habilitado veroad");
           mapp.removeLayer(mapp.getLayer("veroad"));
         }
 
         if(mapp.getLayer("veaerial")){
-          console.log("habilitado veaerial");
+          //console.log("habilitado veaerial");
           mapp.removeLayer(mapp.getLayer("veaerial"));
         }
 
         if(mapp.getLayer("velabels")){
-          console.log("habilitado velabels");
+          //console.log("habilitado velabels");
           mapp.removeLayer(mapp.getLayer("velabels"));
         }
 
@@ -430,22 +435,22 @@ class DrawerTest extends React.Component {
 
         //desabilitar ve tiled layers (bing maps)
         if(mapp.getLayer("veroad")){
-          console.log("habilitado veroad");
+          //console.log("habilitado veroad");
           mapp.removeLayer(mapp.getLayer("veroad"));
         }
 
         if(mapp.getLayer("veaerial")){
-          console.log("habilitado veaerial");
+          //console.log("habilitado veaerial");
           mapp.removeLayer(mapp.getLayer("veaerial"));
         }
 
         if(mapp.getLayer("velabels")){
-          console.log("habilitado velabels");
+          //console.log("habilitado velabels");
           mapp.removeLayer(mapp.getLayer("velabels"));
         }
 
         if(this.state.mapSelected=='hybrid'){
-            console.log("habilitado hybrid");
+            //console.log("habilitado hybrid");
             mapp.setBasemap('topo');
         }
 
@@ -457,21 +462,21 @@ class DrawerTest extends React.Component {
       case 'satelite':
 
         if(mapp.getLayer("veroad")){
-          console.log("habilitado veroad");
+          //console.log("habilitado veroad");
           mapp.removeLayer(mapp.getLayer("veroad"));
         }
 
         if(mapp.getLayer("veaerial")){
-          console.log("habilitado veaerial");
+          //console.log("habilitado veaerial");
           mapp.removeLayer(mapp.getLayer("veaerial"));
         }
 
         if(mapp.getLayer("velabels")){
-          console.log("habilitado velabels");
+          //console.log("habilitado velabels");
           mapp.removeLayer(mapp.getLayer("velabels"));
         }
         if(this.state.mapSelected=='hybrid'){
-            console.log("habilitado hybrid");
+            //console.log("habilitado hybrid");
             mapp.setBasemap('topo');
         }
 
@@ -483,21 +488,21 @@ class DrawerTest extends React.Component {
       case 'satelitewithlabels':
 
         if(mapp.getLayer("veroad")){
-          console.log("habilitado veroad");
+          //console.log("habilitado veroad");
           mapp.removeLayer(mapp.getLayer("veroad"));
         }
 
         if(mapp.getLayer("veaerial")){
-          console.log("habilitado veaerial");
+          //console.log("habilitado veaerial");
           mapp.removeLayer(mapp.getLayer("veaerial"));
         }
 
         if(mapp.getLayer("velabels")){
-          console.log("habilitado velabels");
+          //console.log("habilitado velabels");
           mapp.removeLayer(mapp.getLayer("velabels"));
         }
         if(this.state.mapSelected=='hybrid'){
-            console.log("habilitado hybrid");
+            //console.log("habilitado hybrid");
             mapp.setBasemap('topo');
         }
 
@@ -531,7 +536,7 @@ class DrawerTest extends React.Component {
     if(mapp.getLayer("gps_new")){
       this.removerLayersGPS();
     }
-  // HACK: Ver layers segun tipo nominal o contingencia:
+    // HACK: Ver layers segun tipo nominal o contingencia:
     //si contingencia está seleccionado, sólo ver los layers habilitados y checkeados.
 
     //si nominal está seleccionado, sólo ver los layers habilitados y checkeados.
@@ -541,7 +546,7 @@ class DrawerTest extends React.Component {
 
         if(el.length){
           if(el[0].checked){
-            //console.log("Checked", el[0].attributes.name);
+            ////console.log("Checked", el[0].attributes.name);
             return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${pnom.realName}'`;
           }else{
             return '';
@@ -617,7 +622,7 @@ class DrawerTest extends React.Component {
 
 
       var w = filtrados.toString();
-      //console.log(w,"Tengo")
+      ////console.log(w,"Tengo")
       w = w.replace(/,/g , " or ")
 
       layerDefinitions[3] = w;
@@ -651,6 +656,27 @@ class DrawerTest extends React.Component {
 
 
 
+  componentDidMount(){
+    //console.log("Did mount")
+    // HACK: habilitar, deshabilitar y filtrar combos segun permisos de usuario:
+    //habilitar los combos de proceso nominal
+    /*this.state.optionsProcesoNominal.map((check, index)=>{
+      check.disabled=false;
+    });
+    //deshabilitar los combos de contingencia
+    this.state.optionsContingencia.map((check, index)=>{
+      check.disabled=false;
+    });
+    */
+    //filtrar segun permisos
+    this.filtrarContenido();
+
+
+
+
+
+    }
+
   onCheckChange(e){
 
     if(e.currentTarget.id=="checkNominal"){
@@ -658,12 +684,14 @@ class DrawerTest extends React.Component {
 
       this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, checkNominalChecked: true, checkContingenciaChecked: false});
 
-      this.state.optionsContingencia.map((check, index)=>{
+    /*  this.state.optionsContingencia.map((check, index)=>{
         check.disabled=true;
       });
       this.state.optionsProcesoNominal.map((check, index)=>{
-        check.disabled=false;
+        check.disabled=true;
       });
+      */
+      //console.log(optionsProcesoNominal,"tengo esto en proceso nominal", this.state.optionsProcesoNominal)
       this.filtrarContenido();
 
 
@@ -675,13 +703,14 @@ class DrawerTest extends React.Component {
 
       this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false, checkContingenciaChecked: true, checkNominalChecked: false});
 
-      this.state.optionsContingencia.map((check, index)=>{
+    /*  this.state.optionsContingencia.map((check, index)=>{
         check.disabled=false;
       });
       this.state.optionsProcesoNominal.map((check, index)=>{
         check.disabled=true;
       });
-
+      */
+      //console.log(optionsContingencia,"tengo esto en contingencia", this.state.optionsContingencia)
       this.filtrarContenido();
     }
 
@@ -689,7 +718,7 @@ class DrawerTest extends React.Component {
   }
 
   handleCheckboxLayersChange(e, data){
-    console.log(e,"tengo esto en e", data);
+    //console.log(e,"tengo esto en e", data);
 
     if(this.state.checkNominalChecked){
         this.setState({optionsProcesoNominal: this.state.optionsProcesoNominal.map( (el)=> el.name===data.name ? Object.assign({}, el, {checked: data.checked}): el)})
@@ -703,57 +732,53 @@ class DrawerTest extends React.Component {
 
   }
 
-  componentDidMount(){
-      console.log("Did mount")
-  // HACK: habilitar, deshabilitar y filtrar combos segun permisos de usuario:
-
-    //habilitar los combos de proceso nominal
-    this.state.optionsProcesoNominal.map((check, index)=>{
-      check.disabled=false;
-    });
-    //deshabilitar los combos de contingencia
-    this.state.optionsContingencia.map((check, index)=>{
-      check.disabled=true;
-    });
-    //filtrar segun permisos
-    this.filtrarContenido();
-
-  }
 
   filtrarContenido(){
     // HACK: Filtrar checkboxes segun permisos de usuario:
       //filtro de permisos de usuario segun tipo
-      var nominal = _.filter(userPermissions, (o)=> {return o.tipo=='NOMINAL'});
-      console.log(nominal,"solo nominales");
+      var uperm = gps_user_permissions();
+      uperm.then((userPermissions)=>{
 
-      var contin = _.filter(userPermissions, (o)=> {return o.tipo=="CONTINGENCIA"});
-      console.log(contin,"solo conting");
 
-      //deshabilitar optiones para proceso nominal segun permisos de usuario
-      nominal.map(u=>{
-          var res = _.filter(this.state.optionsProcesoNominal, (o)=>{
-            return o.name==u.realName;
-          });
+        var nominal = _.filter(userPermissions, (o)=> {return o.tipo=='NOMINAL'});
 
-          res.map(r=>{
-            r.disabled=true;
-            r.checked=false;
 
-          })
-      });
-      //deshabilitar optiones para contingencia segun permisos de usuario
-      contin.map(u=>{
+        var contin = _.filter(userPermissions, (o)=> {return o.tipo=="CONTINGENCIA"});
 
-          var res = _.filter(this.state.optionsContingencia, (o)=>{
-            return o.name==u.realName;
-          });
 
-          res.map(r=>{
-            r.disabled=true;
-            r.checked=false;
+        //habilitar options para proceso nominal segun permisos de usuario
+        nominal.map(u=>{
+            var res = _.filter(this.state.optionsProcesoNominal, (o)=>{
+              return o.name==u.realName;
+            });
 
-          })
-      })
+            res.map(r=>{
+              r.disabled=false;
+              r.checked=true;
+
+            });
+            //console.log(res,"nominal", this.state.optionsProcesoNominal,"setstate nominal");
+        });
+        //deshabilitar optiones para contingencia segun permisos de usuario
+        contin.map(u=>{
+
+            var res = _.filter(this.state.optionsContingencia, (o)=>{
+              return o.name==u.realName;
+            });
+
+            res.map(r=>{
+              r.disabled=false;
+              r.checked=true;
+
+            });
+              //console.log(res,"contin",this.state.optionsContingencia,"setstate");
+        })
+
+      },(reject)=>{
+      });//console.log(reject,"Error con query de permisos gps");});
+
+
+
   }
 
   render () {

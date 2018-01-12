@@ -91,6 +91,7 @@ function login(user, pass, app, callback){
 function interrupciones_login(page, tkn, user, callback){
   console.log('Requesting service access..., logging in to gisred-interruptions');
   token.write(tkn);
+  cookieHandler.set('usr',user);
   const module = env.SAVEAPPLICATIONMODULE;
   return callback(true);
   saveLogin(user,page,module,tkn, (cb)=>{

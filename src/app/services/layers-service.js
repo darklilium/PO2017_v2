@@ -150,6 +150,9 @@ function myLayers(){
     },
     read_gps_contingencia(){
       return serviceURL + "GPS/GPS_Vehiculos_v3/MapServer?f=json&token="+ token.read();
+    },
+    read_gps_usuarios(){
+      return serviceURL + "GPS/GPS_Vehiculos_v3/MapServer/5?f=json&token="+ token.read();
     }
 
 

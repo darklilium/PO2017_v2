@@ -13,6 +13,7 @@ import LayerList from 'esri/dijit/LayerList';
 import {optionsProcesoNominal} from './Drawer';
 import $ from 'jquery';
 import {Button, IconButton} from 'react-toolbox/lib/button';
+import gps_user_permissions from '../services/gps_user_permissions';
 
 //13-11-2017
 import {userPermissions} from './Drawer';
@@ -85,7 +86,7 @@ class ChilquintaMap extends React.Component {
           center: [-71.2905, -33.1009], // longitude, latitude
           zoom: 9});
   */
-  console.log("did mount map")
+
   var mapp = mymap.createMap("map","topo",-71.5215, -32.9934,9);
 
 
@@ -158,7 +159,31 @@ class ChilquintaMap extends React.Component {
       //obtener todos los layers del servicio (sólo su nombre real de layer)
       var todos = optionsProcesoNominal.map(p=>{return p.realName});
       //obtener los nombres de layers restringidos segun permisos del usuario
-      var restringidos = userPermissions.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName});
+      var permisos = gps_user_permissions();
+      permisos.then((p)=>{
+
+
+        var permitidos = p.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName}).map(f=>{
+          return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${f}'`;
+        }).toString();;
+
+        //Reemplazar la coma del string por or para realizar definition expression
+        var filtro = permitidos.replace(/,/g , " or ");
+
+        layerDefinitions[1] = filtro;
+        gps_new.setLayerDefinitions(layerDefinitions);
+        gps_new.setVisibleLayers([1]);
+        gps_new.show();
+        //Agregar todos los layers al mapa.
+        mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
+      },(reject)=>{
+        //Agregar todos los layers al mapa.
+        console.log("problemas agregando layer gps");
+        mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1]);
+      });
+
+
+    /*  var restringidos = userPermissions.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName});
 
       //Excluir los layers restringidos del total y agregar premisa de DB.
       var filtro = todos.filter(el=>{
@@ -172,9 +197,8 @@ class ChilquintaMap extends React.Component {
       gps_new.setLayerDefinitions(layerDefinitions);
       gps_new.setVisibleLayers([1]);
       gps_new.show();
+      */
 
-      //Agregar todos los layers al mapa.
-      mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
 
 
   }

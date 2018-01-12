@@ -9,7 +9,7 @@ Compiled: 24/07/2017
 
 
 //local: usando servicios internos dev.
-/*
+
  const env = {
     ROOT: "/",
     CSSDIRECTORY: 'dist/css/',
@@ -20,7 +20,7 @@ Compiled: 24/07/2017
     SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_DESA_v2',
     BUILDFOR: 'INTERNA'
   }
-*/
+
 
 //local: usando servicios externos dev
 /*
@@ -39,7 +39,7 @@ const env = {
 
 //servidor web: interno. servicios internos.
 
-
+/*
   const env = {
     ROOT: "potest2/",
     CSSDIRECTORY: 'css/',
@@ -50,7 +50,7 @@ const env = {
     SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V3',
     BUILDFOR: 'INTERNA'
   }
-
+*/
 
 
 //servidor web: externo, servicios externos.
