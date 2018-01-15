@@ -153,6 +153,26 @@ function getInfoTemplate(){
       ;
       chqAlimInfoTemp.setContent(chqAlimInfoContent);
       return chqAlimInfoTemp;
+    },
+    getTramos(){
+      let chqInfoTemp= new InfoTemplate();
+      chqInfoTemp.setTitle("<b>ID ORDEN: ${ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden}</b>");
+      //var tipo_estado = ${'ARCGIS.DBO.SED_006.codigo'};
+      //  console.log(tipo_estado);
+      let chqInfoContent =
+      "<div style=padding-top: 10px;><b>TIEMPO ESTIMADO REPOSICIÓN:</b> ${ARCGIS.DBO.POWERON_ORDENES.ETR}<br></div>";
+      chqInfoTemp.setContent(chqInfoContent);
+      return chqInfoTemp;
+    },
+    getSector(){
+      let chqInfoTemp= new InfoTemplate();
+      chqInfoTemp.setTitle("<b>ID SW: ${ID_SW}</b>");
+      //var tipo_estado = ${'ARCGIS.DBO.SED_006.codigo'};
+      //  console.log(tipo_estado);
+      let chqInfoContent =
+      "<div style=padding-top: 10px;><b>Clientes Interrumpidos: </b> ${INTERRUMPIDOS}<br></div>";
+      chqInfoTemp.setContent(chqInfoContent);
+      return chqInfoTemp;
     }
 
   }

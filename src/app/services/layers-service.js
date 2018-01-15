@@ -44,11 +44,12 @@ function myLayers(){
       return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer?f=json&token=" + token.read();
     },
     read_layerAlimentador(){  /*using*/
-        return serviceURL + "Chilquinta_006/Tramos_006/MapServer?f=json&token=" + token.read();
+      return serviceURL + "Chilquinta_006/Tramos_006/MapServer?f=json&token=" + token.read();
     },
 
-
-
+    read_sectores(){
+      return serviceURL + "Interrupciones/PO_WEB_EXT/MapServer?f=json&token=" + token.read();
+    },
 
     read_logAccess(){  /*using*/
       return serviceURL + "Admin/LogAccesos/FeatureServer/2?f=json&token=" + token.read();

@@ -155,32 +155,44 @@ class ChilquintaMap extends React.Component {
     gps_new.refreshInterval = 1;
     gps_new.setImageFormat("png32");
 
-      var layerDefinitions = [];
-      //obtener todos los layers del servicio (sólo su nombre real de layer)
-      var todos = optionsProcesoNominal.map(p=>{return p.realName});
-      //obtener los nombres de layers restringidos segun permisos del usuario
-      var permisos = gps_user_permissions();
-      permisos.then((p)=>{
+    var layerDefinitions = [];
+    //obtener todos los layers del servicio (sólo su nombre real de layer)
+    var todos = optionsProcesoNominal.map(p=>{return p.realName});
+    //obtener los nombres de layers restringidos segun permisos del usuario
+    var permisos = gps_user_permissions();
+    permisos.then((p)=>{
 
+    var permitidos = p.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName}).map(f=>{
+      return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${f}'`;
+    }).toString();;
+    //Reemplazar la coma del string por or para realizar definition expression
+    var filtro = permitidos.replace(/,/g , " or ");
+    layerDefinitions[1] = filtro;
+    gps_new.setLayerDefinitions(layerDefinitions);
+    gps_new.setVisibleLayers([1]);
+    gps_new.show();
 
-        var permitidos = p.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName}).map(f=>{
-          return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${f}'`;
-        }).toString();;
-
-        //Reemplazar la coma del string por or para realizar definition expression
-        var filtro = permitidos.replace(/,/g , " or ");
-
-        layerDefinitions[1] = filtro;
-        gps_new.setLayerDefinitions(layerDefinitions);
-        gps_new.setVisibleLayers([1]);
-        gps_new.show();
-        //Agregar todos los layers al mapa.
-        mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
-      },(reject)=>{
-        //Agregar todos los layers al mapa.
-        console.log("problemas agregando layer gps");
-        mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1]);
+    var sectores_layer = new ArcGISDynamicMapServiceLayer(layers.read_sectores(),{id:"sectores"});
+      sectores_layer.setInfoTemplates({
+        0: {infoTemplate: myinfotemplate.getTramos()},
+        1: {infoTemplate: myinfotemplate.getSector()}
       });
+
+      sectores_layer.refreshInterval = 1;
+      sectores_layer.setImageFormat("png32");
+      sectores_layer.hide();
+
+      //Agregar todos los layers al mapa.
+      mapp.addLayers([chqmapabase, sectores_layer, interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
+    },(reject)=>{
+
+    //Agregar todos los layers al mapa.
+    console.log("problemas agregando layer gps");
+    mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1]);
+    });
+
+
+
 
 
     /*  var restringidos = userPermissions.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName});
@@ -201,18 +213,15 @@ class ChilquintaMap extends React.Component {
 
 
 
-  }
+}
 
-
-  render(){
-    return (
-        <div className="map_container">
-          <div id="map"></div>
-          <ToggleSymbology theClass="symb_"/>
-          {/*<Simbologia />*/}
-        </div>
-
-
+render(){
+  return (
+      <div className="map_container">
+        <div id="map"></div>
+        <ToggleSymbology theClass="symb_"/>
+        {/*<Simbologia />*/}
+      </div>
     );
   }
 }

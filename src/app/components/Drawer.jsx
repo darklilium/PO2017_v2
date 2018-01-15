@@ -38,6 +38,7 @@ import { Checkbox } from 'semantic-ui-react';
 import { AppBar, IconButton } from 'react-toolbox';
 
 import gps_user_permissions from '../services/gps_user_permissions';
+export var userPermissions;
 
 export const optionsProcesoNominal = [
   {value: 1, label: "Administrativo", name: 'Administrativo', realName: 'Administrativo', shortName: 'checkN_Admin', disabled: true, checked: false},
@@ -71,18 +72,7 @@ export const optionsContingencia = [
   {value: 28, label: "A definir", name: "A definirContingencia", realName: "A definir", disabled: true, checked: false},
   {value: 29, label: "No Aplica", name: "No AplicaContingencia", realName: "No Aplica", disabled: true, checked: false}
 ]
-// HACK: Permisos de check de layers restringidos:
-/*
-export var userPermissions = [
-  /*{tipo: 'NOMINAL', realName: 'Administrativo'},
-  {tipo: 'NOMINAL', realName: 'Inspección Perdidas / Lectura '},
-  {tipo: 'CONTINGENCIA', realName: "Logística"},
-  {tipo: 'CONTINGENCIA', realName: "Concurrencia"},
-  {tipo: 'CONTINGENCIA', realName: "No AplicaContingencia"}
 
-];
-*/
-export var userPermissions
 var options = [
     { value: 'NIS', label: 'NIS' },
     { value: 'INCIDENCIA', label: 'INCIDENCIA' },
@@ -107,6 +97,7 @@ class DrawerTest extends React.Component {
     checkbox3: false,
     checkbox4: false,
     checkbox5: true,
+    checkbox6: false,
     tipoBusqueda: 'NIS',
     valorBusqueda: '',
     labelBusqueda: 'Valor',
@@ -241,6 +232,21 @@ class DrawerTest extends React.Component {
 
            var gis_gps = mapp.getLayer("gis_gps");
            gis_gps.hide();
+         }
+      break;
+      case 'SECTORES':
+         this.setState({checkbox6: !this.state.checkbox6});
+         if(!this.state.checkbox6){
+           //console.log("en true, prender GPS");
+           var sectores_layer = mapp.getLayer("sectores");
+           sectores_layer.show();
+
+         }else{
+           //console.log("en false, mapa GPS");
+           //mapp.removeLayer(mapp.getLayer("gis_chqmapabase"));
+
+           var sectores_layer = mapp.getLayer("sectores");
+           sectores_layer.hide();
          }
       break;
       default:
@@ -520,17 +526,6 @@ class DrawerTest extends React.Component {
       this.setState({ activeSnackbar : false });
   };
 
-/*logChangeLayers(val) {
-
-    //this.setState({selectedValues: val});
-  }
-*/
-/*
-  logChangeLayers2(val) {
-
-    this.setState({selectedValues2: val});
-  }
-*/
   verLayersGPS(){
     var mapp = mymap.getMap();
     if(mapp.getLayer("gps_new")){
@@ -657,25 +652,9 @@ class DrawerTest extends React.Component {
 
 
   componentDidMount(){
-    //console.log("Did mount")
-    // HACK: habilitar, deshabilitar y filtrar combos segun permisos de usuario:
-    //habilitar los combos de proceso nominal
-    /*this.state.optionsProcesoNominal.map((check, index)=>{
-      check.disabled=false;
-    });
-    //deshabilitar los combos de contingencia
-    this.state.optionsContingencia.map((check, index)=>{
-      check.disabled=false;
-    });
-    */
     //filtrar segun permisos
     this.filtrarContenido();
-
-
-
-
-
-    }
+  }
 
   onCheckChange(e){
 
@@ -684,17 +663,7 @@ class DrawerTest extends React.Component {
 
       this.setState({selectContingenciaDisabled: true, selectNominalDisabled: false, checkNominalChecked: true, checkContingenciaChecked: false});
 
-    /*  this.state.optionsContingencia.map((check, index)=>{
-        check.disabled=true;
-      });
-      this.state.optionsProcesoNominal.map((check, index)=>{
-        check.disabled=true;
-      });
-      */
-      //console.log(optionsProcesoNominal,"tengo esto en proceso nominal", this.state.optionsProcesoNominal)
       this.filtrarContenido();
-
-
 
     }
 
@@ -703,22 +672,12 @@ class DrawerTest extends React.Component {
 
       this.setState({selectNominalDisabled: true, selectContingenciaDisabled: false, checkContingenciaChecked: true, checkNominalChecked: false});
 
-    /*  this.state.optionsContingencia.map((check, index)=>{
-        check.disabled=false;
-      });
-      this.state.optionsProcesoNominal.map((check, index)=>{
-        check.disabled=true;
-      });
-      */
-      //console.log(optionsContingencia,"tengo esto en contingencia", this.state.optionsContingencia)
       this.filtrarContenido();
     }
-
 
   }
 
   handleCheckboxLayersChange(e, data){
-    //console.log(e,"tengo esto en e", data);
 
     if(this.state.checkNominalChecked){
         this.setState({optionsProcesoNominal: this.state.optionsProcesoNominal.map( (el)=> el.name===data.name ? Object.assign({}, el, {checked: data.checked}): el)})
@@ -727,8 +686,6 @@ class DrawerTest extends React.Component {
     if(this.state.checkContingenciaChecked){
         this.setState({optionsContingencia: this.state.optionsContingencia.map( (el)=> el.name===data.name ? Object.assign({}, el, {checked: data.checked}): el)})
     }
-
-
 
   }
 
@@ -739,13 +696,8 @@ class DrawerTest extends React.Component {
       var uperm = gps_user_permissions();
       uperm.then((userPermissions)=>{
 
-
         var nominal = _.filter(userPermissions, (o)=> {return o.tipo=='NOMINAL'});
-
-
         var contin = _.filter(userPermissions, (o)=> {return o.tipo=="CONTINGENCIA"});
-
-
         //habilitar options para proceso nominal segun permisos de usuario
         nominal.map(u=>{
             var res = _.filter(this.state.optionsProcesoNominal, (o)=>{
@@ -757,7 +709,6 @@ class DrawerTest extends React.Component {
               r.checked=true;
 
             });
-            //console.log(res,"nominal", this.state.optionsProcesoNominal,"setstate nominal");
         });
         //deshabilitar optiones para contingencia segun permisos de usuario
         contin.map(u=>{
@@ -771,13 +722,10 @@ class DrawerTest extends React.Component {
               r.checked=true;
 
             });
-              //console.log(res,"contin",this.state.optionsContingencia,"setstate");
         })
 
       },(reject)=>{
-      });//console.log(reject,"Error con query de permisos gps");});
-
-
+      });
 
   }
 
@@ -866,6 +814,12 @@ class DrawerTest extends React.Component {
                   checked={this.state.checkbox4}
                   legend=''
                   onChange={this.handleCheckboxChange.bind(this,"HEATMAPCLIENTES")}
+                />
+                <ListCheckbox
+                  caption='Sectores'
+                  checked={this.state.checkbox6}
+                  legend=''
+                  onChange={this.handleCheckboxChange.bind(this,"SECTORES")}
                 />
 
               </List>
