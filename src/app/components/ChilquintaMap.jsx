@@ -162,28 +162,22 @@ class ChilquintaMap extends React.Component {
     var permisos = gps_user_permissions();
     permisos.then((p)=>{
 
-    var permitidos = p.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName}).map(f=>{
-      return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${f}'`;
-    }).toString();;
-    //Reemplazar la coma del string por or para realizar definition expression
-    var filtro = permitidos.replace(/,/g , " or ");
-    layerDefinitions[1] = filtro;
-    gps_new.setLayerDefinitions(layerDefinitions);
-    gps_new.setVisibleLayers([1]);
-    gps_new.show();
 
-    var sectores_layer = new ArcGISDynamicMapServiceLayer(layers.read_sectores(),{id:"sectores"});
-      sectores_layer.setInfoTemplates({
-        0: {infoTemplate: myinfotemplate.getTramos()},
-        1: {infoTemplate: myinfotemplate.getSector()}
-      });
+      var permitidos = p.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName}).map(f=>{
+        return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${f}'`;
+      }).toString();
 
-      sectores_layer.refreshInterval = 1;
-      sectores_layer.setImageFormat("png32");
-      sectores_layer.hide();
 
-      //Agregar todos los layers al mapa.
-      mapp.addLayers([chqmapabase, sectores_layer, interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
+      //Reemplazar la coma del string por or para realizar definition expression
+      var filtro = permitidos.replace(/,/g , " or ");
+        console.log(filtro,"tengo esto", filtro.length, typeof filtro);
+      layerDefinitions[1] = filtro;
+      gps_new.setLayerDefinitions(layerDefinitions);
+      gps_new.setVisibleLayers([1]);
+      gps_new.show();
+
+      (!filtro.length)? mapp.addLayers([chqmapabase, interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1]) : mapp.addLayers([chqmapabase, interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
+
     },(reject)=>{
 
     //Agregar todos los layers al mapa.

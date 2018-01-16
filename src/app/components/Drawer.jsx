@@ -234,6 +234,7 @@ class DrawerTest extends React.Component {
            gis_gps.hide();
          }
       break;
+      /*
       case 'SECTORES':
          this.setState({checkbox6: !this.state.checkbox6});
          if(!this.state.checkbox6){
@@ -249,6 +250,7 @@ class DrawerTest extends React.Component {
            sectores_layer.hide();
          }
       break;
+      */
       default:
 
     }
@@ -815,13 +817,14 @@ class DrawerTest extends React.Component {
                   legend=''
                   onChange={this.handleCheckboxChange.bind(this,"HEATMAPCLIENTES")}
                 />
+                {/*
                 <ListCheckbox
                   caption='Sectores'
                   checked={this.state.checkbox6}
                   legend=''
                   onChange={this.handleCheckboxChange.bind(this,"SECTORES")}
                 />
-
+                */}
               </List>
               </div>
               <div className="content_drawer_right">
