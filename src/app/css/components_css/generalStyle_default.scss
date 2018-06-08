@@ -478,27 +478,10 @@ background-color: #007bf7;
 ////////////////////////////////////////////////////////////////////////////////////
 //interrupciones media
 @media only screen and (max-width: 320px) and (orientation: portrait){
-  .logo_content{
-    display: flex;
-    align-items: center;
-  }
-
   .img_logo {
-    width: 2em;
-    height: 2em;
-    display: flex;
-  }
-
-  .theme__appBar___b1hGI{
-  padding: 0em 0.5em 0em 0.5em
-  }
-
-  .vertical_hr{
-    margin-left: 0.3em;
-  }
-
-  .onlineStatistics_h6_title {
-    display: none;
+      width: 4em;
+      height: 2em;
+      margin: 1em 0em 1em 0.5em;
   }
 }
 
@@ -557,7 +540,7 @@ background-color: #007bf7;
   }
 }
 //nexus 4, iphone 6
-@media only screen and (min-width: 361px) and (max-width: 384px) and (orientation: portrait) {//and (min-width: 361px) and (orientation: portrait){
+@media only screen and (max-width: 384px) and (orientation: portrait) {//and (min-width: 361px) and (orientation: portrait){
   .theme__appBar___b1hGI {
     padding: 0;
     width: 100%;
@@ -606,7 +589,7 @@ background-color: #007bf7;
 }
 
 //@media screen and (max-width: 412px) and (min-width: 385px) and (orientation: portrait){
-@media only screen and (min-width: 385px) and (max-width: 412px) and (orientation: portrait){
+@media only screen and (max-width: 412px) and (orientation: portrait){
   .theme__appBar___b1hGI {
     padding: 0;
     width: 100%;
@@ -664,7 +647,7 @@ background-color: #007bf7;
 }
 
 //@media screen and (max-width: 600px) and (min-width: 413px) and (orientation: portrait){
-@media only screen and (min-width: 413px) and (max-width: 600px) and (orientation: portrait){
+@media only screen and (max-width: 600px) and (orientation: portrait){
   .theme__appBar___b1hGI {
     padding: 0;
     width: 100%;
@@ -726,7 +709,7 @@ background-color: #007bf7;
 }
 
 //@media screen and (max-width: 768px) and (min-width: 601px) and (orientation: portrait){
-@media only screen and (min-width: 601px) and (max-width: 768px) and (orientation: portrait){
+@media only screen and (max-width: 768px) and (orientation: portrait){
   .theme__appBar___b1hGI {
     padding: 0;
     width: 100%;
@@ -788,7 +771,7 @@ background-color: #007bf7;
 }
 
 //@media screen and (max-width: 800px) and (min-width: 769px) and (orientation: portrait){
-@media only screen and (min-width: 769px) and (max-width: 800px) and (orientation: portrait){
+@media only screen and (max-width: 800px) and (orientation: portrait){
   .theme__appBar___b1hGI {
     padding: 0;
     width: 100%;

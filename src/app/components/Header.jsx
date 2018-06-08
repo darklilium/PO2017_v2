@@ -7,7 +7,7 @@ import Statistics from './Statistics.jsx';
 
 
 import {Link} from "react-router";
-import {Logo} from "./Logo.jsx";
+import {LogoDrawer} from "./Logo.jsx";
 import {OnlineStatistics} from "./OnlineStatistics.jsx";
 import {WidgetsMenu} from './WidgetsMenu.jsx';
 
@@ -23,7 +23,7 @@ class Header extends React.Component {
             <Panel>
                 <AppBar>
                   <div className="wrapperTop">
-                    <Logo />
+                    <LogoDrawer />
                     <OnlineStatistics />
                   </div>
                   <WidgetsMenu />

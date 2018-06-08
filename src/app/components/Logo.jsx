@@ -8,21 +8,7 @@ import Statistics from './Statistics.jsx';
 import {Router, Route, browserHistory} from "react-router";
 import {Link} from "react-router";
 import env from '../services/config';
-
-class Logo extends React.Component {
-  onClickGoHome(){
-    //browserHistory.push("chilquinta");
-  }
-
-  render() {
-    return (
-          <div className="logo_content">
-            <img className="img_logo" src={env.CSSDIRECTORY+"images/logo_po.png"} onClick={this.onClickGoHome.bind(this)}></img>
-          </div>
-    );
-  }
-
-}
+import $ from 'jquery';
 
 class LogoDrawer extends React.Component {
   onClickGoHome(){
@@ -30,13 +16,19 @@ class LogoDrawer extends React.Component {
   }
 
   render() {
+    let img = env.CSSDIRECTORY+"images/logo_po.png";
+    if($(window).width() < 425){
+      img =  env.CSSDIRECTORY+"images/logo_po_reduced.png";
+    }else{
+        img = env.CSSDIRECTORY+"images/logo_po.png";
+    }
     return (
           <div className="logo_content">
-            <img className="img_logo2" src={env.CSSDIRECTORY+"images/logo_po.png"} onClick={this.onClickGoHome.bind(this)}></img>
+            <img className="img_logo" src={img} onClick={this.onClickGoHome.bind(this)}></img>
           </div>
     );
   }
 
 }
 
-export {Logo, LogoDrawer};
+export {LogoDrawer};

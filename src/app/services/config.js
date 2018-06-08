@@ -38,8 +38,8 @@ const env = {
 
 
 //servidor web: interno. servicios internos.
-
 /*
+
   const env = {
     ROOT: "potest2/",
     CSSDIRECTORY: 'css/',
@@ -50,8 +50,8 @@ const env = {
     SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V3',
     BUILDFOR: 'INTERNA'
   }
-*/
 
+*/
 
 //servidor web: externo, servicios externos.
 /*

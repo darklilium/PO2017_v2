@@ -14,107 +14,44 @@ import {optionsProcesoNominal} from './Drawer';
 import $ from 'jquery';
 import {Button, IconButton} from 'react-toolbox/lib/button';
 import gps_user_permissions from '../services/gps_user_permissions';
-
+import SymbologyImg from "./SymbologyImg";
+import ToggleSymbology from "./ToggleSymbology";
 //13-11-2017
 import {userPermissions} from './Drawer';
-
-
-const SymbologyImg = ({imagen}) => {
-  return   <div className="simbologia_container"><img src={imagen}></img></div>
-}
-
-class ToggleSymbology extends React.Component {
-  constructor(props){
-    super(props);
-    this.state ={
-      img: env.CSSDIRECTORY+"images/symbology.png"
-    }
-  }
-
-  runEffect(e){
-    // get effect type from
-     var selectedEffect = $( "#effectTypes" ).val();
-
-     // Most effect types need no options passed by default
-     var options = {};
-     // some effects have required parameters
-     if ( selectedEffect === "scale" ) {
-       options = { percent: 50 };
-     } else if ( selectedEffect === "size" ) {
-       options = { to: { width: 200, height: 60 } };
-     }
-
-     // Run the effect
-     $( "#effect" ).toggle( selectedEffect, options, 500 );
-
-     if(e.currentTarget.id=="buttonToggler"){
-       this.setState({img: env.CSSDIRECTORY+"images/symbology.png"})
-     }
-     if(e.currentTarget.id=="buttonToggler2"){
-       this.setState({img: env.CSSDIRECTORY+"images/symbology2.png"})
-     }
-     if(e.currentTarget.id=="buttonToggler3"){
-       this.setState({img: env.CSSDIRECTORY+"images/symbology3.png"})
-     }
-  }
-
-  render(){
-    var classN="toggler "+this.props.theClass;
-    return (
-      <div className={classN}>
-        <div id="effect" className="ui-widget-content ui-corner-all">
-           <SymbologyImg imagen={this.state.img}/>
-        </div>
-
-        <IconButton onClick={this.runEffect.bind(this)} id="buttonToggler" className="ui-state-default ui-corner-all" icon='power' accent />
-        <IconButton onClick={this.runEffect.bind(this)} id="buttonToggler2" className="ui-state-default ui-corner-all" icon='time_to_leave' accent />
-        {/*<IconButton onClick={this.runEffect.bind(this)} id="buttonToggler3" className="ui-state-default ui-corner-all" icon='notifications_active' accent />*/}
-      </div>
-
-    );
-  }
-
-}
 
 class ChilquintaMap extends React.Component {
   constructor(props){
     super(props);
-
   }
+
   componentDidMount(){
-  /*var mapp = new Map("map",{basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
-          center: [-71.2905, -33.1009], // longitude, latitude
-          zoom: 9});
-  */
+    console.log("en ChilquintaMap");
+    var mapp = mymap.createMap("map","topo",-71.5215, -32.9934,9);
 
-  var mapp = mymap.createMap("map","topo",-71.5215, -32.9934,9);
+    //agregando layer clientes sed.
+    var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED(),{id:"po_interrupciones"});
+      interrClienteSED.setInfoTemplates({
+        3: {infoTemplate: myinfotemplate.getNisInfo()},
+        1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
+        0: {infoTemplate: myinfotemplate.getSubFailure()}
+      });
+      interrClienteSED.refreshInterval = 1;
+      interrClienteSED.setImageFormat("png32");
+      interrClienteSED.on('update-end', (obj)=>{
+        if(obj.error){
+          console.log("Redirecting to login page, token for this session is ended...");
 
-
-  //agregando layer clientes sed.
-  var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED(),{id:"po_interrupciones"});
-    interrClienteSED.setInfoTemplates({
-      3: {infoTemplate: myinfotemplate.getNisInfo()},
-      1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
-      0: {infoTemplate: myinfotemplate.getSubFailure()}
-    });
-    interrClienteSED.refreshInterval = 1;
-    interrClienteSED.setImageFormat("png32");
-    interrClienteSED.on('update-end', (obj)=>{
-      if(obj.error){
-        console.log("Redirecting to login page, token for this session is ended...");
-
-        if(env.ENVIRONMENT=='DEVELOPMENT'){
+          if(env.ENVIRONMENT=='DEVELOPMENT'){
             browserHistory.push("/");
-        }else{
-          window.location.href = env.WEBSERVERADDRESS;
+          }else{
+            window.location.href = env.WEBSERVERADDRESS;
+          }
         }
-
-      }
-    });
-    interrClienteSED.show();
+      });
+      interrClienteSED.show();
 
     var chqmapabase = new ArcGISDynamicMapServiceLayer(layers.read_mapabase(),{id:"gis_chqmapabase"});
-    chqmapabase.hide();
+      chqmapabase.hide();
 
     var heatmapFeatureLayerOptions = {
         id: "gis_heatmapsed",
@@ -139,74 +76,47 @@ class ChilquintaMap extends React.Component {
       minPixelIntensity: 5
     });
 
-    heatmapFeatureLayer.setRenderer(heatmapRenderer);
-    heatmapFeatureLayer.hide();
+      heatmapFeatureLayer.setRenderer(heatmapRenderer);
+      heatmapFeatureLayer.hide();
 
-    heatmapFeatureLayer1.setRenderer(heatmapRenderer);
-    heatmapFeatureLayer1.hide();
+      heatmapFeatureLayer1.setRenderer(heatmapRenderer);
+      heatmapFeatureLayer1.hide();
 
 // HACK: Inicializar layer gps con definition expression segun permisos del usuario:
 
     var gps_new = new ArcGISDynamicMapServiceLayer(layers.read_gps_nominal(), {id:"gps_new"});
-    gps_new.setInfoTemplates({
-      1: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
-      3: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()}
-    });
-    gps_new.refreshInterval = 1;
-    gps_new.setImageFormat("png32");
+      gps_new.setInfoTemplates({
+        1: {infoTemplate: myinfotemplate.getCarsInfo_layerNominal()},
+        3: {infoTemplate: myinfotemplate.getCarsInfo_layerContingencia()}
+      });
+      gps_new.refreshInterval = 1;
+      gps_new.setImageFormat("png32");
 
     var layerDefinitions = [];
     //obtener todos los layers del servicio (sólo su nombre real de layer)
     var todos = optionsProcesoNominal.map(p=>{return p.realName});
     //obtener los nombres de layers restringidos segun permisos del usuario
     var permisos = gps_user_permissions();
-    permisos.then((p)=>{
 
+      permisos.then((p)=>{
 
-      var permitidos = p.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName}).map(f=>{
-        return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${f}'`;
-      }).toString();
-
-
-      //Reemplazar la coma del string por or para realizar definition expression
-      var filtro = permitidos.replace(/,/g , " or ");
-        console.log(filtro,"tengo esto", filtro.length, typeof filtro);
-      layerDefinitions[1] = filtro;
-      gps_new.setLayerDefinitions(layerDefinitions);
-      gps_new.setVisibleLayers([1]);
-      gps_new.show();
-
-      (!filtro.length)? mapp.addLayers([chqmapabase, interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1]) : mapp.addLayers([chqmapabase, interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
+        var permitidos = p.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName}).map(f=>{
+            return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${f}'`;
+          }).toString();
+        //Reemplazar la coma del string por or para realizar definition expression
+        var filtro = permitidos.replace(/,/g , " or ");
+          console.log(filtro,"tengo esto", filtro.length, typeof filtro);
+        layerDefinitions[1] = filtro;
+        gps_new.setLayerDefinitions(layerDefinitions);
+        gps_new.setVisibleLayers([1]);
+        gps_new.show();
+        (!filtro.length)? mapp.addLayers([chqmapabase, interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1]) : mapp.addLayers([chqmapabase, interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1, gps_new]);
 
     },(reject)=>{
-
-    //Agregar todos los layers al mapa.
-    console.log("problemas agregando layer gps");
-    mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1]);
+        //Agregar todos los layers al mapa.
+        console.log("problemas agregando layer gps");
+        mapp.addLayers([chqmapabase,interrClienteSED, heatmapFeatureLayer, heatmapFeatureLayer1]);
     });
-
-
-
-
-
-    /*  var restringidos = userPermissions.filter(f=>{return f.tipo=='NOMINAL'}).map(f=>{return f.realName});
-
-      //Excluir los layers restringidos del total y agregar premisa de DB.
-      var filtro = todos.filter(el=>{
-        return !restringidos.includes(el);
-      }).map(f=>{
-        return `CONTROL_FLOTA.dbo.GPS_PROCESO_NOMINAL.ds_nombre='${f}'`;
-      }).toString();
-      //Reemplazar la coma del string por or para realizar definition expression
-      filtro = filtro.replace(/,/g , " or ")
-      layerDefinitions[1] = filtro;
-      gps_new.setLayerDefinitions(layerDefinitions);
-      gps_new.setVisibleLayers([1]);
-      gps_new.show();
-      */
-
-
-
 }
 
 render(){
