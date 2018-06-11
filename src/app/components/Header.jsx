@@ -8,7 +8,7 @@ import Statistics from './Statistics.jsx';
 
 import {Link} from "react-router";
 import {LogoDrawer} from "./Logo.jsx";
-import {OnlineStatistics} from "./OnlineStatistics.jsx";
+import {OnlineStatistics} from "./OnlineStatistics2.jsx";
 import {WidgetsMenu} from './WidgetsMenu.jsx';
 
 class Header extends React.Component {

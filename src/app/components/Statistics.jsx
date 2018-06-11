@@ -38,6 +38,8 @@ class Statistics extends React.Component {
     getStatisticsSummaryChilquinta(cb=>{
       if(cb!=false){
         makeStackedGraphic(cb.reg, cb.qttyRED, cb.qttyDOM, "containerChilquinta1", "Cant. Clientes (u)", "Interrupciones por comuna.");
+      //  makeStackedGraphic(cb.reg, cb.qttyRED, cb.qttyDOM, "containerChilquinta11", "Cant. Clientes (u)", "Interrupciones por comuna.");
+
       }
 
     });
@@ -338,6 +340,7 @@ class Statistics extends React.Component {
 
                     <Tab label='Por Comuna'>
                         <div id="containerChilquinta1" className="statistics-summary__chart"></div>
+                        <div id="containerChilquinta11" className="statistics-summary__chart"></div>
                         <div><h4>Clientes Críticos</h4></div>
                         <ProgressBar mode='indeterminate' className="statistics_progressBar"/>
                         <div>

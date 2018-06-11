@@ -14,7 +14,7 @@ import env from '../services/config';
 function login(user, pass, app, callback){
   let snackbarRet;
 
-  const url = "http://gisred.chilquinta.cl:5555/arcgis/tokens/generateToken";
+  const url = "https://gisred.chilquinta.cl:6443/arcgis/tokens/generateToken";
   console.log("hola");
   const data = {
     username: user,
@@ -26,7 +26,7 @@ function login(user, pass, app, callback){
 
   $.ajax({
     method: 'POST',
-    url: "http://gisred.chilquinta.cl:5555/arcgis/tokens/generateToken",
+    url: "https://gisred.chilquinta.cl:6443/arcgis/tokens/generateToken",
     data: data,
     dataType: 'html'
   })

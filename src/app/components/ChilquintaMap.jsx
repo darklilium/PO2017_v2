@@ -3,6 +3,7 @@ import mymap from '../services/map-service';
 import ArcGISDynamicMapServiceLayer from 'esri/layers/ArcGISDynamicMapServiceLayer';
 import layers from '../services/layers-service';
 import myinfotemplate from '../utils/infoTemplates';
+import getInfoTemplate2 from '../utils/infoTemplatesNIS';
 import {browserHistory} from 'react-router';
 import {Simbologia} from './Simbologia.jsx';
 import env from '../services/config';
@@ -18,6 +19,7 @@ import SymbologyImg from "./SymbologyImg";
 import ToggleSymbology from "./ToggleSymbology";
 //13-11-2017
 import {userPermissions} from './Drawer';
+import InfoTemplate from 'esri/InfoTemplate';
 
 class ChilquintaMap extends React.Component {
   constructor(props){
@@ -27,14 +29,20 @@ class ChilquintaMap extends React.Component {
   componentDidMount(){
     console.log("en ChilquintaMap");
     var mapp = mymap.createMap("map","topo",-71.5215, -32.9934,9);
-
     //agregando layer clientes sed.
-    var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED(),{id:"po_interrupciones"});
+    //var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED(),{id:"po_interrupciones"});
+    //8.6.2018: agregando confirmadas y predichas
+
+    var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_predichos_confirmados(),{id:"po_interrupciones"});
       interrClienteSED.setInfoTemplates({
-        3: {infoTemplate: myinfotemplate.getNisInfo()},
-        1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
-        0: {infoTemplate: myinfotemplate.getSubFailure()}
+        4:  {infoTemplate: myinfotemplate.getSubFailure()},
+        5:  {infoTemplate: myinfotemplate.getSubFailure()},
+        0: {infoTemplate: getInfoTemplate2.getNISInfoTemp()},
+        1: {infoTemplate: getInfoTemplate2.getNISInfoTemp2()}
+
       });
+
+
       interrClienteSED.refreshInterval = 1;
       interrClienteSED.setImageFormat("png32");
       interrClienteSED.on('update-end', (obj)=>{
@@ -49,6 +57,7 @@ class ChilquintaMap extends React.Component {
         }
       });
       interrClienteSED.show();
+
 
     var chqmapabase = new ArcGISDynamicMapServiceLayer(layers.read_mapabase(),{id:"gis_chqmapabase"});
       chqmapabase.hide();

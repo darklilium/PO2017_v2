@@ -262,6 +262,20 @@ html, body, #app, #map { height: 100%; margin: 0; padding: 0; }
 
 .theme__list___YVXcL { width: 96%; }
 
+.theme__appBar___b1hGI { height: 8.4rem; }
+
+.big_group_wrapper { display: flex; flex-direction: row; font-size: 11px; margin: 0.5em; }
+
+.3_group_wrapper { display: flex; flex-direction: column; }
+
+.icon_qtty_wrapper { display: flex; flex-direction: row; align-items: center; padding: 0em 2.5em 0em 0.5em; }
+
+.vertical_hr { height: 9.4rem; }
+
+.onlineStatistics_wrapper { display: flex; align-items: center; }
+
+.esriSimpleSliderTL { top: 20px; right: 20px; left: auto; }
+
 @media screen and (max-width: 600px) and (orientation: portrait) { .login_input { width: 50%; }
   .login_div { flex-direction: column; }
   .login_logo { width: 45%; }

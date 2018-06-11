@@ -122,14 +122,14 @@ class WidgetsMenu extends React.Component {
     return (
       <div className="widgetMenu_container">
         <Link onClick={this.onClickEmpresa.bind(this,"chilquinta")} className="widgets_link" to={"chilquinta"}  activeStyle={activeStyle}><img className="empresas_icons" src={this.state.chqIcon}></img></Link>
-        <Link onClick={this.onClickEmpresa.bind(this,"casablanca")} className="widgets_link" to={"casablanca"} activeStyle={{activeStyle}}><img className="empresas_icons" src={this.state.casablancaIcon}></img></Link>
+        {/*<Link onClick={this.onClickEmpresa.bind(this,"casablanca")} className="widgets_link" to={"casablanca"} activeStyle={{activeStyle}}><img className="empresas_icons" src={this.state.casablancaIcon}></img></Link>
         <Link onClick={this.onClickEmpresa.bind(this,"litoral")} className="widgets_link" to={"litoral"} activeStyle={{activeStyle}}><img className="empresas_icons" src={this.state.litoralIcon}></img></Link>
         <Link onClick={this.onClickEmpresa.bind(this,"linares")} className="widgets_link" to={"linares"} activeStyle={{activeStyle}}><img className="empresas_icons" src={this.state.luzLinaresIcon}></img></Link>
         <Link onClick={this.onClickEmpresa.bind(this,"parral")} className="widgets_link" to={"parral"} activeStyle={{activeStyle}}><img className="empresas_icons" src={this.state.luzParralIcon}></img></Link>
-        
+        */}
         <div className="vertical_hr"></div>
 
-        <Link onClick={this.onClickEmpresa.bind(this,"statistics")} className="widgets_link" to={"statistics"}  activeStyle={{color:"#00ff68"}}><i className="material-icons">&#xE6C4;</i></Link>
+        {/*<Link onClick={this.onClickEmpresa.bind(this,"statistics")} className="widgets_link" to={"statistics"}  activeStyle={{color:"#00ff68"}}><i className="material-icons">&#xE6C4;</i></Link>*/}
         <DrawerTest />
       </div>
     );

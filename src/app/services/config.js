@@ -9,7 +9,7 @@ Compiled: 24/07/2017
 
 
 //local: usando servicios internos dev.
-
+/*
  const env = {
     ROOT: "/",
     CSSDIRECTORY: 'dist/css/',
@@ -20,7 +20,7 @@ Compiled: 24/07/2017
     SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_DESA_v2',
     BUILDFOR: 'INTERNA'
   }
-
+*/
 
 //local: usando servicios externos dev
 /*
@@ -38,34 +38,33 @@ const env = {
 
 
 //servidor web: interno. servicios internos.
-/*
 
-  const env = {
-    ROOT: "potest2/",
-    CSSDIRECTORY: 'css/',
-    ROUTEPATH: 'index.html',
-    ENVIRONMENT: 'PRODUCTION',
-    WEBSERVERADDRESS: "http://gisred.chilquinta/potest2/",
-    SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_PROD_v3",
-    SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V3',
-    BUILDFOR: 'INTERNA'
-  }
-
-*/
-
-//servidor web: externo, servicios externos.
 /*
   const env = {
     ROOT: "po/",
     CSSDIRECTORY: 'css/',
     ROUTEPATH: 'index.html',
     ENVIRONMENT: 'PRODUCTION',
-    WEBSERVERADDRESS: "http://gisred.chilquinta.cl:5555/po/",
-    SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_PROD_v2",
-    SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V2',
-    BUILDFOR: 'EXTERNA'
+    WEBSERVERADDRESS: "https://gisredint.chilquinta.cl/po/",
+    SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_PROD_v4",
+    SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V4',
+    BUILDFOR: 'INTERNA'
   }
 */
+
+
+//servidor web: externo, servicios externos.
+
+  const env = {
+    ROOT: "po/",
+    CSSDIRECTORY: 'css/',
+    ROUTEPATH: 'index.html',
+    ENVIRONMENT: 'PRODUCTION',
+    WEBSERVERADDRESS: "https://gisred.chilquinta.cl:6443/po/",
+    SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_PROD_v4",
+    SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V4',
+    BUILDFOR: 'EXTERNA'
+  }
 
 //servidor i-kraft
 

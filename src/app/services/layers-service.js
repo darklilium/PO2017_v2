@@ -10,16 +10,16 @@ function myLayers(){
   var serviceURL;
   var index=1;
   if(env.BUILDFOR=="INTERNA"){
-    serviceMain = 'http://gisred.chilquinta/arcgis/';
-    //  serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
+    serviceMain = 'https://gisredint.chilquinta.cl/arcgis/';
+    //  serviceMain = 'http://gisred.chilquinta.cl:6443/arcgis/';
   }else{
-    serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
+    serviceMain = 'https://gisred.chilquinta.cl:6443/arcgis/';
 
   }
    serviceURL = serviceMain + 'rest/services/';
   //const serviceMain = 'http://gisred.chilquinta/arcgis/';
   //change this for external connection:
-  /*  const serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
+  /*  const serviceMain = 'http://gisred.chilquinta.cl:6443/arcgis/';
   const serviceURL = serviceMain + 'rest/services/';
   */
   //var graphicLayer = new GraphicsLayer;
@@ -28,7 +28,7 @@ function myLayers(){
   return {
 
     read_generateTokenURL(){
-      return "http://gisred.chilquinta.cl:5555/arcgis/" + "tokens/generateToken";
+      return "http://gisred.chilquinta.cl:6443/arcgis/" + "tokens/generateToken";
     },
 
     read_dyn_layerClieSED(){  /*using*/
@@ -128,7 +128,7 @@ function myLayers(){
     },
     //CODING REFACTOR: 09/11
     read_logAcessosSave(){
-      return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/Admin/LogAccesos/FeatureServer/1/applyedits";
+      return "http://gisred.chilquinta.cl:6443/arcgis/rest/services/Admin/LogAccesos/FeatureServer/1/applyedits";
     },
     read_criticalPO_ordenes(){
       return serviceURL + "Interrupciones/PO/MapServer/8?f=json&token="+ token.read();
@@ -154,8 +154,15 @@ function myLayers(){
     },
     read_gps_usuarios(){
       return serviceURL + "GPS/GPS_Vehiculos_v3/MapServer/5?f=json&token="+ token.read();
-    }
+    },
 
+    ////////////////////////////////////// 8.6.2018 - agregando confirmadas y predichas
+    read_dyn_predichos_confirmados(){
+      return serviceURL + "Interrupciones/PO_PC/MapServer?f=json&token="+ token.read();
+    },
+    read_vista_clientes(){
+      return serviceURL + "Interrupciones/PO_PC/MapServer/8?f=json&token="+ token.read();
+    }
 
   };
 }
@@ -335,14 +342,14 @@ function setLayers(){
       fSSEELayer.setVisibleLayers([0]);
       fSSEELayer.setImageFormat("png32");
       return fSSEELayer;
-    //  http://gisred.chilquinta.cl:5555/arcgis/rest/services/Cartografia/Cartografia/MapServer
+    //  http://gisred.chilquinta.cl:6443/arcgis/rest/services/Cartografia/Cartografia/MapServer
     },
     gis_chqbasemap(){
       var fSSEELayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_mapabase(),{id:"gis_chqbasemap"});
 
       fSSEELayer.setImageFormat("png32");
       return fSSEELayer;
-    //  http://gisred.chilquinta.cl:5555/arcgis/rest/services/Cartografia/Cartografia/MapServer
+    //  http://gisred.chilquinta.cl:6443/arcgis/rest/services/Cartografia/Cartografia/MapServer
     },
     mobile_direccionesNuevas(){
       var fSSEELayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_direccionesNuevasMobile(),{id:"mobile_direccionesNuevas",
