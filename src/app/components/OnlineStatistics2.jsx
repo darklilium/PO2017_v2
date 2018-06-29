@@ -39,7 +39,7 @@ class OnlineStatistics extends React.Component {
     this.currentTotal = this.currentTotal.bind(this);
     this.clear = this.clear.bind(this);
     this.currentTotal();
-    foo = function(){
+  foo = function(){
               //console.log("desde constr ",browserHistory.getCurrentLocation().pathname);
               if(browserHistory.getCurrentLocation().pathname.toLowerCase()==env.ROOT.toLowerCase()){
                 clearTimeout(foo);
@@ -52,6 +52,7 @@ class OnlineStatistics extends React.Component {
 
             foo = foo.bind(this);
             this.clear("iniciar", foo);
+
 
   }
 
@@ -107,6 +108,7 @@ class OnlineStatistics extends React.Component {
             });
 
           },(errorCount) => {console.log("error getting the current total");});
+
           break;
 
           case '/casablanca':
@@ -231,6 +233,7 @@ class OnlineStatistics extends React.Component {
             totalReds : 0,
             total: 0
           });
+
             break
 
           case  "/"+ env.ROOT+'litoral':
@@ -295,7 +298,7 @@ class OnlineStatistics extends React.Component {
           case "/"+ env.ROOT:
             this.clear('asd','x');
             break
-        default:
+      
       }
     }
 

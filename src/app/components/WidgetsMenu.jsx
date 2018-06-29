@@ -129,7 +129,7 @@ class WidgetsMenu extends React.Component {
         */}
         <div className="vertical_hr"></div>
 
-        {/*<Link onClick={this.onClickEmpresa.bind(this,"statistics")} className="widgets_link" to={"statistics"}  activeStyle={{color:"#00ff68"}}><i className="material-icons">&#xE6C4;</i></Link>*/}
+        <Link onClick={this.onClickEmpresa.bind(this,"statistics")} className="widgets_link" to={"statistics"}  activeStyle={{color:"#00ff68"}}><i className="material-icons">&#xE6C4;</i></Link>
         <DrawerTest />
       </div>
     );

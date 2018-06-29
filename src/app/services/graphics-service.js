@@ -460,7 +460,7 @@ function calculatePercentaje(totalObj, affectedObj, callback){
         comuna: totalClientesComuna['comunas'][a],
         totalClientes: totalClientesComuna['totalClientes'][a],
         clientesAfectados: afectados['clientesAfectados'][index],
-        porcentajeAfectados: ((afectados['clientesAfectados'][index]*100)/totalClientesComuna['totalClientes'][a]).toFixed(1)
+        porcentajeAfectados: ((afectados['clientesAfectados'][index]*100)/totalClientesComuna['totalClientes'][a]).toFixed(3)
       });
 
   });

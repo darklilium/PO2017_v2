@@ -30,17 +30,17 @@ class ChilquintaMap extends React.Component {
     console.log("en ChilquintaMap");
     var mapp = mymap.createMap("map","topo",-71.5215, -32.9934,9);
     //agregando layer clientes sed.
-    //var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED(),{id:"po_interrupciones"});
     //8.6.2018: agregando confirmadas y predichas
 
     var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_predichos_confirmados(),{id:"po_interrupciones"});
       interrClienteSED.setInfoTemplates({
-        4:  {infoTemplate: myinfotemplate.getSubFailure()},
-        5:  {infoTemplate: myinfotemplate.getSubFailure()},
-        0: {infoTemplate: getInfoTemplate2.getNISInfoTemp()},
-        1: {infoTemplate: getInfoTemplate2.getNISInfoTemp2()}
-
+        0: {infoTemplate: getInfoTemplate2.getCriticalNisInfo()},
+        1: {infoTemplate: getInfoTemplate2.getNISInfoConf()},
+        2: {infoTemplate: myinfotemplate.getSubPred()},
+        3: {infoTemplate: myinfotemplate.getSubConf()},
+        4: {infoTemplate: myinfotemplate.getSubPred()}
       });
+      interrClienteSED.setVisibleLayers=[0,1,2,3,4,5]
 
 
       interrClienteSED.refreshInterval = 1;
@@ -73,7 +73,7 @@ class ChilquintaMap extends React.Component {
         mode: FeatureLayer.MODE_SNAPSHOT,
         outFields: ["*"]
     };
-
+    //Heatmap only confirmed.
     var heatmapFeatureLayer = new FeatureLayer(layers.read_heatmapSED(), heatmapFeatureLayerOptions);
 
     var heatmapFeatureLayer1 = new FeatureLayer(layers.read_heatmapClientes(), heatmapFeatureLayerOptions2);

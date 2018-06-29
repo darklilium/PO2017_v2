@@ -21,7 +21,7 @@ class LitoralMap extends React.Component {
   var mapp = mymap.createMap("map","topo",-71.6324,-33.4073,11);
 
   //agregando layer clientes sed.
-/*  var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED(),{id:"po_interrupciones"});
+/*  var interrClienteSED = new ArcGISDynamicMapServiceLayer(layers.read_dyn_predichos_confirmados(),{id:"po_interrupciones"});
     interrClienteSED.setInfoTemplates({
       3: {infoTemplate: myinfotemplate.getNisInfo()},
       1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},

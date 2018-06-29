@@ -44,7 +44,8 @@ function createChartsColumns(){
         {title: "COMUNA", dataKey: "COMUNA"},
         {title: "HORA", dataKey: "HORA"},
         {title: "ID ORDEN", dataKey: "ID ORDEN"},
-        {title: "ETR", dataKey: "ETR"}
+        {title: "ETR", dataKey: "ETR"},
+        {title: "TIPO", dataKey: "TIPO"}
       ],
       data: []
     }

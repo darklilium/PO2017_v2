@@ -11,7 +11,7 @@ function getCriticalCustomersSolos(){
 
     var qTaskkResumenChilquinta = new QueryTask(layers.read_layer_CriticalCustomers());
       var qResumenChilquinta = new esri.tasks.Query();
-      qResumenChilquinta.where = "1=1";
+      qResumenChilquinta.where = "ARCGIS.DBO.POWERON_CLIENTES_CRITICOS.TIPO='ELECTRODEPENDIENTE'";
       qResumenChilquinta.returnGeometry = false;
       qResumenChilquinta.outFields=["*"];
 
@@ -25,29 +25,31 @@ function getCriticalCustomersSolos(){
 
             let d =   {
                 "PRODUCTO": cliente.attributes["ARCGIS.DBO.CLIENTES_XY_006.nis"],
-                "NOMBRE": "",
-                "COMUNA": "",
-                "HORA": "",
+                "NOMBRE": cliente.attributes["ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nombre_cliente"],
+                "COMUNA": cliente.attributes["ARCGIS.dbo.view_tiempo_order_po.comuna"],
+                "HORA": cliente.attributes["ARCGIS.dbo.view_tiempo_order_po.TIEMPO_TRA"],
                 "ID ORDEN": cliente.attributes["ARCGIS.dbo.POWERON_CLIENTES.id_orden"],
-                "ETR": ""
+                "ETR": formatDate(cliente.attributes["ARCGIS.dbo.view_tiempo_order_po.etr"]),
+                "TIPO": cliente.attributes["ARCGIS.DBO.POWERON_CLIENTES_CRITICOS.TIPO"],
+                "DIRECCION": cliente.attributes["ARCGIS.dbo.CLIENTES_DATA_DATOS_006.direccion_resu"]
             };
 
             //obtener la hora.
-            var o = cliente.attributes["ARCGIS.dbo.POWERON_CLIENTES.id_orden"];
-            var hr = searchHoraCritical(o);
-            hr.then(respuesta=>{d.HORA = respuesta}, err =>{d.HORA = ""});
+            //var o = cliente.attributes["ARCGIS.dbo.POWERON_CLIENTES.id_orden"];
+            //var hr = searchHoraCritical(o);
+            //hr.then(respuesta=>{d.HORA = respuesta}, err =>{d.HORA = ""});
 
             //obtener etr
-            var etrr = searchETRCritical(o);
-            etrr.then(respuesta=>{d.ETR=formatDate(respuesta)}, err=>{d.ETR=""});
+            //var etrr = searchETRCritical(o);
+            // etrr.then(respuesta=>{d.ETR=formatDate(respuesta)}, err=>{d.ETR=""});
 
             //obtener comuna
-            var comuna = searchComunaCritical(cliente.attributes["ARCGIS.DBO.CLIENTES_XY_006.nis"]);
-            comuna.then(respuesta=>{d.COMUNA=respuesta}, err=>{d.COMUNA=""});
+            //var comuna = searchComunaCritical(cliente.attributes["ARCGIS.DBO.CLIENTES_XY_006.nis"]);
+            //comuna.then(respuesta=>{d.COMUNA=respuesta}, err=>{d.COMUNA=""});
 
             //obtener nombre
-            var nombre = searchNombreCritical(cliente.attributes["ARCGIS.DBO.CLIENTES_XY_006.nis"]);
-            nombre.then(respuesta=>{d.NOMBRE= respuesta}, err=>{d.NOMBRE= ""});
+            //var nombre = searchNombreCritical(cliente.attributes["ARCGIS.DBO.CLIENTES_XY_006.nis"]);
+            //nombre.then(respuesta=>{d.NOMBRE= respuesta}, err=>{d.NOMBRE= ""});
 
             return d;
           });
@@ -57,7 +59,7 @@ function getCriticalCustomersSolos(){
 
 
       }, (Errorq)=>{
-          console.log("Error doing query for clientes criticos solos chilquinta");
+          console.log("Error doing query for clientes criticos ELECTROS chilquinta");
           reject([]);
     });
 
@@ -70,9 +72,9 @@ function getCriticalCustomersSED(){
 
   const promise = new Promise((resolve,reject)=>{
 
-    var qTaskkResumenChilquinta = new QueryTask(layers.read_layer_CriticalPerSED());
+    var qTaskkResumenChilquinta = new QueryTask(layers.read_layer_CriticalCustomers());
       var qResumenChilquinta = new esri.tasks.Query();
-      qResumenChilquinta.where = "1=1";
+      qResumenChilquinta.where = "ARCGIS.DBO.POWERON_CLIENTES_CRITICOS.TIPO='GRAN CLIENTE'";;
       qResumenChilquinta.returnGeometry = false;
       qResumenChilquinta.outFields=["*"];
 
@@ -88,14 +90,16 @@ function getCriticalCustomersSED(){
             let d =   {
                 "PRODUCTO": cliente.attributes["ARCGIS.DBO.CLIENTES_XY_006.nis"],
                 "NOMBRE": cliente.attributes["ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nombre_cliente"],
-                "COMUNA": "",
-                "ID ORDEN": cliente.attributes["ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden"],
-                "HORA": "",
-                "ETR": ""
+                "COMUNA": cliente.attributes["ARCGIS.dbo.view_tiempo_order_po.comuna"],
+                "HORA": cliente.attributes["ARCGIS.dbo.view_tiempo_order_po.TIEMPO_TRA"],
+                "ID ORDEN": cliente.attributes["ARCGIS.dbo.POWERON_CLIENTES.id_orden"],
+                "ETR": formatDate(cliente.attributes["ARCGIS.dbo.view_tiempo_order_po.etr"]),
+                "TIPO": cliente.attributes["ARCGIS.DBO.POWERON_CLIENTES_CRITICOS.TIPO"],
+                "DIRECCION": cliente.attributes["ARCGIS.dbo.CLIENTES_DATA_DATOS_006.direccion_resu"]
             };
 
             //obtener la hora.
-            var o = cliente.attributes["ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden"];
+            /*var o = cliente.attributes["ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden"];
             var hr = searchHoraCritical(o);
             hr.then(respuesta=>{d.HORA = respuesta}, err =>{d.HORA = ""});
 
@@ -106,7 +110,7 @@ function getCriticalCustomersSED(){
             //obtener comuna
             var comuna = searchComunaCritical(cliente.attributes["ARCGIS.DBO.CLIENTES_XY_006.nis"]);
             comuna.then(respuesta=>{d.COMUNA=respuesta}, err=>{d.COMUNA=""});
-
+            */
             return d;
           });
 
@@ -115,7 +119,7 @@ function getCriticalCustomersSED(){
 
 
       }, (Errorq)=>{
-        console.log("Error doing query for clientes criticos sed chilquinta");
+        console.log("Error doing query for clientes criticos GRAN CLIENTE chilquinta");
         reject([]);
     });
   });

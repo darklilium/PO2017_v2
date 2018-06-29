@@ -4,7 +4,7 @@ import {browserHistory} from 'react-router';
 import {Tab, Tabs} from 'react-toolbox';
 import {getStatisticsSummaryChilquinta, getStatisticPerOfficeChilquinta, getStatisticsRegionPercentChilquinta} from '../services/graphics-service';
 import {makeStackedGraphic, makeBarsGraphic} from '../services/graphics-service';
-import {getStatisticsRegionPercent} from '../services//graphics-service';
+import {getStatisticsRegionPercent} from '../services/graphics-service';
 import exportGraphicsToPDF from '../utils/exportToPDF';
 import {Button, IconButton} from 'react-toolbox/lib/button';
 import autoTable from 'jspdf-autotable';
@@ -27,8 +27,9 @@ class Statistics extends React.Component {
         indexCasablanca: 0,
         selectedRowId: 0,
         dataClientesCriticosComuna: [],
-        dataClientesCriticosOficina: []
-
+        dataClientesCriticosOficina: [],
+        dataClientesCriticosGrandes: [],
+        dataClientesCriticosElectros: []
     }
 
   }
@@ -39,9 +40,7 @@ class Statistics extends React.Component {
       if(cb!=false){
         makeStackedGraphic(cb.reg, cb.qttyRED, cb.qttyDOM, "containerChilquinta1", "Cant. Clientes (u)", "Interrupciones por comuna.");
       //  makeStackedGraphic(cb.reg, cb.qttyRED, cb.qttyDOM, "containerChilquinta11", "Cant. Clientes (u)", "Interrupciones por comuna.");
-
       }
-
     });
 
     getStatisticPerOfficeChilquinta(cb=>{});
@@ -54,11 +53,13 @@ class Statistics extends React.Component {
     //espera 2 segundos para cargar la data a la tabla.
     $('.statistics_progressBar').css('visibility','visible');
     setTimeout( ()=>{
-      Promise.all([solos,sed]).then(values=>{
+      Promise.all([solos ,sed]).then(values=>{
         console.log(values,"mis valores con all");
         var x = _.concat(values[0],values[1]);
 
-        this.setState({dataClientesCriticosComuna: x});
+        this.setState({dataClientesCriticosComuna: x, dataClientesCriticosGrandes: values[0], dataClientesCriticosElectros: values[1]});
+        console.log("valor electros", this.state.dataClientesCriticosElectros);
+        console.log("valor grandes", this.state.dataClientesCriticosGrandes);
         $('.statistics_progressBar').css('visibility','hidden');
       });
     },3000);
@@ -82,16 +83,18 @@ class Statistics extends React.Component {
 
           //promesas para obtener los clientes criticos de sed y normales
           var solos = getCriticalCustomersSolos();
-          var sed = getCriticalCustomersSED();
+            var sed = getCriticalCustomersSED();
 
           //espera 2 segundos para cargar la data a la tabla.
           $('.statistics_progressBar').css('visibility','visible');
           setTimeout( ()=>{
             Promise.all([solos,sed]).then(values=>{
-              console.log(values,"mis valores con all");
+
               var x = _.concat(values[0],values[1]);
 
-              this.setState({dataClientesCriticosComuna: x});
+              this.setState({dataClientesCriticosComuna: x, dataClientesCriticosGrandes: values[0], dataClientesCriticosElectros: values[1]});
+              console.log("valor electros", this.state.dataClientesCriticosElectros);
+              console.log("valor grandes", this.state.dataClientesCriticosGrandes);
               $('.statistics_progressBar').css('visibility','hidden');
             });
           },3000);
@@ -137,7 +140,10 @@ class Statistics extends React.Component {
           console.log(values,"mis valores con all");
           var x = _.concat(values[0],values[1]);
 
-          this.setState({dataClientesCriticosComuna: x});
+          this.setState({dataClientesCriticosComuna: x, dataClientesCriticosGrandes: values[0], dataClientesCriticosElectros: values[1]});
+          console.log("valor electros", this.state.dataClientesCriticosElectros);
+          console.log("valor grandes", this.state.dataClientesCriticosGrandes);
+
           $('.statistics_progressBar').css('visibility','hidden');
         });
       },3000);
@@ -146,8 +152,6 @@ class Statistics extends React.Component {
       case 1:
         getStatisticPerOfficeChilquinta(cb=>{
           if(cb!=false){
-
-
             makeStackedGraphic(cb.offices, cb.qttyRED, cb.qttyDOM, "containerChilquinta2", "Cant. Clientes (u)", "Interrupciones por Oficina.");
           }
         });
@@ -279,6 +283,16 @@ class Statistics extends React.Component {
             "columnName": "ETR",
             "customHeaderComponent": HeaderComponent,
             "customHeaderComponentProps": { color: '#da291c' }
+            },
+            {
+            "columnName": "TIPO",
+            "customHeaderComponent": HeaderComponent,
+            "customHeaderComponentProps": { color: '#da291c' }
+            },
+            {
+            "columnName": "DIRECCION",
+            "customHeaderComponent": HeaderComponent,
+            "customHeaderComponentProps": { color: '#da291c' }
             }
         ];
 
@@ -317,6 +331,16 @@ class Statistics extends React.Component {
             "columnName": "ETR",
             "customHeaderComponent": HeaderComponent,
             "customHeaderComponentProps": { color: '#da291c' }
+            },
+            {
+            "columnName": "TIPO",
+            "customHeaderComponent": HeaderComponent,
+            "customHeaderComponentProps": { color: '#da291c' }
+            },
+            {
+            "columnName": "DIRECCION",
+            "customHeaderComponent": HeaderComponent,
+            "customHeaderComponentProps": { color: '#da291c' }
             }
         ];
 
@@ -342,16 +366,25 @@ class Statistics extends React.Component {
                         <div id="containerChilquinta1" className="statistics-summary__chart"></div>
                         <div id="containerChilquinta11" className="statistics-summary__chart"></div>
                         <div><h4>Clientes Críticos</h4></div>
+                        <div><h5>Clientes Electrodependientes</h5></div>
                         <ProgressBar mode='indeterminate' className="statistics_progressBar"/>
                         <div>
                           <Griddle resultsPerPage={5}
                             rowMetadata={rowMetadata}
                             tableClassName="table"
                             columnMetadata={columnMetaClientesCriticos} ref="griddleTable" className="drawer_griddle_medidores"
-                            results={this.state.dataClientesCriticosComuna} columns={["PRODUCTO","NOMBRE", "COMUNA","HORA","ID ORDEN","ETR"]} uniqueIdentifier="PRODUCTO"
+                            results={this.state.dataClientesCriticosElectros} columns={["PRODUCTO","NOMBRE", "COMUNA","HORA","ID ORDEN","ETR", "TIPO", 'DIRECCION']} uniqueIdentifier="PRODUCTO"
                            />
                          </div>
-
+                         <div><h5>Grandes Clientes</h5></div>
+                         <div>
+                           <Griddle resultsPerPage={5}
+                             rowMetadata={rowMetadata}
+                             tableClassName="table"
+                             columnMetadata={columnMetaClientesCriticos} ref="griddleTable" className="drawer_griddle_medidores"
+                             results={this.state.dataClientesCriticosGrandes} columns={["PRODUCTO","NOMBRE", "COMUNA","HORA","ID ORDEN","ETR", "TIPO", 'DIRECCION']} uniqueIdentifier="PRODUCTO"
+                            />
+                          </div>
                     </Tab>
                     <Tab label='Por Oficina'>
                         <div id="containerChilquinta2" className="statistics-summary__chart"></div>

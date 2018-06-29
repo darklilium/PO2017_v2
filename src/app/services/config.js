@@ -9,7 +9,7 @@ Compiled: 24/07/2017
 
 
 //local: usando servicios internos dev.
-/*
+
  const env = {
     ROOT: "/",
     CSSDIRECTORY: 'dist/css/',
@@ -20,7 +20,7 @@ Compiled: 24/07/2017
     SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_DESA_v2',
     BUILDFOR: 'INTERNA'
   }
-*/
+
 
 //local: usando servicios externos dev
 /*
@@ -46,26 +46,26 @@ const env = {
     ROUTEPATH: 'index.html',
     ENVIRONMENT: 'PRODUCTION',
     WEBSERVERADDRESS: "https://gisredint.chilquinta.cl/po/",
-    SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_PROD_v4",
-    SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V4',
+    SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_PROD_v5",
+    SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V5',
     BUILDFOR: 'INTERNA'
   }
 */
 
 
 //servidor web: externo, servicios externos.
-
+/*
   const env = {
     ROOT: "po/",
     CSSDIRECTORY: 'css/',
     ROUTEPATH: 'index.html',
     ENVIRONMENT: 'PRODUCTION',
     WEBSERVERADDRESS: "https://gisred.chilquinta.cl:6443/po/",
-    SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_PROD_v4",
-    SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V4',
+    SAVEAPPLICATIONMODULE: "PO_INTERRUPCIONES_PROD_v5",
+    SAVEAPPLICATIONNAME: 'REACT_INTERRUPCIONES_WEB_PROD_V5',
     BUILDFOR: 'EXTERNA'
   }
-
+*/
 //servidor i-kraft
 
 /*

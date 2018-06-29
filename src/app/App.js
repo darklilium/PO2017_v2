@@ -35,7 +35,8 @@ class App extends React.Component {
             <Route path={"litoral"} component={LitoralMap}></Route>
             <Route path={"linares"} component={LinaresMap}></Route>
             <Route path={"parral"} component={ParralMap}></Route>
-          
+            <Route path={"statistics"} component={Statistics}></Route>
+
           </Route>
         </Route>
       </Router>

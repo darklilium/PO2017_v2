@@ -30,138 +30,114 @@ function myLayers(){
     read_generateTokenURL(){
       return "http://gisred.chilquinta.cl:6443/arcgis/" + "tokens/generateToken";
     },
-
-    read_dyn_layerClieSED(){  /*using*/
+    //Used in each map
+  /*  read_dyn_layerClieSED(){
         return serviceURL + "Interrupciones/PO/MapServer?f=json&token=" + token.read();
     },
-
-    //Feature layer for getting the nis affected in the SED (green points)
-    read_layer_ClienteSED(){ /*using Layer Cliente sed puntos verdes al extent*/
-      return serviceURL + "Interrupciones/PO/MapServer/3?f=json&token=" + token.read();
-    },
-
+    */
+    //Used in Drawer
     read_SSEE(){
       return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer?f=json&token=" + token.read();
     },
-    read_layerAlimentador(){  /*using*/
+    //Used in Drawer
+    read_layerAlimentador(){
       return serviceURL + "Chilquinta_006/Tramos_006/MapServer?f=json&token=" + token.read();
     },
-
-    read_sectores(){
-      return serviceURL + "Interrupciones/PO_WEB_EXT/MapServer?f=json&token=" + token.read();
-    },
-
-    read_logAccess(){  /*using*/
-      return serviceURL + "Admin/LogAccesos/FeatureServer/2?f=json&token=" + token.read();
-    },
-    read_logAccess2(){
-    //chq mapabase(){
-    return serviceURL + "Admin/LogAccesos/FeatureServer/2?f=json&token=" + token.read();;
-    },
+    //Used in each map
     read_mapabase(){
       return serviceURL + "MapaBase/MapServer?f=json&token=" + token.read();
     },
-    //dmps adresses
-    read_cartography(){
-      return serviceURL + "Cartografia/DMPS/MapServer?f=json&token=" + token.read();
-    },
-
     //The following layers and services are just for Interruptions app. (interrupciones.html and interruptions.js)
     //Featurelayer for orders per sed (with graphics)
 
+    //Used on Search
     read_layer_interr_sed(){ /*using : Layer: SED*/
       return serviceURL + "Interrupciones/PO/MapServer/0?f=json&token=" + token.read();
     },
+    //Used on Search
     //Featurelayer for orders per customer (with graphics)
-    read_layer_interr_clie(){ /*using: Layer Clientes*/
-      return serviceURL + "Interrupciones/PO/MapServer/1?f=json&token=" + token.read();
+    /* read_layer_interr_clie(){ /*using: Layer Clientes*/
+    //  return serviceURL + "Interrupciones/PO/MapServer/1?f=json&token=" + token.read();
+    //},
+    //Used to visualize critical customers : blue star
+    read_layer_CriticalCustomers(){
+      return serviceURL + "Interrupciones/PO_PC/MapServer/0?f=json&token=" + token.read();
     },
-    //Feature layer for BT: Red BT
-    read_layer_tramosBT(){ /*using Layer Tramos*/
-      return serviceURL + "Interrupciones/PO/MapServer/2?f=json&token=" + token.read();
-    },
-    //Feature layer for getting the nis affected in the SED (green points)
-    read_layer_ClienteSED(){ /*using Layer Cliente sed puntos verdes al extent*/
-      return serviceURL + "Interrupciones/PO/MapServer/3?f=json&token=" + token.read();
-    },
-    read_layer_CriticalCustomers(){ /*using Layer Cliente sed puntos verdes al extent*/
-      return serviceURL + "Interrupciones/PO/MapServer/4?f=json&token=" + token.read();
-    },
-    read_layer_CriticalPerSED(){ /*using Layer Cliente sed puntos verdes al extent*/
+    //Used to find SED of critical customers: blue star
+    read_layer_CriticalPerSED(){
       return serviceURL + "Interrupciones/PO/MapServer/5?f=json&token=" + token.read();
     },
-    //Table for PO Orders (without graphics)
-    read_layer_poOrdenes(){ /*using*/
-      return serviceURL + "Interrupciones/Interrupciones_clientes/MapServer/8?f=json&token=" + token.read();
-    },
-    //Feature layer for customers data  : Clientes (0)
-    read_layer_ClieSED(){ /*using*/
+    //Used to find SED of ustomers: green point
+    read_layer_ClieSED(){
       return serviceURL + "Interrupciones/PO/MapServer/9?f=json&token=" + token.read();
     },
-    read_layer_countTotal(){ /*using*/
+    //Used on OnlineStatistics widget.
+    read_layer_countTotal(){
       return serviceURL + "Interrupciones/PO/MapServer/10?token=" + token.read();
     },
+    //Used on searchbar service for Search Widget.
     read_layer_infoSED(){/*using for getting the sed information and location*/
       return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer/1?f=json&token=" + token.read();
     },
+    //Used on searchbar service for Search Widget.
     read_layer_nisInfo(){
       return serviceURL + "Chilquinta_006/ClientesV2/MapServer/0?f=json&token=" + token.read();
     },
-    read_graphicLayer(){  /*using*/
-      return graphicLayer;
+    //Used on charts page.
+    read_qtty_comuna(){
+        return serviceURL + "Interrupciones/PO_ESTADISTICA/MapServer/3?f=json&token=" + token.read();
     },
-    read_qtty_comuna(){  /*using*/
-        return serviceURL + "Interrupciones/PO/MapServer/11?f=json&token=" + token.read();
+    //Used on charts page.
+    read_qtty_office(){
+        return serviceURL + "Interrupciones/PO_ESTADISTICA/MapServer/4?f=json&token=" + token.read();
     },
-    read_qtty_office(){  /*using*/
-        return serviceURL + "Interrupciones/PO/MapServer/12?f=json&token=" + token.read();
+    //Used on charts page.
+    read_qtty_total_comuna(){
+        return serviceURL + "Interrupciones/PO_ESTADISTICA/MapServer/5?f=json&token=" + token.read();
     },
-    read_qtty_total_comuna(){  /*using*/
-        return serviceURL + "Interrupciones/PO/MapServer/13?f=json&token=" + token.read();
-    },
-    write_logAccess(){  /*using*/
-        return serviceURL + "Admin/LogAccesos/FeatureServer/1/applyEdits?f=json&token=" + token.read();
-    },
-
-    read_layerAlimentador(){  /*using*/
+    //Used in Drawer
+    read_layerAlimentador(){
         return serviceURL + "Chilquinta_006/Tramos_006/MapServer?f=json&token=" + token.read();
     },
     //CODING REFACTOR: 09/11
+    //Used to save the login access into the app.
     read_logAcessosSave(){
       return "http://gisred.chilquinta.cl:6443/arcgis/rest/services/Admin/LogAccesos/FeatureServer/1/applyedits";
     },
+    //Used to get the Estimated Time Reposition of critical customers.
     read_criticalPO_ordenes(){
       return serviceURL + "Interrupciones/PO/MapServer/8?f=json&token="+ token.read();
     },
-
+    //Used to show customers and sed heatmap
     read_heatmapSED(){
-        return serviceURL + "Interrupciones/PO/MapServer/0?f=json&token="+ token.read();
+        return serviceURL + "Interrupciones/PO_PC/MapServer/3?f=json&token="+ token.read();
     },
+    //Used to show customers and sed heatmap
     read_heatmapClientes(){
-        return serviceURL + "Interrupciones/PO/MapServer/1?f=json&token="+ token.read();
+        return serviceURL + "Interrupciones/PO_PC/MapServer/1?f=json&token="+ token.read();
     },
-    read_GPS(){
-        return serviceURL + "GPS/GPS_VEHICULE/MapServer?f=json&token="+ token.read();
-    },
-    read_gps_new(){
-        return serviceURL + "GPS/GPS_VEHICULOS/MapServer?f=json&token="+ token.read();
-    },
+    //Used to visualize nominal gps fleet for vehicles
     read_gps_nominal(){
         return serviceURL + "GPS/GPS_Vehiculos_v3/MapServer?f=json&token="+ token.read();
     },
-    read_gps_contingencia(){
-      return serviceURL + "GPS/GPS_Vehiculos_v3/MapServer?f=json&token="+ token.read();
-    },
+    //User to get the permissions for users to visualize part of the GPS fleet
     read_gps_usuarios(){
       return serviceURL + "GPS/GPS_Vehiculos_v3/MapServer/5?f=json&token="+ token.read();
     },
-
     ////////////////////////////////////// 8.6.2018 - agregando confirmadas y predichas
     read_dyn_predichos_confirmados(){
       return serviceURL + "Interrupciones/PO_PC/MapServer?f=json&token="+ token.read();
     },
     read_vista_clientes(){
-      return serviceURL + "Interrupciones/PO_PC/MapServer/8?f=json&token="+ token.read();
+      return serviceURL + "Interrupciones/PO_ESTADISTICA/MapServer/1?f=json&token="+ token.read();
+    },
+    read_search_indicencia(){
+        return serviceURL + "Interrupciones/PO_ESTADISTICA/MapServer/2?f=json&token="+ token.read();
+
+    },
+    read_search_order(){
+        return serviceURL + "Interrupciones/PO_ESTADISTICA/MapServer/2?f=json&token="+ token.read();
+
     }
 
   };
@@ -182,7 +158,7 @@ function setLayers(){
       return layerAlimentador;
     },
     interrupciones(){
-      var interrClienteSED = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_dyn_layerClieSED(),{id:"po_interrupciones"});
+      var interrClienteSED = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_dyn_predichos_confirmados(),{id:"po_interrupciones"});
       interrClienteSED.setInfoTemplates({
         3: {infoTemplate: myinfotemplate.getNisInfo()},
         1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
@@ -199,7 +175,7 @@ function setLayers(){
         return interrClienteSED;
     },
     cuadrillas(){
-      var cuadrillasLayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_dyn_layerClieSED(),{id:"po_cuadrillas"});
+      var cuadrillasLayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_dyn_predichos_confirmados(),{id:"po_cuadrillas"});
       /*cuadrillasLayer.setInfoTemplates({
         3: {infoTemplate: myinfotemplate.getNisInfo()},
         1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},

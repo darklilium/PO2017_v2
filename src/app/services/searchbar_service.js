@@ -196,18 +196,24 @@ function searchBar_Order(order_id, callback){
     else the order is not correct or not found.
   */
   var serviceOrder = createQueryTask({
-    url: layers.read_layer_interr_clie(),
+    url: layers.read_search_order(),
     whereClause: `ARCGIS.dbo.POWERON_CLIENTES.id_orden='${order_id}'`
   });
   serviceOrder((map,featureSet)=>{
+    console.log(featureSet.features, "ordenes");
     //if the order is not isolated nis, search in massive.
     if(!featureSet.features.length){
       //search in SED interruptions
-      searchMassiveOrder(order_id, (cb)=>{
+      /*searchMassiveOrder(order_id, (cb)=>{
         console.log("Massive", cb);
         return callback(cb);
       });
-      return;
+      */
+      console.log("Error doing query for getting orders associated to the customer");
+      let message = "Error obteniendo ordenes asociadas al cliente";
+      let type = "Searchbar_Error";
+      return callback([false,[],message,"clear","red"])
+
     }
     let myresults = featureSet.features.map((feature)=>{
       return feature.geometry;
@@ -280,16 +286,21 @@ function searchBar_Incidence(incidence_id, callback){
     else the Incidence is not correct or not found.
   */
   var serviceIncidence = createQueryTask({
-    url: layers.read_layer_interr_clie(),
+    url: layers.read_search_indicencia(),
     whereClause: `ARCGIS.dbo.POWERON_CLIENTES.id_incidencia=${incidence_id}`
   });
   serviceIncidence((map,featureSet)=>{
     //if the order is not isolated nis, search in massive.
+    console.log(featureSet.features,"incidencia");
     if(!featureSet.features.length){
       //search in SED interruptions
-      searchMassiveIncidence(incidence_id, (cb)=>{
+      /*searchMassiveIncidence(incidence_id, (cb)=>{
         return callback(cb);
       });
+      */
+      let message = "ID Incidencia no encontrada o no existe. Ingrese una válida.";
+      let type = "Searchbar_Error";
+      return callback([true,[],message,'clear',"greenyellow"]);
       return;
     }
     let myresults = featureSet.features.map((feature)=>{
